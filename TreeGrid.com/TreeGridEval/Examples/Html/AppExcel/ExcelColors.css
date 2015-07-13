@@ -1,0 +1,157 @@
+/* ----------------------------------------------------------------------------------------- 
+           Styles for MS Excel toolbar buttons BORDER, BACKGROUND and COLOR 
+To set border style and color, background color and text color of focused or selected area
+---------------------------------------------------------------------------------------------- */
+
+/* Class used in the colors popup menu to set the menu item size */
+.BDef { height:16px; width:30px; }
+
+/* Classes used  in the colors popup menu to set the menu item color */
+.BAqua { background-color:Aqua; }
+.BBlack { background-color:Black; }
+.BBlue { background-color:Blue; }
+.BFuchsia { background-color:Fuchsia; }
+.BGray { background-color:Gray; }
+.BGreen { background-color:Green; }
+.BLime { background-color:Lime; }
+.BMaroon { background-color:Maroon; }
+.BNavy { background-color:Navy; }
+.BOlive { background-color:Olive; }
+.BOrange { background-color:Orange; }
+.BPurple { background-color:Purple; }
+.BRed { background-color:Red; }
+.BSilver { background-color:Silver; }
+.BTeal { background-color:Teal; }
+.BWhite { background-color:White; }
+.BYellow { background-color:Yellow; }
+
+/* Classes added to cell Class to set the text color */
+.ColorAqua { color:Aqua; }
+.ColorBlack { color:Black; }
+.ColorBlue { color:Blue; }
+.ColorFuchsia { color:Fuchsia; }
+.ColorGray { color:Gray; }
+.ColorGreen { color:Green; }
+.ColorLime { color:Lime; }
+.ColorMaroon { color:Maroon; }
+.ColorNavy { color:Navy; }
+.ColorOlive { color:Olive; }
+.ColorOrange { color:Orange; }
+.ColorPurple { color:Purple; }
+.ColorRed { color:Red; }
+.ColorSilver { color:Silver; }
+.ColorTeal { color:Teal; }
+.ColorWhite { color:White; }
+.ColorYellow { color:Yellow; }
+
+/* Classes added to cell Class to set the border color */
+.TCAqua { border-top-color:Aqua; }
+.TCBlack { border-top-color:Black; }
+.TCBlue { border-top-color:Blue; }
+.TCFuchsia { border-top-color:Fuchsia; }
+.TCGray { border-top-color:Gray; }
+.TCGreen { border-top-color:Green; }
+.TCLime { border-top-color:Lime; }
+.TCMaroon { border-top-color:Maroon; }
+.TCNavy { border-top-color:Navy; }
+.TCOlive { border-top-color:Olive; }
+.TCOrange { border-top-color:Orange; }
+.TCPurple { border-top-color:Purple; }
+.TCRed { border-top-color:Red; }
+.TCSilver { border-top-color:Silver; }
+.TCTeal { border-top-color:Teal; }
+.TCWhite { border-top-color:White; }
+.TCYellow { border-top-color:Yellow; }
+
+.BCAqua { border-bottom-color:Aqua; }
+.BCBlack { border-bottom-color:Black; }
+.BCBlue { border-bottom-color:Blue; }
+.BCFuchsia { border-bottom-color:Fuchsia; }
+.BCGray { border-bottom-color:Gray; }
+.BCGreen { border-bottom-color:Green; }
+.BCLime { border-bottom-color:Lime; }
+.BCMaroon { border-bottom-color:Maroon; }
+.BCNavy { border-bottom-color:Navy; }
+.BCOlive { border-bottom-color:Olive; }
+.BCOrange { border-bottom-color:Orange; }
+.BCPurple { border-bottom-color:Purple; }
+.BCRed { border-bottom-color:Red; }
+.BCSilver { border-bottom-color:Silver; }
+.BCTeal { border-bottom-color:Teal; }
+.BCWhite { border-bottom-color:White; }
+.BCYellow { border-bottom-color:Yellow; }
+
+.LCAqua { border-left-color:Aqua; }
+.LCBlack { border-left-color:Black; }
+.LCBlue { border-left-color:Blue; }
+.LCFuchsia { border-left-color:Fuchsia; }
+.LCGray { border-left-color:Gray; }
+.LCGreen { border-left-color:Green; }
+.LCLime { border-left-color:Lime; }
+.LCMaroon { border-left-color:Maroon; }
+.LCNavy { border-left-color:Navy; }
+.LCOlive { border-left-color:Olive; }
+.LCOrange { border-left-color:Orange; }
+.LCPurple { border-left-color:Purple; }
+.LCRed { border-left-color:Red; }
+.LCSilver { border-left-color:Silver; }
+.LCTeal { border-left-color:Teal; }
+.LCWhite { border-left-color:White; }
+.LCYellow { border-left-color:Yellow; }
+
+.RCAqua { border-right-color:Aqua; }
+.RCBlack { border-right-color:Black; }
+.RCBlue { border-right-color:Blue; }
+.RCFuchsia { border-right-color:Fuchsia; }
+.RCGray { border-right-color:Gray; }
+.RCGreen { border-right-color:Green; }
+.RCLime { border-right-color:Lime; }
+.RCMaroon { border-right-color:Maroon; }
+.RCNavy { border-right-color:Navy; }
+.RCOlive { border-right-color:Olive; }
+.RCOrange { border-right-color:Orange; }
+.RCPurple { border-right-color:Purple; }
+.RCRed { border-right-color:Red; }
+.RCSilver { border-right-color:Silver; }
+.RCTeal { border-right-color:Teal; }
+.RCWhite { border-right-color:White; }
+.RCYellow { border-right-color:Yellow; }
+
+/* Classes added to cell Class to set the border style */
+.TSNone { border-top-color:transparent; }
+.TSSolid { border-top-style:solid; }
+.TSDotted { border-top-style:dotted; }
+.TSDashed { border-top-style:dashed; }
+
+.BSNone { border-bottom-color:transparent; }
+.BSSolid { border-bottom-style:solid; }
+.BSDotted { border-bottom-style:dotted; }
+.BSDashed { border-bottom-style:dashed; }
+
+.LSNone { border-left-color:transparent; }
+.LSSolid { border-left-style:solid; }
+.LSDotted { border-left-style:dotted; }
+.LSDashed { border-left-style:dashed; }
+
+.RSNone { border-right-color:transparent; }
+.RSSolid { border-right-style:solid; }
+.RSDotted { border-right-style:dotted; }
+.RSDashed { border-right-style:dashed; }
+
+/* Class used in the borders style popup submenu to set the menu item size and the border. The BSDef1 is used in the first menu item */
+.BSDef,.BSDef1 { margin-bottom:7px; height:8px; width:30px; border-top:1px solid #EEE; border-bottom-color:black; }
+.BSDef1 { border-top:0px none; }
+
+/* Class used in the borders style popup submenu to set the menu border to show */
+.BSDefault { border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:#D4D4D4; }
+.BSNone { border-bottom:0px none; }
+.BSSolid1 { border-bottom-width:1px; border-bottom-style:solid; }
+.BSSolid2 { border-bottom-width:2px; border-bottom-style:solid; }
+.BSSolid3 { border-bottom-width:3px; border-bottom-style:solid; }
+.BSDotted1 { border-bottom-width:1px; border-bottom-style:dotted; }
+.BSDotted2 { border-bottom-width:2px; border-bottom-style:dotted; }
+.BSDashed1 { border-bottom-width:1px; border-bottom-style:dashed; }
+.BSDashed2 { border-bottom-width:2px; border-bottom-style:dashed; }
+
+/* Class added to BORDER toolbar cell Class along with the border color and border style */
+.BORDER { padding-bottom:0px; }

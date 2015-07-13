@@ -1,0 +1,66 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <style>
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; }
+      .Tutorial .Main { background:#F8F8F8; }
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>4. Critical path</h1>
+   <h2>Computing task slack and showing critical path in chart</h2>
+
+   <center class="Border">
+      <div class="Xml"><a href='04-Critical_path.xml'>04-<h5>Critical_path</h5>.xml</a></div>
+      <div class="Main" style='width:100%; height:250px;'>
+         <bdo Debug='check' Data_Url='04-Critical_path.xml'></bdo>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+         See documentation for <b><a href="../../Doc/GanttCompute.htm#critical">Critical path</a></b>.
+      </li>
+      <li> 
+         The critical path can be shown if a column is assigned to <h3>GanttSlack</h3>.
+      </li>
+      <li>
+         The <b>Slack</b> value means how much can be the task moved to future (delayed) to not affect project finish date.<br />
+         The tasks that cannot be moved at all are <b>critical</b> and lay on <b>critical path</b>.<br />
+         The critical tasks are colored in different color (orange by default) and it is also possible to filter by them to show only the critical path.<br />
+      </li>
+      <li>
+         Attribute <h3>GanttMinSlack</h3> sets minimal value of the Slack to be the task included in critical path.
+      </li>
+      <li>
+         Task with Slack value less than <h3>GanttErrSlack</h3> are marked as error and colored in different color (red by default).<br />
+         The GanttErrSlack value should be less or equal to GanttMinSlack.
+      </li>
+      <li>
+         The finish date is end date of the most right task or it can be defined by <h3>GanttFinish</h3>.
+      </li>
+      <li>
+         If set <h3>GanttSeparateSlack</h3><b>='1'</b> the Slack value is calculated for every group of tasks separately.<br />
+         The group of tasks are all tasks linked with some dependency.<br />
+         In this case is the global GanttFinish ignored.
+      </li>
+   </ul>
+</body>
+</html>

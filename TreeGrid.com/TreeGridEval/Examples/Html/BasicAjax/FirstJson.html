@@ -1,0 +1,89 @@
+<html>
+<head>
+      <script src="../../../Grid/GridE.js"> </script>
+   </head>
+   <body class="Example">
+      <style>
+         /* Examples shared styles */
+         .Example { border-bottom:1px solid transparent; }
+         .Example .Desc b { color:#800; }
+         .Example .Desc a { text-decoration:underline; }      
+         .Example .Desc li { padding-bottom:8px; }
+         .Example .Desc ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+         .Example .Desc > ul { margin-left:0px; padding-left:15px; }
+         .Example h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+         .Example h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+         .Example h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example .Path { font:normal 16px Arial; color:blue; }
+         .Example .Path b { color:#800; }
+         .Example .Path i { color:black; font-style:normal; font-weight:bold; }
+         .Example .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+         .Example .Desc { margin:0px 5px 10px 5px; padding:5px; border:1px solid #AAA; }
+         .Example .Border { margin:0px 5px 15px 5px; clear:both; zoom:1; }
+         .Example .Main { background:#F8F8F8; }
+      </style>
+      <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Examples\/|\/ExamplesGantt\/)([^\/]+)\/([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/<i>$4</i>/$5").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+      <h1>Complex grid</h1>
+      <h2>A demonstration of many TreeGrid features using JSON / JSONP data format</h2>
+      <div class="Desc">
+         <b>Features:</b> Tree, sorting, grouping, filtering, searching, calculations, resizing and moving columns, row dragging, row manipulations, selecting rows,
+         fixed rows and columns, many cell types, popup default list, calendar, formatting values and many more.
+      </div>
+      <div class="Border">
+         <div class="Main" style="width:100%;height:530px;">
+            <!-- Standard usage of JSON format - can be loaded / uploaded normally like the XML  -->
+            <!-- <bdo Layout_Url="FirstJsonDef.js" Data_Url="FirstJsonData.js"></bdo>  -->
+
+            <!-- Special usage of JSONP, can be used for cross domain communication and also for loading local files (on file:// protocol). Cannot be used for upload. -->
+            <bdo Layout_Jsonp="FirstJsonDef.js" Data_Jsonp="FirstJsonData.js" Defaults_Jsonp="Defaults.js" Text_Jsonp="Text.js"></bdo>
+         </div>
+      </div>
+      <script>
+// -----------------------------------------------------------------------------------------
+// Shows the year 2005 only
+Grids.OnUpdated = function(G){ G.FilterDateRange('I','1/1/2005~12/31/2005','Year',0); }
+
+// -----------------------------------------------------------------------------------------
+// Custom event for searching
+// Searches in orders with specified items
+Grids.OnRowSearch = function(G,row,col,found,F,type){
+if(type || G.SearchDefs!="") return found; // Only for "in orders with items" and default call
+if(row.Def.Name=="Data") return -1;        // Only for orders
+for(var r=row.firstChild;r;r=r.nextSibling) { 
+	var found = F(r,col,1);                 // calls F(r,col,type=1)
+	if(!(found<=0)) return found; 
+	}
+return 0;
+}
+// -----------------------------------------------------------------------------------------
+// Creates popup right click menu to manipulate the row
+Grids.OnGetMenu = function(G,row,col){
+var I = [], M = {Items:I}; 
+I[I.length] = {Name:"Del",Text:row.Deleted?"Undelete row":"Delete row"};
+I[I.length] = {Name:"Sel",Text:row.Selected?"Deselect row":"Select row"};
+I[I.length] = {Name:"Copy",Text:"Copy row"};
+if(row.firstChild) I[I.length] = {Name:"CopyTree",Text:"Copy row tree"};
+I[I.length] = {Name:"Add",Text:"Add new row"};
+if(row.firstChild) I[I.length] = {Name:"Expand",Text:row.Expanded?"Collapse children":"Expand children"};
+if(row.firstChild) I[I.length] = {Name:"Check",Text:Get(row,'X')?"Uncheck Used":"Check Used"};
+return M;
+}
+// -----------------------------------------------------------------------------------------
+// Called after selecting item in the popup right click menu
+Grids.OnContextMenu = function(G,row,col,N){
+switch(N){
+   case "Del" : G.DeleteRow(row); break;
+   case "Sel" : G.SelectRow(row); break;
+   case "Copy" : G.CopyRow(row,null,row); break;
+   case "CopyTree" : G.CopyRows([row],null,row,1); break;
+   case "Add" : G.AddRow(null,row,1); break;
+   case "Expand" : if(row.Expanded) G.Collapse(row); else G.Expand(row); break;
+   case "Check" : G.SetValue(row,"X",!Get(row,'X'),1); break;
+   }
+}
+// -----------------------------------------------------------------------------------------
+      </script>
+   </body>
+</html>

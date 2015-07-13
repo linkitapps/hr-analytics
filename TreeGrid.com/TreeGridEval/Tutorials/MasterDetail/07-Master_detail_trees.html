@@ -1,0 +1,73 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <style>
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; padding-left:2px!important; }
+      .Tutorial .Main { background:#F8F8F8; }
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>7. Master detail trees</h1>
+   <h2>Master detail relation among trees</h2>
+
+   <center class="Border">
+      <div style="width:785px;">
+         <div style="float:left; margin-right:20px;">
+            <div class="Xml" style='width:355px;'><a href='07-Master1.xml'>07-<h5>Master1</h5>.xml</a></div>
+            <div class="Main" style='width:380px; height:400px;'>
+               <bdo Debug='check' Data_Url='07-Master1.xml'></bdo>
+            </div>
+            <br />
+            <div class="Xml" style='width:355px;'><a href='07-Detail1.xml'>07-<h5>Detail1</h5>.xml</a></div>
+            <div class="Main" style='width:380px; height:250px;'>
+               <bdo Debug='check' Data_Url='07-Detail1.xml'></bdo>
+            </div>
+         </div>
+         <div style="float:left;">
+            <div class="Xml" style='width:355px;'><a href='07-Master2.xml'>07-<h5>Master2</h5>.xml</a></div>
+            <div class="Main" style='width:380px; height:400px;'>
+               <bdo Debug='check' Data_Url='07-Master2.xml'></bdo>
+            </div>
+            <br />
+            <div class="Xml" style='width:355px;'><a href='07-Detail2.xml'>07-<h5>Detail2</h5>.xml</a></div>
+            <div class="Main" style='width:380px; height:250px;'>
+               <bdo Debug='check' Data_Url='07-Detail2.xml'></bdo>
+            </div>
+        </div>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+        TreeGrid supports also simple master / detail relation between trees.<br />
+        A row in master grid can have set its attribute <h3>Detail</h3> to id of detail grid where the rows children will be displayed.<br />
+      </li>
+      <li>
+        It is possible to display the row's children in the detail grid only, in the master grid only, or in both grids. It is controlled by <b>DetailExpand</b> Cfg attribute of master grid.<br />
+      </li>
+      <li>
+         In this relation there is no copying values by CopyTo, the structure of all the grids should be the same, the rows are displayed in one or more grids.
+      </li>
+      <li>
+         It is possible to moving rows between grids or inside one grid or copy rows inside grid or add or delete rows in any grid.
+      </li>
+   </ul>
+</body>
+</html>

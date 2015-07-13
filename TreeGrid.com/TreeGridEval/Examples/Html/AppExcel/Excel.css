@@ -1,0 +1,109 @@
+/* ----------------------------------------------------------------------------------------------------------- 
+                            Customized TreeGrid CSS style sheet to look like MS Excel sheet
+                                   Customization uses TreeGrid Modern style
+ ----------------------------------------------------------------------------------------------------------- */
+
+/* --- Redefined the table and sections --- */
+.GMMainTable { border: 0px none; }       /* Removes border around the grid set in Modern style by default */
+.GMHeadLeft { border:0px none;  }        /* Left head, contains only one cell HEADERID; removes right border set in Modern style by default */
+.GMBodyLeft {                            /* Left body, contains here only the ID column */ 
+   border:0px none;                      /* Removes top border set in Modern style by default */
+   border-bottom:1px solid transparent;  /* Adds bottom invisible border to synchronize its size with GMBodyMid section */
+   margin-bottom:3px;                    /* Adds margin between body section and horizontal scrollbar */
+   } 
+.GMHeadMid {                             /* Middle head, contains the header row */
+   border-right:1px solid transparent;   /* Adds right invisible border to synchronize its size with GMBodyMid section */
+   margin-right:3px;                     /* Adds margin between middle section and vertical scrollbar */
+   }
+.GMBodyMid {                             /* Middle body, contains all data cells */
+   border:1px solid #ABABAB; border-left:0px none; border-top:0px none; /* Sets right and bottom border and clears the left and top border set in Modern style by default */
+   margin-right:3px; margin-bottom:3px;  /* Adds margins between middle body section and horizontal and vertical scrollbars */
+   }
+@media print { .GMBodyMid { border-color:transparent; } } /* Removes the borders for printing, because there are always the cell borders visible */
+.GMVScroll {                             /* Vertical scrollbar */
+   border:1px solid #ABABAB; padding-top:1px; padding-bottom:1px; /* Defines border around the scrollbar and small padding */
+   margin-bottom:3px;                    /* Adds margin between body section and horizontal scrollbar */
+   } 
+.GMHScrollMid {                          /* Horizontal scrollbar for the middle section */
+   border:1px solid #ABABAB;             /* Defines border around the scrollbar */
+   margin-right:3px;                     /* Adds margin between middle section and vertical scrollbar */
+   }
+.GMHScrollHidden { background:white; }   /* Hides the horizontal scrollbar below left section */
+.GMXScroll { background:white; }         /* Hides the space between horizontal and vertical scrollbar */
+
+.GMPage { border-top:0px none; }         /* Removes border line between pages set in Modern style by default */
+
+/* --- Redefines the rows --- */
+.GMDataRow { cursor:url(Icons/aero_prec.cur),default; } /* Shows Excel mouse cursor for all data row cells */
+
+/* --- Redefines the cells --- */
+.GMCell {                                  /* Every data cell except header */
+   border:1px solid #D4D4D4;               /* Defines default cell border bottom and right */
+   border-left:2px solid transparent; border-top:2px solid transparent; /* Preserves border space on top and left for custom cell border (all TreeGrid cells must have the same border width) */
+   } 
+.GMText,.GMLines,.GMFloat,.GMDate { padding-top:0px; padding-left:1px; } /* Every cell types; redefines default padding for Modern style */
+.GMCellHeader {                            /* Every cell in top header row; Sets bottom border by border and right border by gradient background */
+   color:#555;                             /* Slightly lighter black text */
+   padding-bottom:3px;                     /* Moves the header text up */
+   border-right:0px none; background:none; /* Clears the default header cell border and background */
+   border-bottom:1px solid #ABABAB;        /* Sets bottom border */
+   background-image:linear-gradient(#F8F8F8, #D5D5D5); background-size:1px 100%; background-position:100% 0px; background-repeat:no-repeat; /* Sets right border by background gradient */
+   }
+.ID {                                      /* Custom CSS class assigned (in layout XML) to every cell in left "id" column except header */ 
+   color:#555;                             /* Slightly lighter black text */
+   border:0px none;                        /* Clears the default cell border */
+   border-right:1px solid #ABABAB;         /* Sets right border */
+   background-image:linear-gradient(to right, #F8F8F8, #D5D5D5); background-size:100% 1px; background-position:0px 100%; background-repeat:no-repeat; /* Sets bottom border by background gradient */
+   }
+.HEADERID {                                /* Custom CSS class assigned (in layout XML) to one header cell in left "id" column;*/
+   border:0px none;                        /* Clears the default cell border */
+                                           /* Sets bottom and right borders by background gradients */
+   background-image: linear-gradient(to right, #F8F8F8, #D5D5D5), linear-gradient(#F8F8F8, #D5D5D5), url(Icons/SelectAll.gif); background-size:100% 1px, 1px 100%, 13px 13px; background-position:0px 100%, 100% 0px, 9px 5px; background-repeat:no-repeat, no-repeat, no-repeat;
+   }
+.GMLastCell { border-right:0px solid; border-bottom:0px solid; } /* Does NOT hide the right and bottom border of the edge cells in section (head/body/foot and left/mid/right) */
+
+/* --- Redefines focus cursor --- */
+.GMFocusCellBorder,.GMEditCellBorder { border-width:2px; border-color:#217346; }
+.GMFocusCellBorderTouch,.GMEditCellBorderTouch { border-width:5px; }
+.GMFocusCellCorner,.GMEditCellCorner { background:#217346; }
+.GMFocusCellCornerTouch,.GMEditCellCornerTouch { width:10px; height:10px; margin-left:0px; }
+
+/* --- Redefines editing cells --- */
+.GMEditInput,.GMEditTextarea { background:white; border:0px solid transparent; }
+.GMEditCellInput { background:white; border:0px none; }
+.GMSpaceEditInner { border:1px solid #C6C6C6; background:white; padding:7px 5px 4px 5px; }
+
+/* --- Redefines cell state colors --- */
+.GMColorFill { background-color:#C6C6C6; }
+.GMColorSelected { background-color:#C6C6C6; }
+.GMClassSelected { border-color:#A5A5A5; color:black; }
+.GMColorNoFocus { background-color:#FFFFFF; }
+.GMColorHoveredCellNoFocus { background-color:#9FD5B7; }
+.GMColorHoveredCellHeader { background-color:#9FD5B7; }
+.GMColorHoveredCol { background-color:#EEE; } 
+.GMColorHoveredRow { background-color:#EEE; } 
+.GMColorEditedCol { background-color:#DDD; } 
+.GMColorEditedRow { background-color:#DDD; } 
+.GMColorFocusedCol { background-color:#F1F1F1; } 
+.GMColorFocusedRow { background-color:#F1F1F1; } 
+.GMColorSelectedCol { background-color:#E8E8E8; } 
+.GMColorSelectedRow { background-color:#E8E8E8; } 
+
+/* --- Redefines top toolbars --- */
+.GMTopbarRow { border:0px none; background:white; padding:10px 5px 8px 5px; }
+.GMToolbarRow { border:0px none; border-bottom: 1px solid #D5D5D5; background:white;  }
+.GMMenuOuter { background:white; }
+.GMColorHoveredCellButton,.GMColorHoveredCellButton1 { background-color:#D3F0E0; }
+.GMToolHtml1 { xbackground:#9FD5B7; background-image:url(Icons/Background1.gif); color:black; background-repeat:repeat-x; background-position:left bottom; }
+.GMRadioChecked { color:black; background-color:#9FD5B7; }
+
+/*--- Custom CSS classes assigned (in layout XML) to the toolbar buttons B I U */
+.BOLD,.ITALIC,.UNDERLINE { font-weight:bold; font-size:12px; line-height:13px; font-family:Times New Roman,Times; }
+.ITALIC { font-style:italic; }
+.UNDERLINE { text-decoration:underline; }
+
+/* --- Classes set to customized data cells by buttons B I U --- */
+.Bold,.Bold * { font-weight:bold; }
+.Italic,.Italic * { font-style:italic; }
+.Underline,.Underline * { text-decoration:underline; }
+

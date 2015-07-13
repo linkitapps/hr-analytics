@@ -1,0 +1,72 @@
+<html>
+   <head>
+      <script src="../../../Grid/GridE.js"> </script>
+      <title>Multiline editing in JavaScript tree grid component | TreeGrid</title>
+      <meta name="description" content="Live sample shows TreeGrid features: multiline editing, edit masks and permissions, cell span, images and links in cells, rows with variable heights" />
+   </head>
+   <body class="Example">
+      <style>
+         /* Examples shared styles */
+         .Example { border-bottom:1px solid transparent; }
+         .Example .Desc b { color:#800; }
+         .Example .Desc a { text-decoration:underline; }      
+         .Example .Desc li { padding-bottom:8px; }
+         .Example .Desc ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+         .Example .Desc > ul { margin-left:0px; padding-left:15px; }
+         .Example h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+         .Example h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+         .Example h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example .Path { font:normal 16px Arial; color:blue; }
+         .Example .Path b { color:#800; }
+         .Example .Path i { color:black; font-style:normal; font-weight:bold; }
+         .Example .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+         .Example .Desc { margin:0px 5px 10px 5px; padding:5px; border:1px solid #AAA; }
+         .Example .Border { margin:0px 5px 15px 5px; clear:both; zoom:1; }
+         .Example .Main { background:#F8F8F8; }
+      </style>
+      <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Examples\/|\/ExamplesGantt\/)([^\/]+)\/([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/<i>$4</i>/$5").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+      <h1>A list of books</h1>
+      <h2>Variable row height, multiline editing, mask editing, image and link types</h2>
+      <div class="Desc">
+         The example has two modes switched by radio buttons in the first row.<br> 
+         In the <b>read-only mode</b> you can preview texts by focusing them or activate and follow the links and images by clicking them.<br>
+         In the <b>write mode</b> you can change texts. Editing changes in multiline texts can be accepted by <b>Ctrl+Enter</b> or click outside the cell.
+         You can also edit image and link sources by special masks, so you can change only few parts of edited string.
+         When editing multiline texts, you can see automatic height changing, but only to predefined maximal value.<br />
+      </div>
+      <center class="Border">
+         <div class="Main" style="WIDTH:100%;HEIGHT:550px">
+            <bdo Layout_Url="BooksDef.xml" Data_Url="BooksData.xml"></bdo>
+         </div>
+      </center>
+      <script>
+
+function EditChange(edit){
+Grids.Books.Editing = edit ? 1 : 2;
+Grids.Books.SaveCfg(); // Saves change to cookies, it is saved by SaveAttrs
+}
+
+Grids.OnValueChanged = function(G,row,col,val){
+if(row.id=='B' && col=='B') EditChange(val); // Changes editing state after radio change
+return val;
+}
+
+Grids.OnGetColor = function(G,row,col,r,g,b){
+if(!Get(row,"Spanned")&&row.Kind=="Data") return "rgb("+r+","+g+","+(b-20)+")";   // colors main rows
+}
+
+Grids.OnCanEdit = function(G,row,col,can){
+if(row.id=='B' && col=='B') return 1; // It is editable independently on Editing value
+return can;
+}
+
+Grids.OnRenderPageFinish = function(G){
+var edit = G.Editing;
+G.SetValue(G.GetRowById("B"),"B",edit==2 ? 0 : 1,1); // Updates radio according to Editing value loaded from cookies
+}
+
+      </script>
+   </body>
+</html>

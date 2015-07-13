@@ -1,0 +1,525 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="Doc.css" rel="stylesheet"/>
+<title>TreeGrid - Cells</title>
+</head>
+<body>
+<div class="Doc">
+
+
+<h1>Cell style and color</h1>
+<p class="H1">TreeGrid documentation</p>
+
+<!-----------------------------------------------------------------------  Basic grid style ------------------------------------------------->
+<a name="BasicStyle"></a>
+<h2>Basic grid style</h2>
+
+Base grid styles are defined in Grid.css in appropriate TreeGrid style (default is Modern).<br />
+<b>See</b> <a href="Styles.htm">Styles documentation</a>.
+                                                        
+<!-- Style -->
+<a name="CfgStyle"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;Cfg></b> <i>string</i>
+   <h4>Style</h4> <s>["Modern"] Can be saved to cookies, if set StyleLap='0'</s>
+</div>
+Base TreeGrid style selection. The base TreeGrid style presets nearly all visual settings in TreeGrid. It can be:<br />
+a) Name of one of base predefined styles: <b>Modern</b>, <b>Standard</b>, <b>Light</b>, <b>Office</b>, <b>Borders</b>, <b>Query</b>, <b>ExtJS</b>, <b>Round</b>, <b>Plain</b>, <b>Colors</b>.<br />
+In this case no <a href="#CfgCSS">CSS</a> and <a href="#CfgGanttCSS">GanttCSS</a> attributes should be set.<br />
+b) Prefix for custom CSS style, all the CSS classes in the file must start by this prefix, prefixes for predefined styles are <b>GM</b>, <b>GS</b>, <b>GL</b>, <b>GO</b>, <b>GB</b>, <b>GQ</b>, <b>GE</b>, <b>GR</b>, <b>GP</b>, <b>GC</b>.<br />
+In this case the <a href="#CfgCSS">CSS</a> attribute must be set to style file or directory, e.g. <tt>&lt;Cfg Style='GM' CSS='../../../Grid/Modern/Grid.css'/> or &lt;Cfg Style='GM' CSS='Modern'/></tt>
+
+<!-- CSS -->
+<a name="CfgCSS"></a>
+<div class="XML">
+   <u>new <b>6.0</b> chg <b>7.0</b></u> <b>&lt;Cfg></b> <i>string</i>
+   <h4>CSS</h4> <s>[""]</s>
+</div>
+Where the file with TreeGrid CSS style is located, it can be:<br />
+a) empty to load CSS file from default style location in Grid/ directory according to the <a href="#CfgStyle">Style</a>.<br />
+b) CSS directory name inside base /Grid directory. This directory must contain file Grid.css as the style definition. For example CSS="Modern"<br />
+c) CSS file path and name with custom or moved original CSS style. For example <tt>CSS='../../../Grid/Modern/Grid.css'</tt>. <i>The path is relative to the actual page URL, not to Grid directory!</i>
+
+<!-- GanttCSS -->
+<a name="CfgGanttCSS"></a>
+<div class="XML">
+   <u>new <b>10.0</b></u> <b>&lt;Cfg></b> <i>string</i>
+   <h4>GanttCSS</h4> <s>[""]</s>
+</div>
+<i>Used only if defined Gantt chart.</i> Where the file with TreeGrid Gantt CSS style is located, it can be:<br />
+a) empty to load CSS file from default style location in Grid/ directory according to the <a href="#CfgStyle">Style</a>.<br />
+Or if defined <a href="#CfgCSS">CSS</a> as directory name, the GanttCSS is set to the same name.<br />
+Or if defined <a href="#CfgCSS">CSS</a> as url and contains "Grids.css", the GanttCSS is set to the same url with replaced "Grid.css" by "Gantt.css".<br />
+b) CSS directory name inside base /Grid directory. This directory must contain file Gantt.css as the style definition. For example CSS="Modern".<br />
+c) CSS file path and name with custom or moved original CSS style. For example <tt>CSS='../../../Grid/Modern/Gantt.css'</tt>. <i>The path is relative to the actual page URL, not to Grid directory!</i>
+
+<!-- SafeCSS -->
+<a name="CfgSafeCSS"></a>
+<div class="XML">
+   <u>new <b>7.0</b></u> <b>&lt;Cfg></b> <i>bool</i>
+   <h4>SafeCSS</h4> <s>[ ]</s>
+</div>
+If set to <b>1</b>, switches TreeGrid CSS style to safe mode, to not be affected by any external CSS style attribute setting except with !important.<br />
+Set the SafeCSS to 1 if the grid style looks differently on your page than in our examples and you cannot find the problem or you cannot change the external style.<br />
+The grid rendering in Safe mode is for about <b>20-30% slower</b>.<br />
+All grids on page share the SafeCSS setting, the SafeCSS value is chosen according to the first grid loading.<br />
+Default value for the attribute is empty, it means auto selection - the CSS mode is switched to safe if there is some CSS setting that affect TreeGrid layout by margin, padding, border or display. Remember, the first loaded grid on page does the selection.<br />
+
+<!-- SetStyle -->
+<a name="SetStyle"></a>
+<div class="API">
+   <u>chg <b>10.0</b></u> <b>API method</b> <i>void</i>
+   <h4>SetStyle</h4>
+   <s>(<i>string</i> <b>Style</b>, <i>string</i> <b>CSS</b>, <i>string</i> <b>GanttCSS</b>, <i>bool</i> <b>render</b>)</s>
+</div>
+Changes TreeGrid style and optionally re-renders grid to show the changes.<br />
+<b>Style</b>, <b>CSS</b> and <b>GanttCSS</b> <i>(since 10.0)</i> are appropriate attributes <a href="#CfgStyle">Style</a>, <a href="#CfgCSS">CSS</a> and <a href="#CfgGanttCSS">GanttCSS</a>. <b>CSS</b> and <b>GanttCSS</b> should be null for predefined TreeGrid style.
+
+<!-- OnSetStyle -->
+<a name="OnSetStyle"></a>
+<div class="API">
+   <u><i>upd <b>10.0</b></i></u> <b>API event</b> <i>bool</i>
+   <h4>OnSetStyle</h4>
+   <s>(<i>TGrid</i> <b>grid</b>, <i>string</i> <b>Style</b>, <i>string</i> <b>CSS</b>, <i>string</i> <b>GanttCSS</b>)</s>
+</div>
+Called before the style is loaded.<br /> 
+Return true to suppress loading the style.<br />
+<b>Style</b>, <b>CSS</b> and <b>GanttCSS</b> <i>(since 10.0)</i> are appropriate attributes <a href="#CfgStyle">Style</a>, <a href="#CfgCSS">CSS</a> and <a href="#CfgGanttCSS">GanttCSS</a>.
+
+<!-- OnAfterSetStyle -->
+<a name="OnAfterSetStyle"></a>
+<div class="API">
+   <u><i>upd <b>10.0</b></i></u> <b>API event</b> <i>void</i>
+   <h4>OnAfterSetStyle</h4>
+   <s>(<i>TGrid</i> <b>grid</b>, <i>string</i> <b>Style</b>, <i>string</i> <b>CSS</b>, <i>string</i> <b>GanttCSS</b>)</s>
+</div>
+Called after the style is loaded, but before any render is started.<br />
+<b>Style</b>, <b>CSS</b> and <b>GanttCSS</b> <i>(since 10.0)</i> are appropriate attributes <a href="#CfgStyle">Style</a>, <a href="#CfgCSS">CSS</a> and <a href="#CfgGanttCSS">GanttCSS</a>.
+
+<!-- DragCursor -->
+<a name="CfgDragCursor"></a>
+<div class="XML">
+   <u>new <b>8.0</b></u> <b>&lt;Cfg></b> <i>string</i>
+   <h4>DragCursor</h4> <s>[ "url(Drag.cur),default" ]</s>
+</div>
+Mouse cursor shown during dragging. By default it shows the Drag.cur file located in /Grid/ directory.
+
+<!-- NoDragCursor -->
+<a name="CfgNoDragCursor"></a>
+<div class="XML">
+   <u>new <b>8.0</b></u> <b>&lt;Cfg></b> <i>string</i>
+   <h4>NoDragCursor</h4> <s>[ "url(noDrag.cur),default" ]</s>
+</div>
+Mouse cursor shown during dragging if no drop is possible. By default it shows the NoDrag.cur file located in /Grid/ directory.
+
+<!-- GlobalCursor -->
+<a name="CfgGlobalCursor"></a>
+<div class="XML">
+   <u>new <b>9.1</b></u> <b>&lt;Cfg></b> <i>bool</i>
+   <h4>GlobalCursor</h4> <s>[0]</s>
+</div>
+Set it to true to set dragging cursor to document to show it while dragging between grids.
+
+<!-- ExternalAlign -->
+<a name="CfgExternalAlign"></a>
+<div class="XML">
+   <u>new <b>9.1</b></u> <b>&lt;Cfg></b> <i>bool</i>
+   <h4>ExternalAlign</h4> <s>[0]</s>
+</div>
+If set to <b>1</b>, does not align the grid content and use alignment from outside.<br />
+<i>Cannot be used with <b>ResizingMain</b>. It affects also <b>SafeCSS</b>, but there is shared for all grids.</i>
+
+<!-- ZIndex -->
+<a name="CfgZIndex"></a>
+<div class="XML">
+   <u>new <b>8.0</b></u> <b>&lt;Cfg></b> <i>int</i>
+   <h4>ZIndex</h4> <s></s>
+</div>
+CSS z-index value for the grid and all its popup dialogs, messages and cursors.<br /> 
+Set it, if the grid is placed inside some absolutely positioned container, e.g. some popup dialog. Set it higher than the z-index of the parent container.<br />
+It sets z-index for all the grid objects in range ZIndex ~ ZIndex+20.<br /> 
+Any popup grid (shown by ShowPopupGrid or Dates dialog) will get ZIndex+20.
+
+<!-----------------------------------------------------------------------  Special cell style attributes ------------------------------------------------->
+<a name="SpecialStyle"></a>
+<h2>Special cell style attributes</h2>
+
+Some style attributes can be preset by special attributes, but can be set also by Class.<br />
+Background image can be set also by <a href="CellSideButton.htm#CIcon">Icon</a> attribute.
+
+<!-- Wrap -->
+<a name="CWrap"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>bool</i>
+   <h4>Wrap</h4> <s>[0/1]</s>
+</div>
+If the cell content will be wrapped.<br />
+By default it is <b>1</b> for types <b>Html</b>, <b>Lines</b>, <b>List</b> and <b>0</b> for other types and <b>Header</b>.
+
+<!-- Align -->
+<a name="CAlign"></a>
+<div class="XML">
+   <u>new <b>6.0</b> <i>upd <b>9.3</b></i></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>bool</i>
+   <h4>Align</h4> <s>["Left" / "Right"]</s>
+</div>
+How the cell content will be aligned. Case insensitive keyword: "<b>Left</b>", "<b>Right</b>", "<b>Center</b>", "<b>Justify</b>", "<b>Scroll</b>".<br />
+By default it is "<b>Right</b>" for types <b>Int</b>, <b>Float</b>, <b>Date</b> and "<b>Left</b>" for other types.<br />
+The <b>Justify</b> works only for more lines text except the last line.<br />
+The side <a href="CellSideButton.htm#CButton">Button</a> is not rotated, use side <a href="CellSideButton.htm#CIcon">Icon</a> instead. For example for Date type set <tt>Icon='Date' IconAlign='Right'</tt><br />
+<i>(Since 9.3)</i> The <b>Scroll</b> moves the position of the text on scroll to be always visible if at least a part of the cell is visible. Usable especially for spanned cells.<br /> 
+<i>Using too many cells with <tt>Align="Scroll"</tt> can slow down the grid scrolling!</i>
+
+<!-- VAlign -->
+<a name="CVAlign"></a>
+<div class="XML">
+   <u>new <b>11.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>VAlign</h4> <s>[""]</s>
+</div>
+Vertical alignment of the cell content, including side buttons and icons.<br />
+Possible value: <b>top</b>, <b>middle</b>, <b>bottom</b>.<br />
+To vertically align tree buttons, you have also to set <tt>&lt;Cfg <a href="Tree.htm#CfgNoTreeLines">NoTreeLines</a>='2'/></tt>.<br />
+By default are all the cells aligned to top.<br />
+<i>Setting this attribute to any value including "top" renders cells with more tags and can slow down the grid.</i><br />
+<i>Setting this attribute forces setting <tt><a href="#CClassInnerIcon">ClassInnerIcon</a>='<b>1</b>' <a href="TypePanel.htm#CfgFastPanel">FastPanel</a>='<b>0</b>'</tt>.</i><br />
+Set the <tt>VAlign="top"</tt> for rows higher than 250px to correctly display icon images.<br />
+For cell with <a href="#CellRotate">Rotate</a> cell use <a href="#CAlign">Align</a> to vertically align the cell.
+
+<!-- Rotate -->
+<a name="CellRotate"></a>
+<div class="XML">
+   <u>new <b>6.6</b> <i>upd <b>9.1</b></i></u> <b>&lt;cell></b> <i>int</i>
+   <h4>Rotate</h4> <s>[0]</s>
+</div>
+Rotates text in the cell. It does work only in IE 6+, FF 3.5+, Opera 10.5+, Safari 4+, Chrome 4+.<br />
+<b>1</b> - text is from bottom to top, <b>2</b> - text is from top to bottom, <b>3</b> - <i>(since 9.1)</i> like <b>2</b> for IE and <b>1</b> for other browser, because 1 is better readable but slow in IE.<br />
+<i>Don't set it to too many cells, it is intended to use especially in header. It can remarkably slow down the grid!</i>
+
+<!-- NoEscape -->
+<a name="HeaderNoEscape"></a>
+<div class="XML">
+   <u></u> <b>&lt;Header></b> <i>bool</i>
+   <h4>NoEscape</h4> <s>[0]</s>
+</div>
+Set it to <b>1</b> to use HTML code in column captions - Header cells. It use <b>Html</b> Type cells for Header instead of default <b>Lines</b>.
+
+<!-----------------------------------------------------------------------  Cell CSS class ------------------------------------------------->
+<a name="CellClass"></a>
+<h2>Cell CSS class</h2>
+
+<!-- Class -->
+<a name="CClass"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>Class</h4> <s></s>
+</div>
+A CSS class name(s) applied to the cell.<br />
+To set <b>background colors</b> use rather <a href="#CBackground">Background</a> or <a href="#CColor">Color</a> attribute or you must use <b>!important</b> modifier, because background colors are set also by grid.<br />
+<i>Remember, the cell already contains its basic CSS definition, so this class must be defined after the included Grid.css file or use !important modifier.</i><br />
+<i>Attention, not all CSS setting can be modified (e.g overflow), always test the result if it does not break down grid layout.</i>
+
+<!-- ClassInner -->
+<a name="CClassInner"></a>
+<div class="XML">
+   <u>chg <b>6.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>ClassInner</h4> <s></s>
+</div>
+If set, it adds new inner &lt;DIV> with this class to the cell. <a href="#CWrap">Wrap</a> and <a href="#CAlign">Align</a> and type classes are applied to this &lt;DIV> instead of the cell itself.<br />
+Use ClassInner to add some <b>inner border</b> and <b>margin</b> to the cell, for other settings use <a href="#CClass">Class</a> attribute instead.<br />
+<i>Remember, setting ClassInner for many cells can <b>slow down</b> the grid rendering and usage!</i>
+
+<!-- ClassInnerIcon -->
+<a name="CClassInnerIcon"></a>
+<div class="XML">
+   <u>chg <b>6.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>bool</i>
+   <h4>ClassInnerIcon</h4> <s>[0/1]</s>
+</div>
+When used left side <a href="CellSideButton.htm#CIcon">Icon</a> and <a href="#CClassInner">ClassInner</a>, if the icon will be inside the ClassInner &lt;DIV>.<br />
+The default value is <b>0</b>. If set <a href="#CVAlign">VAlign</a> attribute, the value is <b>1</b> and cannot be changed.<br />
+<i>The right side Button is always outside.</i>
+
+<!-- UsePrefix -->
+<a name="CfgUsePrefix"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;Cfg></b> <i>bool</i>
+   <h4>UsePrefix</h4> <s></s>
+</div>
+If set to <b>1</b>, inserts the <tt>&lt;Cfg Style/></tt> attribute value before every custom <a href="#CClass">Class</a> and <a href="#CClassInner">ClassInner</a> attribute, in this case the Class must contain only one CSS class name.<br />
+Set it to <b>1</b> to differ between TreeGrid styles - for every supported style you can define different custom classes.
+
+<!-- OnGetClass -->
+<a name="OnGetClass"></a>
+<div class="API">
+   <u>chg <b>6.0</b></u> <b>API event</b> <i>string</i>
+   <h4>OnGetClass</h4> <s>(<i>TGrid</i> <b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>string</i> <b>cls</b>)</s>
+</div>
+Called to get custom class name(s) for the cell.<br />
+<b>cls</b> is the custom class name(s) for the cell set by <a href="#CClass">Class</a> attribute.<br /> 
+Return null to not change the class or return new class name(s).
+
+<!-----------------------------------------------------------------------  Cell background color ------------------------------------------------->
+<a name="CellColor"></a>
+<h2>Cell background color</h2>
+
+Default row and cell backgrounds are defined in the style in Grid.css file. Also state colors are defined there.
+
+<!-- Background  -->
+<a name="CBackground"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>Background</h4> <s></s>
+</div>
+Background color for the cell.<br />
+<i>This color <b>overrides</b> any state and type background color of the row, so it hides any row state!</i><br />
+It can be set as "240,240,240" or "rgb(240,240,240)" or "#F0F0F0" or "#FFF" or to basic 16 color names (black, red, green, ...)<br />
+The color "255,255,255" is <b>transparent</b> color, so it displays background color of its parent.
+
+<!-- Color -->
+<a name="CColor"></a>
+<div class="XML">
+   <u><i>upd <b>6.0</b></i></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>Color</h4> <s></s>
+</div>
+Predefined base background color for cell, used instead of CSS Default color.<br />
+<i>This color is <b>modified</b> by all row and cell state colors, so it preserves the row state highlight!</i><br />
+It can be set as "240,240,240" or "rgb(240,240,240)" or "#F0F0F0" or "#FFF" or to basic 16 color names (black, red, green, ...)<br />
+The color "255,255,255" is <b>transparent</b> color, so it displays background color of its parent if no state color is computed.
+
+<!-- NoColor -->
+<a name="CNoColor"></a>
+<div class="XML">
+   <u><i>upd <b>6.0</b></i></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>int</i>
+   <h4>NoColor</h4> <s></s>
+</div>
+If set to <b>1</b>, the cell is not colored at all, all state and custom colors (Color, Background) are ignored - you can use CSS style background for the cell.<br /> 
+If set to <b>2</b>, the cell state and type colors are ignored.
+
+<!-- NoColorState -->
+<a name="INoColorState"></a>
+<div class="XML">
+   <u></u> <b>&lt;I></b> <i>bool</i>
+   <h4>NoColorState</h4> <s></s>
+</div>
+If  set to <b>1</b>, does not change background color for changed, added, moved and deleted row.<br />
+Useful to set for some control rows that will not be uploaded to server.
+
+<!-- OnGetColor -->
+<a name="OnGetColor"></a>
+<div class="API">
+   <u><i>upd <b>6.0</b></i></u> <b>API event</b> <i>string</i>
+   <h4>OnGetColor</h4>
+   <s>(<i>TGrid</i> <b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>int</i> <b>r</b>, <i>int</i> <b>g</b>, <i>int</i> <b>b</b>, <i>bool</i> <b>edit</b>)</s>
+</div>
+Called to get final color of the cell.<br />
+<b>r</b>, <b>g</b>, <b>b</b> are predefined colors for this state. <b>edit</b> is <b>2</b> for edited cell.<br />
+Can return null to use r,g,b values unchanged.<br /> 
+The returned color is the resulted color for the cell or row and is directly assigned to the cell.<br />
+The returned color must be in CSS format like "blue" or "#FFF" or "rgb(r,g,b)".
+
+<!-- OnGetDefaultColor -->
+<a name="OnGetDefaultColor"></a>
+<div class="API">
+   <u><i>upd <b>6.0</b></i></u> <b>API event</b> <i>int</i>
+   <h4>OnGetDefaultColor</h4>
+   <s>(<i>TGrid</i> <b>grid</b>, <i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>, <i>int</i> <b>r</b>, <i>int</i> <b>g</b>, <i>int</i> <b>b</b>)</s>
+</div>
+Called to get default color for the cell or row. rgb is predefined color (#RRGGBB).<br />
+Returns new integer #RRGGBB color or null to use default.<br /> 
+The returned color is modified according to row state.
+
+<!-- ColorRow -->
+<a name="ColorRow"></a>
+<div class="API">
+   <u></u> <b>API method</b> <i>void</i>
+   <h4>ColorRow</h4>
+   <s>(<i>TRow</i> <b>row</b>)</s>
+</div>
+Re-colors row according to its state and color settings. It does <u>not</u> update the class.
+
+<!-- ColorCell -->
+<a name="ColorCell"></a>
+<div class="API">
+   <u></u> <b>API method</b> <i>void</i>
+   <h4>ColorCell</h4>
+   <s>(<i>TRow</i> <b>row</b>, <i>string</i> <b>col</b>)</s>
+</div>
+Re-colors cell according to its state and color settings. It does <u>not</u> update the class.
+
+<!-----------------------------------------------------------------------  Cell HTML style ------------------------------------------------->
+<a name="CellHTMLStyle"></a>
+<h2>Cell HTML style</h2>
+
+<!-- HtmlPrefix -->
+<a name="CHtmlPrefix"></a>
+<div class="XML">
+   <u></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>HtmlPrefix</h4> <s></s>
+</div>
+Html code displayed inside cell in front of the value.<br />
+Use the HtmlPrefix and HtmlPostfix to add any text or formatting HTML tags before and after cell value.<br />
+<strong><i>For formatting use rather <a href="#CClass">Class</a> or <a href="#CColor">Color</a> attribute, it is remarkably faster.</i></strong><br />
+<i>Be careful while including HTML code to cell, any invalid HTML code can break down the grid layout.</i>
+
+<!-- HtmlPostfix -->
+<a name="CHtmlPostfix"></a>
+<div class="XML">
+   <u></u> <b>&lt;C>&lt;I>&lt;cell></b> <i>string</i>
+   <h4>HtmlPostfix</h4> <s></s>
+</div>
+Html code displayed inside cell after the value.
+
+<!-----------------------------------------------------------------------  Row color alteration  ------------------------------------------------->
+<a name="Alternate"></a>
+<h2>Row color alteration</h2>
+
+<!-- Alternate -->
+<a name="CfgAlternate"></a>
+<div class="XML">
+   <u>renamed <b>6.0</b></u> <b>&lt;Cfg></b> <i>int</i>
+   <h4>Alternate</h4> <s></s>
+</div>
+Highlight odd or every N row by another color or class.<br />
+0 - no row, 1 - every row, 2 - every odd row, every third row, 3 - every fourth row, ...<br />
+By default it uses the Alternate color defined in the actual style in Grid.css.
+
+<!-- AlternateCount -->
+<a name="CfgAlternateCount"></a>
+<div class="XML">
+   <u>new <b>11.0</b></u> <b>&lt;Cfg></b> <i>int</i>
+   <h4>AlternateCount</h4> <s>[1]</s>
+</div>
+Count of colored rows in one group.<br />
+For example if set <tt>Alternate='5' AlternateCount='2'</tt> it will color: 3 normal, 2 alternate, 3 normal, 2 alternate, ...
+
+<!-- AlternateType -->
+<a name="CfgAlternateType"></a>
+<div class="XML">
+   <u>new <b>11.0</b></u> <b>&lt;Cfg></b> <i>int</i>
+   <h4>AlternateType</h4> <s>[0]</s>
+</div>
+Alternate coloring flags, bit array.<br />
+<table>
+<tr><td style="width:120px;"><b>1</b>. bit (&<b>1</b>)</td><td>If the expanded children coloring will be included in parent coloring. It will slow down expanding / collapsing, because it will always recolor the whole grid.</td></tr>
+<tr><td><b>2</b>. bit (&<b>2</b>)</td><td>If the root pages in server paging will be included in the other pages coloring. It will slow down loading pages, because it will always recolor the whole grid.</td></tr>
+</table>
+
+<!-- AlternateColor -->
+<a name="CfgAlternateColor"></a>
+<div class="XML">
+   <u>new <b>6.0</b></u> <b>&lt;I></b> <i>string</i>
+   <h4>AlternateColor</h4> <s></s>
+</div>
+Alternate (absolute) color to be used instead of default alternate color, if the row is odd or Nth.<br />
+It can be set as "240,240,240" or "rgb(240,240,240)" or "#F0F0F0" or "#FFF".<br />
+<i>Remember it is overridden by <a href="#CBackground">Background</a>, but not by <a href="#CColor">Color</a>.</I>
+
+<!-- AlternateClass -->
+<a name="CfgAlternateClass"></a>
+<div class="XML">    
+   <u>new <b>6.0</b></u> <b>&lt;I></b> <i>string</i>
+   <h4>AlternateClass</h4> <s></s>
+</div>               
+Alternate CSS class name(s) to be used instead of default alternate class, if the row is odd or Nth.
+
+<!-- ReColor -->
+<a name="ReColor"></a>
+<div class="API">
+   <u>new <b>7.0</b></u> <b>API method</b> <i>void</i>
+   <h4>ReColor</h4>
+   <s>( )</s>
+</div>
+Recolors the whole grid. Call it after change in Alternate settings.
+
+<!-----------------------------------------------------------------------  Cell mouse cursor  ------------------------------------------------->
+<a name="MouseCursor"></a>
+<h2>Cell mouse cursor</h2>
+                     
+<!-- Cursor -->
+<a name="CCursor"></a>
+<div class="XML">    
+   <u>new <b>6.0</b></u> <b>&lt;C> &lt;cell></b> <i>string</i>
+   <h4>Cursor</h4> <s></s>
+</div>               
+Mouse cursor displayed when mouse hovering the cell.<br />
+It can be standard CSS cursor name: <b>auto</b>, <b>crosshair</b>, <b>default</b>, <b>pointer</b>, <b>move</b>, <b>e-resize</b>, <b>ne-resize</b>, <b>nw-resize</b>, <b>n-resize</b>, <b>se-resize</b>, <b>sw-resize</b>, <b>s-resize</b>, <b>w-resize</b>, <b>text</b>, <b>wait</b>, <b>help</b>.<br />
+<i>It is ignored if cell content contains some CSS cursor setting.</i>
+
+<!-- XXXCursor -->
+<a name="CXXXCursor"></a>
+<div class="XML">    
+   <u>new <b>6.0</b></u> <b>&lt;C> &lt;cell></b> <i>string</i>
+   <h4>XXXCursor</h4> <s></s>
+</div>               
+Mouse cursor displayed when mouse hovering given cell event target. The XXX is actual cell event target under mouse cursor. If such cursor does not exist, the normal <a href="#CCursor">Cursor</a> is displayed.<br />
+The XXX can be any event target name, see <b>Actions and events</b>, for example EditInt, ButtonSave, SideDefaults, Side, Content and so on.<br />
+It is intended to show different cursor for part of the cell like side or tree button.
+
+<!-- Action CursorDefault -->
+<a name="ActionsCursorDefault"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorDefault<i></i></h4>
+   <s>Attached to many events, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "default" cursor.<br />
+By default it is attached to OnMouseOverPanelOff, OnMouseOverHeaderOff, OnMouseOverSpaceOff, OnMouseOverTree, OnMouseOverNoFocus, OnMouseOverReadOnly, OnMouseOverNothing.
+
+<!-- Action CursorPointer -->
+<a name="ActionsCursorPointer"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorPointer<i></i></h4>
+   <s>Attached to many events, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "pointer" / "hand" cursor.<br />
+By default it is attached to OnMouseOverButton, OnMouseOverPanel, OnMouseOverSide, OnMouseOverEditBool, OnMouseOverEditEnum, OnMouseOverEditRadio, OnMouseOverSort, OnMouseOverSortUp, OnMouseOverSortDown, OnMouseOverExpand.
+
+<!-- Action CursorText -->
+<a name="ActionsCursorText"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorText<i></i></h4>
+   <s>Attached to <b>OnMouseOverEditable</b>, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "text" cursor.
+
+<!-- Action CursorResize -->
+<a name="ActionsCursorResize"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorResize<i></i></h4>
+   <s>Attached to many events, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "e-resize" cursor.<br />
+By default it is attached to OnMouseOverHeaderLeft, OnMouseOverHeaderRight, OnMouseOverPagerHeaderRight.
+ 
+<!-- Action CursorResizeGrid -->
+<a name="ActionsCursorResizeGrid"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorResizeGrid<i></i></h4>
+   <s>Attached to <b>OnMouseOverResize</b>, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "nw-resize" cursor.
+
+<!-- Action CursorMove -->
+<a name="ActionsCursorMove"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorMove<i></i></h4>
+   <s>Attached to <b>OnMouseOverPanelMove</b>, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "move" cursor.
+
+<!-- Action CursorDrag -->
+<a name="ActionsCursorDrag"></a>
+<div class="ACT">
+   <u>new <b>6.0</b></u> <b>&lt;Actions></b> <i></i>
+   <h4>CursorDrag<i></i></h4>
+   <s>Attached to <b>OnDragOverCell</b>, can be attached only to <b>OnMouseOver</b> and <b>OnDragOver</b> events</s>
+</div>
+Sets "Drag.cur" cursor when there is no dragging active.<br /> 
+Otherwise sets a cursor according to dragging action.
+
+</div>
+</body>
+</html> 

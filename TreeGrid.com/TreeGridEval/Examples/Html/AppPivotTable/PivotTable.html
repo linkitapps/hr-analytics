@@ -1,0 +1,54 @@
+<html>
+   <head>
+      <script src="../../../Grid/GridE.js"> </script>
+      <title>2D Pivot table created dynamically on HTML page | TreeGrid</title>
+      <meta name="description" content="Live sample creates two dimensional Pivot table from source HTML table. Users can dynamically choose pivot columns for the pivot table by mouse dragging" />
+   </head>
+   <body class="Example">
+      <style>
+         /* Examples shared styles */
+         .Example { border-bottom:1px solid transparent; }
+         .Example .Desc b { color:#800; }
+         .Example .Desc a { text-decoration:underline; }      
+         .Example .Desc li { padding-bottom:8px; }
+         .Example .Desc ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font:13px Arial; }
+         .Example .Desc > ul { margin-left:0px; padding-left:15px; }
+         .Example h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+         .Example h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+         .Example h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example .Path { font:normal 16px Arial; color:blue; }
+         .Example .Path b { color:#800; }
+         .Example .Path i { color:black; font-style:normal; font-weight:bold; }
+         .Example .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+         .Example .Desc { margin:0px 5px 10px 5px; padding:5px; border:1px solid #AAA; }
+         .Example .Border { margin:0px 5px 15px 5px; clear:both; zoom:1; }
+         .Example .Main { background:#F8F8F8; }
+
+         /* Styles special for this example */
+         .Blue { color:blue; font-weight:bold; }
+
+      </style>
+      <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Examples\/|\/ExamplesGantt\/)([^\/]+)\/([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/<i>$4</i>/$5").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+      <h1>Pivot table</h1>
+      <h2>Two dimensional grouping of plain data into pivot table</h2>
+      <div class="Desc">
+         <div>Example creates two dimensional pivot table from plain data. Click to "Show master" button to see the source data.</div>
+         <div>In top row there are columns available as pivot sources. Drag them to the second row to set up the pivot columns, rows and data and click to <b>Create pivot</b> button.</div>
+         <div>In the third row there are buttons for creating, clearing and switching the pivot table. You can also choose some from predefined pivot settings from list to set up the pivot table.</div>
+         <div>You can modify the pivot or source table (edit cells, add, delete and move rows) and the second grid will be automatically updated accordingly. In real application the changes can be also saved to original database.</div>
+         <div>Colors in the pivot table: White background with blue font are the original data, they can be edited if they represent only one source row (not summary). Red background are immediate summaries, the others are summary summaries.  </div>
+         <div>Too large tables, with too many columns, don't permit expanding all columns, but only one column per higher level. To speed up the grid.</div>
+      </div>
+      <div class="Border">
+         <div class="Main" style='width:100%; height:350px; display:none; padding-bottom:5px;'>
+            <bdo debug='check' Layout_Url='CarsDef.xml' Data_Url='CarsData.xml'></bdo>
+         </div>
+
+         <div class="Main" style='width:100%; height:520px;'>
+            <bdo debug='check' Layout_Url='PivotDef.xml'></bdo>
+         </div>
+      </div>
+   </body>
+</html>

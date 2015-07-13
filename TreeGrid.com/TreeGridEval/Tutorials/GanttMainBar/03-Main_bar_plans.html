@@ -1,0 +1,87 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <style>
+
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; }
+      .Tutorial .Main { background:#F8F8F8; }
+
+      /* Custom icon for MilestoneClass "RedGif" */
+      .GMGanttRedGifMilestone { background:url(Red.gif) no-repeat; }
+      .GMGanttRedGifMilestoneHover { background:url(RedHover.gif) no-repeat; }
+
+      /* Custom icon for MilestoneClass "GreenGif" */
+      .GMGanttGreenGifMilestone { background:url(Green.gif) no-repeat; }
+      .GMGanttGreenGifMilestoneHover { background:url(GreenHover.gif) no-repeat; }
+
+      /* Custom icon for MilestoneClass "YellowGif" */
+      .GMGanttYellowGifMilestone { background:url(Yellow.gif) no-repeat; }
+      .GMGanttYellowGifMilestoneHover { background:url(YellowHover.gif) no-repeat; }
+
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>3. Main bar plans</h1>
+   <h2>More independent main bars or milestones in one row</h2>
+   <center class="Border">
+      <div class="Xml"><a href='03-Main_bar_plans.xml'>03-<h5>Main_bar_plans</h5>.xml</a></div>
+      <div class="Main" style='width:100%; height:250px;'>
+         <bdo Debug='check' Data_Url='03-Main_bar_plans.xml'></bdo>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+         There are five tutorials for Gantt task types and features:
+         <ul>
+            <li><a href='01-Main_bar.html'>1. Simple Main bar and Milestone</a> - Continuous bar or one milestone</li>
+            <li><a href='02-Main_bar_parts.html'>2. Main bar parts</a> - Discrete main bar with more milestones</li>
+            <li>3. Main bar plans - More independent main bars or milestones in one row</li>
+            <li><a href='../GanttRunBar/06-Run_bar_as_task.html'>6. Run bar as task</a> - Complex and extended Gantt task from individual parts</li>
+            <li><a href='../GanttRunBar/07-Run_box_as_task.html'>7. Run box as task</a> - Every Run box as independent Gantt task</li>
+         </ul>
+      </li>
+      <li>See documentation for <b><a href="../../Doc/GanttMain.htm">Main bar</a></b></li>
+      <li>
+         The count of main bar plans is defined by <h3>GanttCount</h3>. There is no limit of the plans count. The plans are independent.<br />
+      </li>
+      <li>
+         The individual plan attributes are defined by attributes with the plan number suffix. The first plan (0) has no suffix.<br />
+         For example there are GanttStart for plan 0, GanttStart1 for plan 1, GanttStart2 for plan 2 and so on. 
+     </li>
+     <li>
+         The individual plans can be defined as continuous by <h3>GanttStartX</h3> and <h3>GanttEndX</h3> or <h3>GanttDurationX</h3>.<br />
+         Or can be defined as discrete main bar by <h3>GanttParts</h3> attribute. <br />
+         It is possible to use different attributes to define the individual plans in one grid.
+     </li>
+     <li>
+         To support dependencies, resources, manual start, percentage completion and disabled / locked state there must be set <h3>GanttTask</h3> to the main bar plan like "<b>Main</b>", "<b>Main1</b>", "<b>Main2</b>", ... or for all plans as "<b>All</b>". 
+         Default setting is GanttTask="Main" = only the first main bar plan supports the task features.
+      </li>
+      <li>
+         By default it is not possible to drag dependencies between bars in different plans, to permit them, set <b>GanttDragDependenciesBetween</b>>=1.<br /> 
+         If there are more plans with possible dependencies, the dependency definition must contain the plan identification.
+      </li>
+      <li>
+         <i>For all the other attributes and usage see the previous tutorials <a href='01-Main_bar.html'>1. Simple Main bar and Milestone</a> or <a href='02-Main_bar_parts.html'>2. Main bar parts</a>.</i>
+      </li>
+   </ul>
+</body>
+</html>

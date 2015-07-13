@@ -1,0 +1,76 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <style>
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; }
+      .Tutorial .Main { background:#F8F8F8; }
+
+      /*Styles special to this example */
+      .Bold { font-size:12px; font-weight:bold; }
+
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>3. Simple master detail</h1>
+   <h2>Simple master detail relation as two plain tables with the same direction</h2>
+
+   <center class="Border">
+      <div style="width:785px;">
+         <div style="float:left; margin-right:20px;">
+            <div class="Xml" style='width:375px;'><a href='03-Master.xml'>03-<h5>Master</h5>.xml</a></div>
+            <div class="Main" style='width:375px; height:240px;'>
+               <bdo Debug='check' Data_Url='03-Master.xml'></bdo>
+            </div>
+         </div>
+         <div style="float:left;">
+            <div class="Xml" style='width:360px;'><a href='03-Detail.xml'>03-<h5>Detail</h5>.xml</a></div>
+            <div class="Main" style='width:360px; height:240px;'>
+               <bdo Debug='check' Data_Url='03-Detail.xml'></bdo>
+            </div>
+         </div>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+         Data rows in master detail relation are always defined only in master grid. Changes in both tables are also uploaded only from master grid.<br />
+         <b style='color:black;'>In simple relation are detail data defined as children of master rows.</b><br />
+      </li>
+      <li>
+         In the master rows set attribute <h3>Detail</h3> to id of the detail grid. All rows with this attribute set are marked as master rows.<br />
+         All other rows in master grid without this attribute behave as normal rows.
+      </li>
+      <li>
+         In master grid define all the master rows as <b>Expanded='0' CanExpand='0'</b> to not show the detail children in master grid.
+      </li>
+      <li>
+         In master grid define also the detail columns, define them as <b>Visible='0' CanHide='0'</b> to not show them in master grid.<br />
+         In detail grid define the same detail columns normally.
+      </li>
+      <li>
+         In master grid define Cfg attribute <h3>DetailOn</h3> to specify when the detail grid will be filled: 0 - never, 1 - on focus to master row, 2 - on click to master row, 3 - on double click on master row.<br />
+      </li>
+      <li>
+         In detail grid define attribute <b>Detail='1'</b> to mark it as detail grid to behave sligtly differently than normal grid.
+      </li>
+
+   </ul>
+</body>
+</html>

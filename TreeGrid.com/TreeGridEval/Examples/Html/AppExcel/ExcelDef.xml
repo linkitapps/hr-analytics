@@ -1,0 +1,129 @@
+<Grid>
+   <!--- Grid configuration -->
+   <Cfg id="Excel"/>          <!-- Base grid name-->
+   <Cfg SuppressCfg="1"/>     <!-- Does not save configuration to cookies -->
+   <Cfg Style="Modern"/>      <!-- Uses Modern CSS style -->
+   <Cfg AutoIdPrefix="" />    <!-- The row ids are generated automatically, here clears the default auto id prefix to be the ids just numbers from 1 -->
+   <Cfg ConstWidth="0"/>      <!-- The grid never shrinks so much to use cost width -->
+   <Cfg Focused="8" FocusedCol="F" FocusedRect="6,E,10,I"/> <!-- Predefined focused area -->
+   <Cfg MaxHeight="1"/>       <!-- Maximizes the main tag height. Use it only in simple pages like this one. On complex pages it can cause various problems -->
+   <Cfg Paging="2" PageLength="10" MaxPages="2"/>  <!-- Defines row paging, splits the default data by 10 rows. Clears all the invisible pages except remaining two ones -->
+   <Cfg ColPaging="2" ColPageMin="10" ColPageLength="10" MaxColPages="5"/> <!-- Defines column paging, splits the default data by 10 columns, the first column page has also 10 columns. Clears all the invisible pages except remaining five ones -->
+   <Cfg ColMoving="0"/>       <!-- Cannot change order of the column -->
+   <Cfg SelectingCells="1"/>  <!-- Permits selecting cells or cell ranges (not only rows) -->
+   <Cfg SelectingFocus="2"/>  <!-- Automatically selects focused cells -->
+   <Cfg SelectClass="0"/>     <!-- Marks selected cells only by background color, does not apply CSS class to speed up the selecting -->
+   <Cfg AutoFillType="7"/>    <!-- When filling cell values by dragging, permits calculating them in sequence, if not possible to copy them. For smaller area clears the outside source cells -->
+   <Cfg MoveFocusType="3"/>   <!-- When moving focused cells by dragging focused edge, moves the cell values, overwrites the destination values, clears the source values, moves also single cell -->
+   <Cfg CopySelected="0" CopyFocused="1" CopyCols="0" PasteSelected="0" PasteFocused="3" /> <!-- Controls copy & paste via clipboard. Copies only focused cells, pasted values to first focused and right and below -->
+   <Cfg Undo="63"/>           <!-- Enables full undo, values, resizing, focusing, selecting -->
+   <Cfg ColorCursor="15"/>    <!-- Highlights actual mouse position, focus and selection in top header and left id column -->
+   <Cfg DynamicSpan="1"/>     <!-- Permits spanning cell ranges and splitting spanned cells dynamically -->
+   <Cfg ShowButtons="3"/>     <!-- Shows both text and icon in toolbar buttons and all custom button with both text and icon defined -->
+   <Cfg StaticCursor="1"/>    <!-- Does not remove the focus from cells when grid loses key focus -->
+   <Cfg DragEdit="1"/>        <!-- Permits start dragging when in edit mode -->
+   <Cfg EditSelect="0"/>      <!-- Does not select cell text on start editing -->
+   <Cfg TabStop="0"/>         <!-- The tab key does go inside and outside the grid from / to other control on page -->
+   <Cfg AcceptEnters="6"/>    <!-- When editing, Enter finishes editing and Ctrl/Shift/Alt puts new line (LF) into text -->
+   <Cfg FocusCellBorderCursor="1"/> <!-- Shows mouse move cursor when it is above focused cells edge - to be the focused area moved by mouse dragging -->
+   <Cfg ExportCols="0"/>      <!-- Does not show menu when exporting to XLS -->
+   <Cfg PrintPaddingHeight="20" PrintPaddingWidth="10"/> <!-- Reserved space for PrintPagePrefix / Postfix a and for default body margin and padding -->
+   <Cfg PrintPaddingHeightFirst="50"/> <!-- Reserved space for sample header printed only to the first page -->
+
+   <!-- Grid mouse and key action schema -->
+   <Actions OnDragRow="FocusCells"/>                      <!-- Focus cells area by mouse dragging -->
+   <Actions OnDrag1Row="FocusCells OR Scroll"/>           <!-- Focus cells area on tablet by dragging focused cell or scroll the sheet -->
+   <Actions OnDragCorner="FocusFillRowCol"/>              <!-- Auto fill cell values by mouse dragging in one direction, the direction is chosen automatically -->
+   <Actions OnDrag1Corner="FocusFillRowCol"/>             <!-- Auto fill cell values on tablet by dragging in one direction, the direction is chosen automatically -->
+   <Actions OnDragLeftEdge="MoveFocus" OnDragRightEdge="MoveFocus" OnDragTopEdge="MoveFocus" OnDragBottomEdge="MoveFocus"/> <!-- Moves the focused cell by mouse dragging the focused border -->
+   <Actions OnDrag1LeftEdge="MoveFocus" OnDrag1RightEdge="MoveFocus" OnDrag1TopEdge="MoveFocus" OnDrag1BottomEdge="MoveFocus"/>  <!-- Moves the focused cell on tablet by dragging the focused border -->
+   <Actions OnMouseOverEditable="Grid.MouseCursor('url(Icons/aero_prec.cur),default')"/> <!-- Shows custom mouse cursor (the Excel cross) over all data cells -->
+   <Actions OnDel="ClearSelectedCells(Grid);"/> <!-- Clears all selected cells' value when pressing Del key -->
+   <Actions OnClickCell="Focus"/>               <!-- On click to cell, focuses this only cell, but does not start editing on single click -->
+   <Actions OnEnterEdit='AcceptEdit AND TabDownEdit,1' OnEnter='TabDownEdit' OnShiftEnter='TabUpEdit'/> <!-- Enter moves the cursor down (with shift up) inside the focused area or forever for single cell -->
+
+   <Def>
+      <!-- Default row for all rows with cells (data and header) -->
+      <D Name="R" Height="20" MinHeight="20"/>  <!-- Sets minimal default height of all rows to 20 pixels --> 
+      <D Name="R" HoverCell="" HoverRow=""/>    <!-- Does not color the cells and rows under mouse cursor -->
+      <D Name="R" FocusRow="" FocusCell="Border,Color,Class,Corner"/> <!-- Does not color focused row, but colors and sets border to focused cells and cell areas -->
+      <D Name="R" NoColorState="1"/>            <!-- Does not color changes cells and rows -->
+      <D Name="R" CanDelete="0"/>               <!-- Cannot delete rows -->
+      <D Name="R" VAlign="Bottom"/>             <!-- Default vertical align is bottom -->
+
+      <!-- Default row for all space rows without cells (toolbars) -->
+      <D Name="Solid" HoverCell=""/>            <!-- Does not color the cells under mouse cursor -->
+
+   </Def>
+
+   <DefCols>
+      <!-- Default column for all columns in data rows (but not in header) -->
+      <D Name="C" Type="Lines"/>                <!-- Default type of all data cells in grid is set to multiline --> 
+      <D Name="C" Width="64"/>                  <!-- Default width of all columns is 64 pixels -->
+      <D Name="C" Edit="{OnChange:CellChanged}"/> <!-- When editing, calls the CellChanged custom function after every change in the input text -->
+   </DefCols>
+
+   <LeftCols>
+      <!-- Left fixed column with row numbers. It is named id to show row id attribute -->
+      <C Name="id" Align="Center"/>             <!-- The numbers are horizontally centered -->
+      <C Name="id" Width="26"/>                 <!-- Width of the column in pixels -->
+      <C Name="id" Class="ID"/>                 <!-- Custom CSS class to change the column look to MS Excel like -->
+      <C Name="id" HoverCell="Color"/>          <!-- Colors the cell under mouse cursor -->
+      <C Name="id" CanFocus="0" CanSelect="0"/> <!-- Cannot focus or select the cells in the column -->
+      <C Name="id" Resizing="1"/>               <!-- Permits resizing rows by dragging top or bottom edge of cells in this column -->
+      <C Name="id" ColorCursor="31"/>           <!-- Colors the cell if the row contains some focused or selected cells or it is hovered by mouse -->
+      <C Name="id" MenuName="Index"/>           <!-- Under this name is the column shown in print and other columns menus-->
+      <C Name="id" CanPrint="2"/>               <!-- The column is printed on every horizontal page, not only on the first one -->
+      <C Name="id" CanExport="0"/>              <!-- The column is not exported to XLS -->
+      <C Name="id" OnClick="FocusWholeRow"/>    <!-- Focus the whole row on click to the cell -->
+   </LeftCols>
+
+   <!-- Top fixed header with column names. It is TreeGrid default header -->
+   <Header idVisible=""/>                       <!-- Hides cell value in the top left cell -->
+   <Header idClass="HEADERID"/>                 <!-- Custom CSS class for the top left cell to change the cell look to MS Excel like -->
+   <Header idOnClick="FocusWholeGrid"/>         <!-- Focus the whole grid on click to the top left cell -->
+   <Header Align="Center"/>                     <!-- All the header cell values are horizontally centered -->
+   <Header SortIcons="0"/>                      <!-- Hides the TreeGrid sorting icons -->
+   <Header Height="19"/>                        <!-- The header height is 19 pixels -->
+   <Header HoverRow="" HoverCell="Color" />     <!-- Does not color the whole row on mouse hover, but colors the cell under mouse -->
+   <Header ColorCursor="31"/>                   <!-- Colors the header cell if the column contains some focused or selected cells or it is hovered by mouse -->
+   <Header OnClick="FocusWholeCol"/>            <!-- Focus the whole column on click to the cell -->
+   <Header CanExport="0"/>                      <!-- The header is not exported to XLS -->
+
+   <Panel Visible="0"/>                         <!-- Hides TreeGrid default row panel -->
+   <Pager Visible="0"/>                         <!-- Hides TreeGrid default side pager -->
+
+   <Solid>
+      <!-- Top toolbar with control buttons -->
+      <Toolbar id="Toolbar" Space="0" IconAlign="Top" VAlign="Bottom" Styles="2" StyleComboList="{Header:'',Items:'Standard,Light,Office,Modern,Borders,Query,ExtJS,Round,Plain,Colors'}"
+         Cells="Save,Reload,Repaint,Print,ExportPDF,Export,Undo,Redo,Join,Split,Debug,ALIGN,VALIGN,BOLD,ITALIC,UNDERLINE,BORDER,RPOPUP,BACKGROUND,BPOPUP,COLOR,CPOPUP,StyleTitle,StyleCombo"
+         RepaintButtonText="Shrink" RepaintOnClick="ShrinkGrid(Grid)"
+         ALIGNType="Radio" ALIGNEnum="|Left|Center|Right" ALIGNEnumKeys="|0|1|2" ALIGNWrap="2" ALIGNCanFocus="0" ALIGNRadioUncheck="1" ALIGNLeft="5"
+         ALIGNRadioIcon="|Icons/Left.gif|Icons/Left1.gif|Icons/Center.gif|Icons/Center1.gif|Icons/Right.gif|Icons/Right1.gif"
+         VALIGNType="Radio" VALIGNEnum="|Top|Middle|Bottom" VALIGNEnumKeys="|0|1|2" VALIGNWrap="2" VALIGNCanFocus="0" VALIGNLeft="1"
+         VALIGNRadioIcon="|Icons/Top.gif|Icons/Top1.gif|Icons/Middle.gif|Icons/Middle1.gif|Icons/Bottom.gif|Icons/Bottom1.gif"
+         BOLDType="Button" BOLDButton="Html" BOLDButtonText="B" BOLDClass="BOLD" BOLDWidth="18" BOLDLeft="5" BOLDOnClickButton="ChangeFont(Grid,'Bold')"
+         ITALICType="Button" ITALICButton="Html" ITALICButtonText="I" ITALICClass="ITALIC" ITALICWidth="18" ITALICOnClickButton="ChangeFont(Grid,'Italic')"
+         UNDERLINEType="Button" UNDERLINEButton="Html" UNDERLINEButtonText="U" UNDERLINEClass="UNDERLINE" UNDERLINEWidth="18" UNDERLINEOnClickButton="ChangeFont(Grid,'Underline')"
+         BORDERType="Button" BORDERIcon="Icons/Border.gif" BORDERWidth="17" BORDERLeft="5" BORDEROnClick="ChangeBorder(Grid,Row.BORDERClass,Row.BORDERIcon)"
+         RPOPUPType="Button" RPOPUPIcon="Icons/Popup.gif" RPOPUPWidth="15" RPOPUPList="{ Header:'', ShowCursor:0, OnSave:ChooseBorder, Position:{Align:'left,below'}, Items:MenuBorders}"
+         BACKGROUNDType="Button" BACKGROUNDIcon="Icons/Fill.gif" BACKGROUNDWidth="20" BACKGROUNDClassInner="BYellow" BACKGROUNDClassInnerIcon="1" BACKGROUNDOnClick="ChangeBackground(Grid,Row.BACKGROUNDClassInner.slice(1))"
+         BPOPUPType="Button" BPOPUPIcon="Icons/Popup.gif" BPOPUPWidth="10" BPOPUPList="{ Header:'', ShowCursor:0, OnSave:ChooseBackground, Position:{Align:'right,below'}, Items:MenuColors }"
+         COLORType="Button" COLORIcon="Icons/Color.gif" COLORWidth="20" COLORClassInner="BRed" COLORClassInnerIcon="1" COLOROnClick="ChangeColor(Grid,Row.COLORClassInner.slice(1))"
+         CPOPUPType="Button" CPOPUPIcon="Icons/Popup.gif" CPOPUPWidth="10" CPOPUPList="{ Header:'', ShowCursor:0, OnSave:ChooseColor, Position:{Align:'right,below'}, Items:MenuColors }"
+         StyleModernWidth="50"
+         />
+
+      <!-- The second top bar with focus and edit cell -->
+      <Topbar id="Edit" Cells="FOCUS,EDIT" Space="0" MaxHeight="13" CanResize="2" CanFocus="2" CanPrint="0"
+         OnDblClick="1" OnMouseOverEditable="CursorText,1"
+         FOCUSType="Text" FOCUSOnClick="StartEditCellEmpty,1" FOCUSEdit="{}" FOCUSOnEnter="AcceptEdit"
+         EDITType="Text" EDITRelWidth="1" EDITLeft="24" OnClick="StartEditCell,1" EDITEdit="{OnChange:EditChanged}" EDITResizing="1"
+         />
+   </Solid>
+
+   <!-- Changes in TreeGrid language texts -->
+   <Lang>
+      <Text PrintCaption="Print options" ExportCaption="Export options"/> <!-- Captions in print and export/export pdf menus -->
+   </Lang>
+</Grid>

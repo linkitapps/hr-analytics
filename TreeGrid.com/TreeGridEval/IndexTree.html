@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>TreeGrid - Examples</title>
+   <style>
+      .Tree { padding-left:5px; font-family:arial; }
+      .Tree h5 { font-size:20px; padding:5px 0px 5px 5px; margin:0px; }
+      .Tree div { background:url(Doc/ArrowBlue.png) left center no-repeat; padding-left:14px; margin-bottom:3px; font-size:12px; cursor:pointer; white-space:nowrap; }
+      .Tree div.TreeExpanded { background:url(Doc/ArrowBlueDown.png) left center no-repeat; color:#019BD9; }
+      .Tree div:hover { text-decoration: none; color:blue; }
+      .Tree a.TreeActive { color:#019BD9!important; text-decoration: underline!important; }
+      .Tree a { display:block; text-decoration: none!important; color:black!important; font-size:12px; padding-left:14px; margin-bottom:3px; white-space:nowrap; }
+      .Tree a:hover { text-decoration: underline!important; color:blue!important; }
+      .Tree a.Deprecated { color:#999!important; }
+      .Tree span { font-size:10px; }
+      .Tree p { display:none; padding:5px 0px 10px 0px; margin:0px; }
+      .Tree i { display:none; padding:10px 0px 10px 14px; font-style:normal; font-size:12px; }
+      .Tree u  { height:20px; width:20px; overflow:hidden; display:block; cursor:pointer; float:right; }
+      .Tree a[target="_top"] { padding:5px 0px 0px 16px; color:blue!important; font-size:12px; }
+      .Tree .Sep { padding-top:4px; border-top:1px solid #CCC; }
+   </style>
+</head>
+<body>
+   <div>
+      <div id="Tree" class="Tree">
+         <a href='Index.html' target="_top">Back to Package index</a>
+         <a href='Doc/Index.html' target="_top">Show Documentation</a>
+         
+         <h5>Local examples</h5>
+         <div onclick="Expand(this)">Basic AJAX <span>communication</span></div><p>
+            <a href='Examples/Html/BasicAjax/First.html'>Complex grid - the first one</a>
+            <a href='Examples/Html/BasicAjax/FirstJson.html'>Complex grid - <b>JSON</b> version</a>
+            <a href='Examples/Html/BasicAjax/Books.html'>Multiline &amp; images - books</a>
+            <a href='Examples/Html/BasicAjax/Large.html'>Large table without paging</a>
+            <a href='Examples/Html/BasicAjax/Table.html'>Positions and spanning</a>
+            <a href='Examples/Html/BasicAjax/Ajax.html'>Calculated tree - a bill</a>
+         </p>
+         <div onclick="Expand(this)">Form submit <span>communication</span></div><p>
+            <a href='Examples/Html/BasicSubmit/Submit.html'>Calculated tree - a bill</a>
+         </p>
+         <div onclick="Expand(this)">Grid applications</div><p>
+            <a href='Examples/Html/AppExcel/Excel.html'>MS Excel - CSS, API, focus</a>
+            <a href='Examples/Html/AppPivotTable/PivotTable.html'>PivotTable - 2D grouping</a>
+            <a href='Examples/Html/AppEshop/Eshop.html'>E-shop with Extended API</a>
+            <a href='Examples/Html/AppPhoto/Photo.html'>Photo album - images</a>
+         </p>
+         <div onclick="Expand(this)">External objects <span>like Flash</span></div><p>
+            <a href='Examples/Html/ExtObjects/Flash.html'>Dynamic Adobe Flash</a>
+            <a href='Examples/Html/ExtObjects/SilverLight.html'>Dynamic MS SilverLight</a>
+         </p>
+         <div onclick="Expand(this)">Extended API</div><p>
+            <a href='Examples/Html/EAPI/EAPI.html'>Extended JavaScript API</a>
+         </p>
+
+         <div onclick="Expand(this)" class="Sep">Gantt chart</div><p>
+            <a href='ExamplesGantt/Html/Gantt/Gantt.html'>Gantt &amp; Network chart</a>
+            <a href='ExamplesGantt/Html/Gantt/GanttJson.html'>Gantt &amp; Network chart - <b>JSON</b></a>
+            <a href='ExamplesGantt/Html/Gantt/GanttSimple.html'>Simple Gantt chart</a>
+            <a href='ExamplesGantt/Html/Gantt/GanttBig.html'>Big Gantt chart - 1000 rows</a>
+            <a href='ExamplesGantt/Html/Gantt/GanttTree.html'>Gantt chart tree by grouping</a>
+            <a href='ExamplesGantt/Html/Gantt/GanttResources.html'>Resources usage chart</a>
+         </p>
+         <div onclick="Expand(this)">Bar (run) chart</div><p>
+            <a href='ExamplesGantt/Html/Run/Run.html'>Run chart - bar chart</a>
+            <a href='ExamplesGantt/Html/Run/RunGroup.html'>Grouping bars - run groups</a>
+         </p>
+         <div onclick="Expand(this)">Line chart</div><p>
+            <a href='ExamplesGantt/Html/LineChart/Chart.html'>Line chart and XY charts</a>
+         </p>
+
+         <h5>Grid tutorials</h5>
+         <div onclick="Expand(this)">Basic <span>(rows and columns)</span></div><p>
+            <a href='Tutorials/Basic/01-Basic_grid.html'>1. Basic grid</a>
+            <a href='Tutorials/Basic/02-Rows.html'>2. Rows</a>
+            <a href='Tutorials/Basic/03-Columns.html'>3. Columns</a>
+            <a href='Tutorials/Basic/04-Default_rows_and_columns.html'>4. Default rows, columns</a>
+            <a href='Tutorials/Basic/05-Rows_manipulation.html'>5. Rows manipulation</a>
+            <a href='Tutorials/Basic/06-Rows_identification.html'>6. Rows identification</a>
+         </p>                                                                         
+         <div onclick="Expand(this)">Cells <span>(types, formats, edit)</span></div><p>
+            <a href='Tutorials/Cells/01-Edits.html'>1. Edits - inputs &amp; multiline</a>
+            <a href='Tutorials/Cells/02-Combos_and_Checkboxes.html'>2. Combos &amp; checkboxes</a>
+            <a href='Tutorials/Cells/03-HTML_and_Buttons.html'>3. Html, links, imgs, buttons</a>
+            <a href='Tutorials/Cells/04-Space_Buttons.html'>4. Space buttons &amp; tabs</a>
+            <a href='Tutorials/Cells/05-Permissions_and_Validation.html'>5. Permissions &amp; validation</a>
+            <a href='Tutorials/Cells/06-Cell_style.html'>6. Cell CSS style &amp; color</a>
+            <a href='Tutorials/Cells/07-Conditional_Formatting.html'>7. Conditional formatting</a>
+            <a href='Tutorials/Cells/08-Custom_controls.html'>8. Custom controls &amp; editing</a>
+            <a href='Tutorials/Cells/09-Cell_events.html'>9. Events &amp; custom dialogs</a>
+            <a href='Tutorials/Cells/10-Span.html'>10. Column &amp; row spanning</a>
+            <a href='Tutorials/Cells/11-Dynamic_Span.html'>11. Dynamic cell spanning</a>
+         </p>
+
+         <div onclick="Expand(this)">Tree <span>(rows, columns, groups)</span></div><p>
+            <a href='Tutorials/Tree/01-Row_tree.html'>1. Row tree</a>
+            <a href='Tutorials/Tree/02-Column_tree.html'>2. Column tree</a>
+            <a href='Tutorials/Tree/03-Grouping_rows.html'>3. Grouping rows to tree</a>
+         </p>
+
+         <div onclick="Expand(this)">Sorting rows</div><p>
+            <a href='Tutorials/Sort/01-Sorting_rows.html'>1. Sorting rows</a>
+         </p>
+
+         <div onclick="Expand(this)">Filter and search</div><p>
+            <a href='Tutorials/Filter/01-Filtering_rows.html'>1. Filtering rows</a>
+            <a href='Tutorials/Filter/02-Filtering_in_tree.html'>2. Filtering in tree</a>
+            <a href='Tutorials/Filter/03-Search_and_advanced_filters.html'>3. Search &amp; advanced filters</a>
+         </p>
+
+         <div onclick="Expand(this)">Dragging</div><p>
+            <a href='Tutorials/Drag/01-Dragging_rows.html'>1. Dragging rows</a>
+            <a href='Tutorials/Drag/02-Dragging_rows_between_grids.html'>2. Dragging between grids</a>
+            <a href='Tutorials/Drag/03-Dragging_external_tag.html'>3. Dragging external tag</a>
+         </p>
+
+         <div onclick="Expand(this)">Paging <span>(rows, tree, columns)</span></div><p>
+            <a href='Tutorials/Paging/01-Client_root_paging.html'>1. Client root paging</a>
+            <a href='Tutorials/Paging/02-Client_child_paging.html'>2. Client child paging</a>
+            <a href='Tutorials/Paging/03-Client_column_paging.html'>3. Client column paging</a>
+            <a href='Tutorials/Paging/04-All_client_paging.html'>4. All client paging</a>
+            <a href='Tutorials/Paging/05-Adding_pages.html'>5. Adding pages dynamically</a>
+            <a href='Tutorials/Paging/06-Server_root_paging.html'>6. Server root paging</a>
+            <a href='Tutorials/Paging/07-Server_child_paging.html'>7. Server child paging</a>
+            <a href='Tutorials/Paging/08-All_server_paging.html'>8. All server paging</a>
+         </p>
+
+         <div onclick="Expand(this)">Master and detail</div><p>
+            <a href='Tutorials/MasterDetail/01-Nested_detail_simple.html'>1. Nested detail simple</a>
+            <a href='Tutorials/MasterDetail/02-Nested_detail_tables.html'>2. Nested detail tables</a>
+            <a href='Tutorials/MasterDetail/03-Master_detail_simple.html'>3. Master detail simple</a>
+            <a href='Tutorials/MasterDetail/04-Master_detail_tables.html'>4. Master detail tables</a>
+            <a href='Tutorials/MasterDetail/05-Master_detail_more_tables.html'>5. Master detail more tables</a>
+            <a href='Tutorials/MasterDetail/06-Master_detail_tables_in_tree.html'>6. Master detail in tree</a>
+            <a href='Tutorials/MasterDetail/07-Master_detail_trees.html'>7. Master detail trees</a>
+         </p>
+               
+         <h5>Gantt tutorials</h5>
+         <div onclick="Expand(this)">Main bar <span>(Gantt chart)</span></div><p>
+            <a href='Tutorials/GanttMainBar/01-Main_bar.html'>1. Main bar</a>
+            <a href='Tutorials/GanttMainBar/02-Main_bar_parts.html'>2. Discrete main bar</a>
+            <a href='Tutorials/GanttMainBar/03-Main_bar_plans.html'>3. Main bar plans</a>
+            <a href='Tutorials/GanttMainBar/04-Summary_tasks.html'>4. Summary tasks</a>
+         </p>
+
+         <div onclick="Expand(this)">Run bar <span>(Bar chart)</span></div><p>
+            <a href='Tutorials/GanttRunBar/01-Run_array_definition.html'>1. Run array definition</a>
+            <a href='Tutorials/GanttRunBar/02-Run_JSON_definition.html'>2. Run JSON definition</a>
+            <a href='Tutorials/GanttRunBar/03-Run_summary_definition.html'>3. Run summary definition</a>
+            <a href='Tutorials/GanttRunBar/04-Run_drag.html'>4. Run drag</a>
+            <a href='Tutorials/GanttRunBar/05-Run_groups_and_API.html'>5. Run groups &amp; API</a>
+            <a href='Tutorials/GanttRunBar/06-Run_bar_as_task.html'>6. Run bar as task</a>
+            <a href='Tutorials/GanttRunBar/07-Run_box_as_task.html'>7. Run box as task</a>
+            <a href='Tutorials/GanttRunBar/08-Network_diagram.html'>8. Network diagram</a>
+            <a href='Tutorials/GanttRunBar/09-Run_join_and_drag.html'>9. Run join and drag</a>
+         </p>
+
+         <div onclick="Expand(this)">Flags and points</div><p>
+            <a href='Tutorials/GanttIcons/01-Flags.html'>1. Flags</a>
+            <a href='Tutorials/GanttIcons/02-Points.html'>2. Points</a>
+         </p>
+
+         <div onclick="Expand(this)">Display, zoom, paging</div><p>
+            <a href='Tutorials/GanttDisplay/01-Header_and_Background.html'>1. Header &amp; background</a>
+            <a href='Tutorials/GanttDisplay/02-Zoom.html'>2. Zoom</a>
+            <a href='Tutorials/GanttDisplay/03-Paging.html'>3. Paging</a>
+         </p>
+
+         <div onclick="Expand(this)">Dependencies <span> &amp; scheduling</span></div><p>
+            <a href='Tutorials/GanttDependencies/01-Constraints.html'>1. Constraints</a>
+            <a href='Tutorials/GanttDependencies/02-Dependencies.html'>2. Dependencies</a>
+            <a href='Tutorials/GanttDependencies/03-Schedule_tasks.html'>3. Schedule tasks</a>
+            <a href='Tutorials/GanttDependencies/04-Critical_path.html'>4. Critical path</a>
+         </p>
+
+         <div onclick="Expand(this)">Calendars</div><p>
+            <a href='Tutorials/GanttCalendars/01-Calendars_exclude.html'>1. Calendars exclude</a>
+         </p>
+
+         <div onclick="Expand(this)">Resources</div><p>
+            <a href='Tutorials/GanttResources/01-Resources.html'>1. Resources</a>
+            <a href='Tutorials/GanttResources/02-Availability.html'>2. Availability</a>
+         </p>
+
+         <h5>Server examples</h5>
+         <div onclick="Expand(this)">ASP.NET C#</div><i>
+            <div onclick="Expand(this)">Basic AJAX <span>communication</span></div><p>
+               <a href='Examples/AspNetCS/BasicAjax/DataTable.html'>DataTable access SQL</a>
+               <a href='Examples/AspNetCS/BasicAjax/DbCommand.html'>DbCommand access SQL</a>
+               <a href='Examples/AspNetCS/BasicAjax/Framework.html'>ASP.NET framework script</a>
+               <a href='Examples/AspNetCS/BasicAjax/FrameworkAspStyle.html'>Page in old ASP style</a>
+               <a href='Examples/AspNetCS/BasicAjax/CodeBehind.html'>Page with code behind</a>
+               <a href='Examples/AspNetCS/BasicAjax/Service.html'>ASP.NET web service</a>
+               <a href='Examples/AspNetCS/BasicAjax/TreeFramework.html'>Tree in SQL database</a>
+               <a href='Examples/AspNetCS/BasicAjax/API.html'>API for data communication</a>
+            </p>
+            <div onclick="Expand(this)">Form submit <span>communication</span></div><p>
+               <a href='Examples/AspNetCS/BasicSubmit/DataTable.aspx'>DataTable access SQL</a>
+               <a href='Examples/AspNetCS/BasicSubmit/DbCommand.aspx'>DbCommand access SQL</a>
+               <a href='Examples/AspNetCS/BasicSubmit/Framework.aspx'>ASP.NET framework script</a>
+               <a href='Examples/AspNetCS/BasicSubmit/FrameworkAspStyle.aspx'>Page in old ASP style</a>
+               <a href='Examples/AspNetCS/BasicSubmit/CodeBehind.aspx'>Page with code behind</a>
+               <a href='Examples/AspNetCS/BasicSubmit/TreeFramework.aspx'>Tree in SQL database</a>
+            </p>
+            <div onclick="Expand(this)">Grid applications</div><p>
+               <a href='Examples/AspNetCS/AppGrid/Grid.html'>Grid from database table</a>
+               <a href='Examples/AspNetCS/AppSchools/Schools.html'>School list and ratings</a>
+               <a href='Examples/AspNetCS/AppBrowser/Browser.html'>File browser</a>
+            </p>
+            <div onclick="Expand(this)">Server paging</div><p>
+               <a href='Examples/AspNetCS/Paging/SortingExport.html'>Save, sorting and export</a>
+               <a href='Examples/AspNetCS/Paging/Grouping.html'>Grouping</a>
+               <a href='Examples/AspNetCS/Paging/GroupingChild.html'>Grouping and child paging</a>
+            </p>
+            <div onclick="Expand(this)">Server paging with DLL</div><p>
+               <a href='Examples/AspNetCS/PagingDLL/DataTable.html'>DataTable access SQL</a>
+               <a href='Examples/AspNetCS/PagingDLL/DbCommand.html'>DbCommand access SQL</a>
+               <a href='Examples/AspNetCS/PagingDLL/File.html'>Complex XML file</a>
+               <a href='Examples/AspNetCS/PagingDLL/FileSharing.html'>Sharing &amp; synchronization</a>
+            </p>
+            <div onclick="Expand(this)" class="Sep">Gantt chart</div><p>
+               <a href='ExamplesGantt/AspNetCS/Gantt/GanttBasicDB.html'>Gantt SQL database basic</a>
+               <a href='ExamplesGantt/AspNetCS/Gantt/GanttTreeDB.html'>Gantt SQL database tree</a>
+               <a href='ExamplesGantt/AspNetCS/Gantt/GanttTreeFile.html'>Gantt XML file tree</a>
+            </p>
+            <div onclick="Expand(this)">Bar (run) chart</div><p>
+               <a href='ExamplesGantt/AspNetCS/Run/RunDB.html'>Gantt Run SQL database</a>
+               <a href='ExamplesGantt/AspNetCS/Run/RunFile.html'>Gantt Run XML file</a>
+            </p>
+         </i>
+
+         <div onclick="Expand(this)">ASP.NET VB</div><i>
+            <div onclick="Expand(this)">Basic AJAX <span>communication</span></div><p>
+               <a href='Examples/AspNetVB/BasicAjax/DataTable.html'>DataTable access SQL</a>
+               <a href='Examples/AspNetVB/BasicAjax/DbCommand.html'>DbCommand access SQL</a>
+               <a href='Examples/AspNetVB/BasicAjax/Framework.html'>ASP.NET framework script</a>
+               <a href='Examples/AspNetVB/BasicAjax/FrameworkAspStyle.html'>Page in old ASP style</a>
+               <a href='Examples/AspNetVB/BasicAjax/CodeBehind.html'>Page with code behind</a>
+               <a href='Examples/AspNetVB/BasicAjax/Service.html'>ASP.NET web service</a>
+               <a href='Examples/AspNetVB/BasicAjax/TreeFramework.html'>Tree in SQL database</a>
+               <a href='Examples/AspNetVB/BasicAjax/API.html'>API for data communication</a>
+            </p>
+            <div onclick="Expand(this)">Form submit <span>communication</span></div><p>
+               <a href='Examples/AspNetVB/BasicSubmit/DataTable.aspx'>DataTable access SQL</a>
+               <a href='Examples/AspNetVB/BasicSubmit/DbCommand.aspx'>DbCommand access SQL</a>
+               <a href='Examples/AspNetVB/BasicSubmit/Framework.aspx'>ASP.NET framework script</a>
+               <a href='Examples/AspNetVB/BasicSubmit/FrameworkAspStyle.aspx'>Page in old ASP style</a>
+               <a href='Examples/AspNetVB/BasicSubmit/CodeBehind.aspx'>Page with code behind</a>
+               <a href='Examples/AspNetVB/BasicSubmit/TreeFramework.aspx'>Tree in SQL database</a>
+            </p>
+            <div onclick="Expand(this)">Grid applications</div><p>
+               <a href='Examples/AspNetVB/AppGrid/Grid.html'>Grid from database table</a>
+               <a href='Examples/AspNetVB/AppSchools/Schools.html'>School list and ratings</a>
+               <a href='Examples/AspNetVB/AppBrowser/Browser.html'>File browser</a>
+            </p>
+            <div onclick="Expand(this)">Server paging</div><p>
+               <a href='Examples/AspNetVB/Paging/SortingExport.html'>Save, sorting and export</a>
+               <a href='Examples/AspNetVB/Paging/Grouping.html'>Grouping</a>
+               <a href='Examples/AspNetVB/Paging/GroupingChild.html'>Grouping and child paging</a>
+            </p>
+            <div onclick="Expand(this)">Server paging with DLL</div><p>
+               <a href='Examples/AspNetVB/PagingDLL/DataTable.html'>DataTable access SQL</a>
+               <a href='Examples/AspNetVB/PagingDLL/DbCommand.html'>DbCommand access SQL</a>
+               <a href='Examples/AspNetVB/PagingDLL/File.html'>Complex XML file</a>
+               <a href='Examples/AspNetVB/PagingDLL/FileSharing.html'>Sharing &amp; synchronization</a>
+            </p>
+            <div onclick="Expand(this)" class="Sep">Gantt chart</div><p>
+               <a href='ExamplesGantt/AspNetVB/Gantt/GanttBasicDB.html'>Gantt SQL database basic</a>
+               <a href='ExamplesGantt/AspNetVB/Gantt/GanttTreeDB.html'>Gantt SQL database tree</a>
+               <a href='ExamplesGantt/AspNetVB/Gantt/GanttTreeFile.html'>Gantt XML file tree</a>
+            </p>
+            <div onclick="Expand(this)">Bar (run) chart</div><p>
+               <a href='ExamplesGantt/AspNetVB/Run/RunDB.html'>Gantt Run SQL database</a>
+               <a href='ExamplesGantt/AspNetVB/Run/RunFile.html'>Gantt Run XML file</a>
+            </p>
+         </i>
+         <div onclick="Expand(this)">PHP</div><i>
+            <div onclick="Expand(this)">Basic AJAX <span>communication</span></div><p>
+               <a href='Examples/Php/BasicAjax/Basic.html'>Basic SQL database access</a>
+               <a href='Examples/Php/BasicAjax/Framework.html'>PHP framework script</a>
+               <a href='Examples/Php/BasicAjax/TreeFramework.html'>Tree in SQL database</a>
+               <a href='Examples/Php/BasicAjax/API.html'>API for data communication</a>
+            </p>
+            <div onclick="Expand(this)">Form submit <span>communication</span></div><p>
+               <a href='Examples/Php/BasicSubmit/Basic.php'>Basic SQL database access</a>
+               <a href='Examples/Php/BasicSubmit/Framework.php'>PHP framework script</a>
+               <a href='Examples/Php/BasicSubmit/TreeFramework.php'>Tree in SQL database</a>
+            </p>
+            <div onclick="Expand(this)">Grid applications</div><p>
+               <a href='Examples/Php/AppGrid/Grid.html'>Grid from database table</a>
+               <a href='Examples/Php/AppSchools/Schools.html'>School list and ratings</a>
+               <a href='Examples/Php/AppBrowser/Browser.html'>File browser</a>
+            </p>
+            <div onclick="Expand(this)">Server paging</div><p>
+               <a href='Examples/Php/Paging/SortingExport.html'>Save, sorting and export</a>
+               <a href='Examples/Php/Paging/Grouping.html'>Grouping</a>
+               <a href='Examples/Php/Paging/GroupingChild.html'>Grouping and child paging</a>
+            </p>
+            <div onclick="Expand(this)">Server paging with DLL</div><p>
+               <a href='Examples/Php/PagingDLL/DB.html'>SQL database access</a>
+               <a href='Examples/Php/PagingDLL/File.html'>Complex XML file</a>
+               <a href='Examples/Php/PagingDLL/FileSharing.html'>Sharing &amp; synchronization</a>
+            </p>
+            <div onclick="Expand(this)" class="Sep">Gantt chart</div><p>
+               <a href='ExamplesGantt/Php/Gantt/GanttBasicDB.html'>Gantt SQL database basic</a>
+               <a href='ExamplesGantt/Php/Gantt/GanttTreeDB.html'>Gantt SQL database tree</a>
+               <a href='ExamplesGantt/Php/Gantt/GanttTreeFile.html'>Gantt XML file tree</a>
+            </p>
+            <div onclick="Expand(this)">Bar (run) chart</div><p>
+               <a href='ExamplesGantt/Php/Run/RunDB.html'>Gantt Run SQL database</a>
+               <a href='ExamplesGantt/Php/Run/RunFile.html'>Gantt Run XML file</a>
+            </p>
+         </i>
+
+         <div onclick="Expand(this)">JAVA JSP</div><i>
+            <div onclick="Expand(this)">Basic AJAX <span>communication</span></div><p>
+               <a href='Examples/Jsp/BasicAjax/Basic.html'>Basic SQL database access</a>
+               <a href='Examples/Jsp/BasicAjax/Framework.html'>JSP framework script</a>
+               <a href='Examples/Jsp/BasicAjax/TreeFramework.html'>Tree in SQL database</a>
+               <a href='Examples/Jsp/BasicAjax/API.html'>API for data communication</a>
+            </p>
+            <div onclick="Expand(this)">Form submit <span>communication</span></div><p>
+               <a href='Examples/Jsp/BasicSubmit/Basic.jsp'>Basic SQL database access</a>
+               <a href='Examples/Jsp/BasicSubmit/Framework.jsp'>JSP framework script</a>
+               <a href='Examples/Jsp/BasicSubmit/TreeFramework.jsp'>Tree in SQL database</a>
+            </p>
+            <div onclick="Expand(this)">Grid applications</div><p>
+               <a href='Examples/Jsp/AppGrid/Grid.html'>Grid from database table</a>
+               <a href='Examples/Jsp/AppSchools/Schools.html'>School list and ratings</a>
+               <a href='Examples/Jsp/AppBrowser/Browser.html'>File browser</a>
+            </p>
+            <div onclick="Expand(this)">Server paging</div><p>
+               <a href='Examples/Jsp/Paging/SortingExport.html'>Save, sorting and export</a>
+               <a href='Examples/Jsp/Paging/Grouping.html'>Grouping</a>
+               <a href='Examples/Jsp/Paging/GroupingChild.html'>Grouping and child paging</a>
+            </p>
+            <div onclick="Expand(this)">Server paging with DLL</div><p>
+               <a href='Examples/Jsp/PagingDLL/DB.html'>SQL database access</a>
+               <a href='Examples/Jsp/PagingDLL/File.html'>Complex XML file</a>
+               <a href='Examples/Jsp/PagingDLL/FileSharing.html'>Sharing &amp; synchronization</a>
+            </p>
+            <div onclick="Expand(this)" class="Sep">Gantt chart</div><p>
+               <a href='ExamplesGantt/Jsp/Gantt/GanttBasicDB.html'>Gantt SQL database basic</a>
+               <a href='ExamplesGantt/Jsp/Gantt/GanttTreeDB.html'>Gantt SQL database tree</a>
+               <a href='ExamplesGantt/Jsp/Gantt/GanttTreeFile.html'>Gantt XML file tree</a>
+            </p>
+            <div onclick="Expand(this)">Bar (run) chart</div><p>
+               <a href='ExamplesGantt/Jsp/Run/RunDB.html'>Gantt Run SQL database</a>
+               <a href='ExamplesGantt/Jsp/Run/RunFile.html'>Gantt Run XML file</a>
+            </p>
+         </i>
+      </div>
+      
+   </div>
+
+   <script>
+      var LastActive = null;
+
+      function SetActive(a){
+      a.className += " TreeActive";
+      LastActive = a;
+      a.parentNode.style.display = "block";
+      a.parentNode.previousSibling.className = "TreeExpanded";
+      if(!a.parentNode.parentNode.offsetWidth){
+         a.parentNode.parentNode.style.display = "block";
+         a.parentNode.parentNode.previousSibling.className = "TreeExpanded";
+         }
+      }
+
+      function OnClick(){
+      if(LastActive) LastActive.className = LastActive.className.replace(/\s*TreeActive\s*/,"");
+      this.className += " TreeActive";
+      LastActive = this;
+      }
+      
+      function Expand(O){
+      var exp = O.className.indexOf("TreeExpanded")>=0;
+      O.className = exp ? O.className.replace(/\s*TreeExpanded\s*/,"") : O.className+" TreeExpanded";
+      O = O.nextSibling;
+      O.style.display = exp ? "": "block";
+      }
+
+      try {
+         var url = top.frames.Content.location.href.split("/"), ok = 0;
+         url = "/" + unescape((url.length>2?url[url.length-3]+"/":"")+url[url.length-2]+"/"+url[url.length-1]);
+         } catch(e) { ok = 1; }
+      var A = document.body.getElementsByTagName("a");
+      for(var i=0;i<A.length;i++) if(A[i].target!="_top"){
+         A[i].onclick = OnClick;
+         A[i].target = "Content";
+         var href = unescape(A[i].href);
+         if(!ok && href.indexOf(url)>=0) {
+            SetActive(A[i]);
+            ok = 1;
+            }
+         }
+         
+   </script>
+</body>

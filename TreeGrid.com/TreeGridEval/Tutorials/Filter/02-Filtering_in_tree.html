@@ -1,0 +1,80 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <style>
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; }
+      .Tutorial .Main { background:#F8F8F8; }
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>2. Filtering rows in tree</h1>
+   <h2>Various ways to filter rows in parent / child relation</h2>
+
+   <center class="Border">
+      <div class="Xml" style='width:610px;'><a href='02-Filtering_in_tree.xml'>02-<h5>Filtering_in_tree</h5>.xml</a></div>
+      <div class="Main" style='width:100%; height:500px;'>
+         <bdo Debug='check' Data_Url='02-Filtering_in_tree.xml'></bdo>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+         There are two special attributes for filtering in tree Cfg <h3>StandardFilter</h3> and <b>row</b> <h3>CanFilter</h3>.<br />
+         <i>For all other information about filtering see previous example <a href='01-Filtering_rows.html'>01-Filtering_rows.html</a>.</i><br />
+      </li>
+      <li>
+         <h4>Hide all not found</h4><br />
+         By default is set Cfg attribute <b>StandardFilter='0'</b> and all row attributes <b>CanFilter='1'</b>.<br />
+         It tests parent rows before their children. If the parent row does not fulfill the filter condition, it is hidden and its children are not tested at all.<br />
+         It is the fastest method. It cannot be used with <b>OnRowFilter</b> API event, when this event filters parents according to their children.<br />
+         <i>Use it when some rows, especially leaf rows without children, cannot be hidden by filter (have set <b>CanFilter='0'</b>).</i>
+      </li>
+      <li>
+         <h4>Hide all not found, iterate all</h4><br />
+         When set Cfg attribute <b>StandardFilter='1'</b>, it tests row children before the row itself. <br />
+         It also hides all rows that do not pass the filter like previous option, but there can be used <b>OnRowFilter</b> API event if it filters rows according to their children.<br />
+         <i>Use it with OnRowFilter code based on row children.</i><br />
+      </li>
+      <li>
+         <h4>Show all found</h4><br />
+         It shows all rows that fulfill the filter condition. If any parent contains some visible child, it is shown too.<br />
+         It is set by Cfg attribute <b>StandardFilter='2'</b>.<br />
+         It tests children before parents, so it also supports <b>OnRowFilter</b> in all cases.<br />
+         <i>Use it when all rows can be hidden by filter, to show all the found rows.</i><br />
+      </li>
+      <li>
+         <h4>Show all found, with all children</h4><br />
+         It shows all rows that fulfill the filter condition. It always shows all children of found parents.<br />
+         It is set by Cfg attribute <b>StandardFilter='3'</b>.<br />
+         It tests parent rows before their children. It tests children of parent that does not fulfill the filter condition.<br />
+         <i>Use it when all rows can be hidden by filter, to show all the found rows with children.</i><br />
+      </li>
+
+      <li><h4>Show all found, hide empty parents</h4>
+         It shows all rows that fulfill the filter condition. Parent rows are visible only if they contain some visible children.<br />
+         It is set by Cfg attribute <b>StandardFilter='2'</b> and row <b>CanFilter='2'</b> or <b>'3'</b>.<br />
+         The CanFilter='2' / '3' should not be set to the rows without children, otherwise they will be always hidden.<br />
+         If the row has set CanFilter='2' or '3', it is hidden if it does not have any visible children, regardless it fulfills the filter condition.<br />
+         If set CanFilter='2' the row is not tested for the filter condition and it visible or hidden only by its children.<br />
+         <i>Use it show all found rows, but hide all unused groups.</i><br />
+      </li>
+   </ul>
+</body>
+</html>

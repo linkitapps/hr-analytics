@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html>
+   <head>
+      <script src="../../../Grid/GridE.js"> </script>
+   </head>
+   <body class="Example">
+      <style>
+         /* Examples shared styles */
+         .Example { border-bottom:1px solid transparent; }
+         .Example .Desc b { color:#800; }
+         .Example .Desc a { text-decoration:underline; }      
+         .Example .Desc li { padding-bottom:8px; }
+         .Example .Desc ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+         .Example .Desc > ul { margin-left:0px; padding-left:15px; }
+         .Example h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+         .Example h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+         .Example h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example .Path { font:normal 16px Arial; color:blue; }
+         .Example .Path b { color:#800; }
+         .Example .Path i { color:black; font-style:normal; font-weight:bold; }
+         .Example .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+         .Example .Desc { margin:0px 5px 10px 5px; padding:5px; border:1px solid #AAA; }
+         .Example .Border { margin:0px 5px 15px 5px; clear:both; zoom:1; }
+         .Example .Main { background:#F8F8F8; }
+      </style>
+      <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Examples\/|\/ExamplesGantt\/)([^\/]+)\/([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/<i>$4</i>/$5").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+      <h1>Simple Gantt chart</h1>
+      <h2>Timetable of tasks in tree, their completion, dependencies and scheduling</h2>
+      <div class="Desc">
+         <b>This example shows tree structure, with freedom for levels.</b><br />
+         When row does not contain any (not deleted) children it is <b>standard task</b> and its data can be changed.<br />
+         When row contains some (not deleted) children it is <b>computed group task</b> and shows summary of its children.<br />
+         The rows can be added, deleted, moved and copied and the tasks become standard or group tasks accordingly.<br />
+      </div>
+      <div class="Border">
+         <div class="Main" style="WIDTH:100%;HEIGHT:650px;">
+            <bdo Debug="check" Layout_Url="GanttSimpleDef.xml" Data_Url="GanttSimpleData.xml"></bdo>
+         </div>
+      </div>
+   </body>
+</html>

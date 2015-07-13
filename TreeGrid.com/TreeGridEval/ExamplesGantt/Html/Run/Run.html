@@ -1,0 +1,110 @@
+<html>
+   <head>
+      <script src="../../../Grid/GridE.js"> </script>
+   </head>
+   <body class="Example">
+      <style>
+         /* Examples shared styles */
+         .Example { border-bottom:1px solid transparent; }
+         .Example .Desc b { color:#800; }
+         .Example .Desc a { text-decoration:underline; }      
+         .Example .Desc li { padding-bottom:8px; }
+         .Example .Desc ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+         .Example .Desc > ul { margin-left:0px; padding-left:15px; }
+         .Example h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+         .Example h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+         .Example h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+         .Example .Path { font:normal 16px Arial; color:blue; }
+         .Example .Path b { color:#800; }
+         .Example .Path i { color:black; font-style:normal; font-weight:bold; }
+         .Example .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+         .Example .Desc { margin:0px 5px 10px 5px; padding:5px; border:1px solid #AAA; }
+         .Example .Border { margin:0px 5px 15px 5px; clear:both; zoom:1; }
+         .Example .Main { background:#F8F8F8; }
+
+         /* This example top information */
+         .Info { padding-top:1px!important; line-height:9px; font-size:9px; } /* Style for top right Info tag on tabber */
+
+          /* Custom styles for the two custom boxes */
+         .GMGanttCustom1In { background:#FDA; color:Blue; font:bold 11px Verdana; }
+         .GMGanttCustom1Out { border:1px dotted blue; padding:0px; }
+         .GMGanttCustom2In { background:url(../../../Grid/Modern/Backgrounds.gif); color:white; font:italic 11px Verdana; }
+         .GMGanttCustom2Out { margin:0px; border:2px solid pink; padding:0px; }
+
+      </style>
+
+      <script>
+var BIE5 = navigator.appName.search("Microsoft")>=0 && document.compatMode!="CSS1Compat" && document.documentMode<10; // IE5 quirks mode
+// ------------------------------------------------------------------------------------
+// Returns custom Run bar content, only for row Custom
+Grids.OnGetGanttRunText = function(G,row,col,run,idx,text,width){
+if(row.id!="Custom") return text;
+var B = G.GetGanttRunBox(row,col,idx);
+var pad = BIE5? "" : "padding:1px;"; // In IE5 quirks mode is the height of text calculated with padding, so no padding is needed here
+return "<div style='background:#FAA;padding-left:2px;float:right;font-size:20px;line-height:20px;'>"+(idx/2+1)+"</div><div>"
+   + "<div style=\"background:green;color:white;"+pad+"\">&nbsp;"+DateToString(B.Start,"dddddd")+" - "+DateToString(B.End,"dddddd")+"</div>"
+   + "<div style=\"background:blue;color:white;"+pad+"\">&nbsp;"+(B.Length/24/3600/1000)+" + "+((B.End-B.Start-B.Length)/24/3600/1000)+" days </div>"
+   + "<div style=\"background:red;color:yellow;"+pad+"font-weight:bold;\">&nbsp;"+(B.Text?B.Text:"")+"</div>"
+   + "</div>";
+}
+// ------------------------------------------------------------------------------------------------------------
+// Used to show tip on Gantt header row
+// For Gantt chart rows and objects use rather OnGanttTip instead
+Grids.OnTip = function(G,row,col,tip,clientx,clienty,x,y){
+if(col=="G" && row.id=="ID") { // Gantt header row
+   var A = G.GetGanttHeaderXY(row,col,x,y);
+   if(!A) return;
+   tip = "<b>"+G.Lang.GanttUnits[A.Units]+"</b><br>" 
+       + DateToString(A.Start,"'<b>'dddddd MMMM yyyy'</b>' HH:mm:ss") + " - " + DateToString(A.End,"'<b>'dddddd MMMM yyyy'</b>' HH:mm:ss") + "<br><br>"
+       + "<i>Click to zoom to this date</i><br><i>Right click to zoom back to previous zoom level</i><br><i>Drag by mouse to zoom to selected range</i>";
+
+   }
+return tip;
+}
+// ------------------------------------------------------------------------------------
+// Changes style also for the RunSources
+Grids.OnAfterSetStyle = function(G,name) { 
+if(G.id!="Run") return;
+var R = Grids.RunSources;
+if(!R) return;
+if(name=="GB") name = "GM"; // Borders style is too wide
+if(R.Style!=name) R.SetStyle(name,null,1);
+}
+// ------------------------------------------------------------------------------------------------------------
+// Called on grid loaded, here used just for change on iPad
+Grids.OnUpdated = function(G){
+if(Grids.Tablet) G.NoVScroll = 1;                      // No vertical scroll on iPad
+}
+// ------------------------------------------------------------------------------------
+// Shows / hides the Gantt parts
+function DoHide(G,hide){
+if(hide){
+   G.HideRow(G.Rows.Header); G.HideRow(G.Rows.Toolbar);
+   G.HideCol("T"); G.HideCol("S"); G.HideCol("R"); G.HideCol("D"); G.HideCol("Panel");
+   }
+else {
+   G.ShowRow(G.Rows.Header); G.ShowRow(G.Rows.Toolbar);
+   G.ShowCol("T"); G.ShowCol("S"); G.ShowCol("R"); G.ShowCol("D"); G.ShowCol("Panel"); 
+   }
+}
+// ------------------------------------------------------------------------------------
+      </script>
+      <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Examples\/|\/ExamplesGantt\/)([^\/]+)\/([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/<i>$4</i>/$5").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+      <h1>Interactive bar chart</h1>
+      <h2>A demonstration of <b>Run</b> bar, complex and universal bar type in TreeGrid Gantt chart</h2>
+      <div class="Desc">
+         The <b>Run bar</b> supports more bars in one cell, with different features, permissions, size, color, class, text (html), tooltip. The individual bars support also <b>dependency</b> lines.<br />
+         There are many ways in <b>dragging</b> Run bars inside rows, between rows and between grids.<br />
+      </div>
+      <div class="Border" style="padding-right:110px;">
+         <div class="Main" id='Sources' style='width:105px; height:400px; overflow:hidden; margin-top:32px; float:right; margin-right:-110px;'>
+            <bdo Sync="1" Data_Url="RunSources.xml"></bdo>
+         </div>
+         <div class="Main" id='Gantt' style='width:100%; height:800px; overflow:hidden;'>
+            <bdo Sync="1" Layout_Url="RunDef.xml" Data_Url="RunData.xml"></bdo>
+         </div>
+      </div>
+   </body>
+</html>

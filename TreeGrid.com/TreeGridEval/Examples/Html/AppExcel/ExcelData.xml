@@ -1,0 +1,34 @@
+<Grid>
+   <Cols>
+      <C Name="A"/> <C Name="B"/> <C Name="C"/> <C Name="D"/> <C Name="E"/> <C Name="F"/> <C Name="G"/> <C Name="H"/> <C Name="I"/> <C Name="J"/> 
+      <C Name="K"/> <C Name="L" Spanned="1"/> <C Name="M"/> <C Name="N"/> <C Name="O"/> <C Name="P"/> <C Name="Q"/> <C Name="R"/> <C Name="S"/> <C Name="T"/> 
+      <C Name="U"/> <C Name="V"/> <C Name="W"/> <C Name="X"/> <C Name="Y"/> <C Name="Z"/>
+      <C Name="AA"/> <C Name="AB"/> <C Name="AC"/> <C Name="AD"/> <C Name="AE"/> <C Name="AF"/> <C Name="AG"/> 
+      <C Name="AH"/> <C Name="AI"/> <C Name="AJ"/> <C Name="AJ"/> <C Name="AK"/> <C Name="AL"/> <C Name="AM"/> <C Name="AN"/>
+   </Cols>
+   <Body>
+      <B>
+         <I/> <I/> <I/> 
+         <I Spanned="1" LSpan="5" LRowSpan="7" L="Spanned cell for&#x0a;seven rows and five columns&#x0a;centered horizontally and vertically&#x0a;&#x0a;During editing cell&#x0a;insert new line by Ctrl+Enter" LType="Lines" LVAlign="Middle" LAlign="Center"/>
+
+         <I E="0" EAlign="Right" F="3" FAlign="Right" G="3" GAlign="Right" H="0" HAlign="Right" I="6" IAlign="Right" />
+         <I E="1" EAlign="Right" F="87654" FClass="Underline Italic" FAlign="Right" G="3" GAlign="Right" H="2" HAlign="Right" I="5" IAlign="Right"/>
+         <I E="2" EAlign="Right" F="2" FAlign="Right" G="3" GAlign="Right" H="4" HAlign="Right" I="4" IAlign="Right"/>
+         <I E="3" EAlign="Right" F="345678&#x0a;8888" FType="Lines" FClass="Bold" G="3" GAlign="Right" H="6" HAlign="Right" I="3" IAlign="Right"/>
+         <I E="4" EAlign="Right" F="1" FAlign="Right" G="3" GAlign="Right" H="8" HAlign="Right" I="2" IAlign="Right"/>
+         <I E="5" EAlign="Right" F="7" FAlign="Right" G="3" GAlign="Right" H="10" HAlign="Right" I="1" IAlign="Right"/>
+         <I E="6" EAlign="Right" F="5" FAlign="Right" G="3" GAlign="Right" H="12" HAlign="Right" I="0" IAlign="Right"/>
+         <I/>
+         <I CClass="BCBlue BSSolid" DClass="BCBlue BSSolid" EClass="BCBlue BSSolid" FClass="BCBlue BSSolid"/>
+         <I C="A" D="E" E="I" F="M" BClass="RCBlue RSSolid" CClass="LCBlue LSSolid TCBlue TSSolid RCRed RSSolid BCRed BSSolid" DClass="TCBlue TSSolid RCRed RSSolid BCRed BSSolid" EClass="TCBlue TSSolid RCRed RSSolid BCRed BSSolid" FClass="RCBlue RSSolid TCBlue TSSolid BCRed BSSolid ColorGreen Bold" GClass="LCBlue LSSolid"/>
+         <I C="B" D="F" E="J" F="N" BClass="RCBlue RSSolid" CClass="LCBlue LSSolid RCRed RSSolid BCRed BSSolid" DClass="RCRed RSSolid BCRed BSSolid" EClass="RCRed RSSolid BCRed BSSolid" FClass="RCBlue RSSolid BCRed BSSolid ColorGreen Bold" GClass="LCBlue LSSolid"/>
+         <I C="C" D="G" E="K" F="O" BClass="RCBlue RSSolid" CClass="LCBlue LSSolid RCRed RSSolid BCRed BSSolid" DClass="RCRed RSSolid BCRed BSSolid" EClass="RCRed RSSolid BCRed BSSolid" FClass="RCBlue RSSolid BCRed BSSolid ColorGreen Bold" GClass="LCBlue LSSolid"/>
+         <I C="D" D="H" E="L" F="P" BClass="RCBlue RSSolid" CClass="LCBlue LSSolid BCBlue BSSolid RCRed RSSolid" DClass="BCBlue BSSolid RCRed RSSolid" EClass="BCBlue BSSolid RCRed RSSolid" FClass="RCBlue RSSolid BCBlue BSSolid ColorGreen Bold" GClass="LCBlue LSSolid" CColor="Yellow" DColor="Yellow" EColor="Yellow" FColor="Yellow"/>
+         <I CClass="TCBlue TSSolid" DClass="TCBlue TSSolid" EClass="TCBlue TSSolid" FClass="TCBlue TSSolid"/>
+         <I/>
+         <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/>
+         <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/>
+         <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/> <I/>
+      </B>
+   </Body>
+</Grid>

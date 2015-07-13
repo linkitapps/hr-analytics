@@ -1,0 +1,96 @@
+<html>
+<head>
+   <script src="../../Grid/GridE.js"> </script>
+</head>
+<body class="Tutorial">
+   <script>
+// ------------------------------------------------------------------------------------------
+// Sets header of the last grid DetailDetail
+Grids.OnShowDetailFinish = function(G,D,row){
+if(D.id=="DetailDetail") D.SetValue(D.Header,"V",G.Rows.Sum.V+"'s "+row.N+" - raw value",1);
+}   
+// ------------------------------------------------------------------------------------------
+   
+   </script>
+   <style>
+      /* Tutorial shared styles */
+      .Tutorial b { color:#800; }
+      .Tutorial a { text-decoration:underline; }      
+      .Tutorial li { padding-bottom:8px; }
+      .Tutorial ul { margin-left:20px; margin-top:6px; margin-bottom:0px; font: 13px Arial; }
+      .Tutorial > ul { margin-left:0px; padding-left:15px; }
+      .Tutorial h1 { font:bold 30px Arial; padding:5px 0px 5px 0px; margin:0px; text-align:center; }
+      .Tutorial h2 { font:15px Arial; padding:0px; margin:0px 0px 10px 0px; text-align:center; }
+      .Tutorial h3 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#F6F250; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h4 { display:inline; font:bold 15px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial h5 { display:inline; font:bold 20px Arial; padding-left:6px; padding-right:6px; background:#87DAE5; border:1px solid #888; color:black; margin:0px; font-style:normal; }
+      .Tutorial .Path { font:normal 16px Arial; color:blue; }
+      .Tutorial .Path b { color:#800; }
+      .Tutorial .Path u { text-decoration:none; color:#0B0; font-weight:bold; padding:0px 2px 0px 2px; }
+      .Tutorial .Xml { margin-bottom:6px; text-align:left; height:24px; }
+      .Tutorial .Border { border:1px solid #dfdfdf; padding:20px 20px 20px 20px; margin-bottom:20px; clear:both; overflow:hidden; zoom:1; }
+      .Tutorial .Main { background:#F8F8F8; }
+   </style>
+
+   <center class="Path"><script>document.write(location.href.replace(/(.*)(\/Tutorials\/)([^\/]+)\/([^\/]+)$/,"$2<b>$3</b>/$4").replace(/([^<]|^)(\/|\.)/g,"$1<u>$2</u>"));</script></center>
+   <h1>5. Master detail more tables</h1>
+   <h2>Master detail relation among more plain tables</h2>
+
+   <center class="Border">
+      <div style="width:720px;">
+         <div style="float:left; margin-right:20px;">
+            <div class="Xml" style='width:375px;'><a href='05-Master1.xml'>05-<h5>Master1</h5>.xml</a></div>
+            <div class="Main" style='width:375px; height:255px;'>
+               <bdo Debug='check' Data_Url='05-Master1.xml'></bdo>
+            </div>
+            <br />
+            <div class="Xml" style='width:375px;'><a href='05-Master1.xml'>05-<h5>Master2</h5>.xml</a></div>
+            <div class="Main" style='width:375px; height:270px;'>
+               <bdo Debug='check' Data_Url='05-Master2.xml'></bdo>
+            </div>
+         </div>
+         <div style="float:left;">
+            <div class="Xml" style='width:300px;'><a href='05-DetailDef.xml'>05-<h5>DetailDef</h5>.xml</a>&nbsp;<a href='05-Detail1.xml'>05-<h5>Detail1</h5>.xml</a></div>
+            <div class="Main" style='width:300px; height:200px;'>
+               <bdo Debug='check' Layout_Url='05-DetailDef.xml' Data_Url='05-Detail1.xml'></bdo>
+            </div>
+            <br />
+            <div class="Xml" style='width:300px;'><a href='05-DetailDef.xml'>05-<h5>DetailDef</h5>.xml</a>&nbsp;<a href='05-Detail2.xml'>05-<h5>Detail2</h5>.xml</a></div>
+            <div class="Main" style='width:300px; height:200px;'>
+               <bdo Debug='check' Layout_Url='05-DetailDef.xml' Data_Url='05-Detail2.xml'></bdo>
+            </div>
+            <br />
+            <div class="Xml" style='width:300px;'><a href='05-DetailDetail.xml'>05-<h5>DetailDetail</h5>.xml</a></div>
+            <div class="Main" style='width:300px; height:80px;'>
+               <bdo Debug='check' Data_Url='05-DetailDetail.xml' Data_Static='DetailDetail'></bdo>
+            </div>
+         </div>
+      </div>
+   </center>
+
+   <ul>
+      <li>
+         One master grid can show its rows in more different detail grids, even every row in different detail grid.<br />
+         One master row can be show in more detail grids at once.<br />
+         In one detail grid can be shown data from more master grids, but not at once.<br />
+         Even detail grid can work also as master grid and show its rows in another detail grid.<br />
+      </li>
+      <li>
+         This example shows two master grids 1 and 2. Every master grid shows every its row in next two detail grids 1 and 2. 
+         And the detail grids 1 and 2 show their rows in the last detail grid.
+      </li>
+      <li>
+         The data are always in the main master grids. The detail grids that works also as master grids do not contain any data, all their data are still copied from their masters.<br />
+      </li>
+      <li>
+         The master row attribute <h3>Detail</h3> can contain more detail grids ids to be copies to all these grids.<br />
+      </li>
+      <li>
+         To choose which master rows children will be copied to which detail grid define Cfg attribute <h3>MasterDef</h3> in detail grid, with list of row default names. 
+         Only row with Def attribute listed in MasterDef will be copied to given grid.<br />
+         It is even possible to copy one child row to more detail grids, the changes in such row will be mirrored among all the grids.<br />
+         If the detail grid works also as master grid for another detail, the defaults for the second detail must be listed in the MasterDef too (in this example the 'DETAIL' def).<br />
+      </li>
+   </ul>
+</body>
+</html>
