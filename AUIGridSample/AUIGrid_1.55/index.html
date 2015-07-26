@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<script type="text/javascript">
+function changeLocation(href) {
+	location.href = href;
+}
+</script>
+</head>
+<body>
+<h1>AUIGrid 1.55 Samples</h1>
+	<p>■ 테마는 CSS 파일 교체만으로 가능합니다.<p>
+	<p>예를 들어 다크 테마로 바꾸고 싶다면 해당 소스에서 AUIGrid_style.css 파일 대신 AUIGrid_dark_style.css 로 수정해 주세요</p>
+	<p>■ 엑셀 Export 관련 데모는 반드시 exportURL 속성을 서버 환경에 맞게 고치고 실행해주세요.</p>
+	<p>export_server_samples 폴더에 PHP용 JSP용 예제가 있습니다.(ROOT 폴더 아래에 있음)</p>
+	<p>■ 쇼케이스 "사원 관리"와 "DB 그리드"의 서버 사이드 스크립트(실 DB Select, Update, Delete 하는 PHP 소스)는 포함되지 않았습니다.</p>
+	<p>필요하신 분은 aui@auisoft.net 으로 연락주시면 보내드리겠습니다.</p>
+	
+	<!-- nav-wrapper -->
+	<div id="nav-wrapper">
+			<div id="root-nav">
+				<ul class="root-nav-categories">
+					<li>
+						<h3>쇼케이스</h3>
+						<ul class="root-nav-widgets">
+							<li id="sh01"><a href="javascript:changeLocation('./samples/showcase1.html?sh01&theme')">1. 학생 출석 CRUD 그리드</a></li>
+							<li id="sh02"><a href="javascript:changeLocation('./samples/showcase2.html?sh02')">2. 프로젝트 일정 테이블</a></li>
+							<li id="sh03"><a href="javascript:changeLocation('./samples/showcase3.html?sh03')">3. 채널 마케팅 예산</a></li>
+							<li id="sh04"><a href="javascript:changeLocation('./samples/showcase4n.html?sh04')">4. 실시간 주식 종목</a></li>
+							<li id="sh05"><a href="javascript:changeLocation('./samples/showcase5.html?sh05')">5. 국가별 핸드폰 판매 통계</a></li>
+							<li id="sh06"><a href="javascript:changeLocation('./samples/showcase6.html?sh06')">6. 손익 계산 내역</a></li>
+							<li id="sh07"><a href="javascript:changeLocation('./samples/showcase7.html?sh07')">7. 사원 관리(EditingDemo)</a></li>
+							<li id="sh08"><a href="javascript:changeLocation('./samples/showcase8.html?sh08')">8. DB 그리드</a></li>
+							<li id="sh09"><a href="javascript:changeLocation('./samples/showcase9.html?sh09')">9. 일별 목표치 달성률 그리드</a></li>
+						</ul>
+					</li>
+					<li>
+						<h3>1. 그리드 기본</h3>
+						<ul class="root-nav-widgets">
+							<li id="ex1_1"><a href="javascript:changeLocation('./samples/default_demo.html?ex1_1')">JSON 그리드 기본 출력</a></li>
+							<li id="xex1_1"><a href="javascript:changeLocation('./samples/default_demo_xml.html?xex1_1')">XML 그리드 기본 출력</a></li>
+							<li id="cex1_1"><a href="javascript:changeLocation('./samples/default_demo_csv.html?cex1_1')">CSV 그리드 기본 출력</a></li>
+							<li id="ex1_2"><a href="javascript:changeLocation('./samples/column_merge.html?ex1_2')">칼럼 셀 병합</a></li>
+							<li id="ex1_3"><a href="javascript:changeLocation('./samples/column_fixed.html?ex1_3')">고정 칼럼(FixedColumns)</a></li>
+							<li id="ex1_4"><a href="javascript:changeLocation('./samples/row_fixed.html?ex1_4')">고정 행(FixedRows)</a></li>
+							<li id="ex1_5"><a href="javascript:changeLocation('./samples/column_row_fixed.html?ex1_5')">고정 칼럼, 행 같이 적용</a></li>
+							<li id="ex1_6"><a href="javascript:changeLocation('./samples/selection.html?ex1_6')">셀, 행 선택 모드<span class="new"></span></a></li>
+							<li id="ex1_7"><a href="javascript:changeLocation('./samples/word_wrap.html?ex1_7')">워드랩(wordwrap) 적용</a></li>
+							<li id="ex1_8"><a href="javascript:changeLocation('./samples/hide_column.html?ex1_8')">칼럼 보이기/숨김 설정</a></li>
+							<li id="ex1_9"><a href="javascript:changeLocation('./samples/change_columnIdx.html?ex1_9')">칼럼 위치 옮기기</a></li>
+							<li id="rsc0"><a href="javascript:changeLocation('./samples/resize_grid.html?rsc0')">그리드 사이즈 변경</a></li>
+							<li id="dcs1"><a href="javascript:changeLocation('./samples/column_size.html?dcs1')">칼럼 고정(px), 비율(%) 설정</a></li>
+							<li id="st_base"><a href="javascript:changeLocation('./samples/sorting_demo.html?st_base')">그리드 정렬(Sorting)</a></li>
+							<li id="st1"><a href="javascript:changeLocation('./samples/styling.html?st1')">동적 스타일링(Styling)</a></li>
+							<li id="ma_de"><a href="javascript:changeLocation('./samples/master_detail.html?ma_de')">Master-Details 표현</a></li>
+							<li id="ma_form"><a href="javascript:changeLocation('./samples/master_form.html?ma_form')">그리드-Form 에 확장 정보 표현</a></li>
+							<li id="dep_col"><a href="javascript:changeLocation('./samples/dependency_columns.html?dep_col')">의존적 칼럼 관계 표현</a></li>
+							<li id="lazy"><a href="javascript:changeLocation('./samples/lazy_loading.html?lazy')">스크롤 최하단에서 데이터 요청(lazyLoading) </a></li>
+							<li id="save"><a href="javascript:changeLocation('./samples/save_column.html?save')">그리드 상태 저장/유지<span class="new"></span></a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>2. 그리드 헤더(Header)</h3>
+						<ul class="root-nav-widgets">
+							<li id="hnor"><a href="javascript:changeLocation('./samples/header-normal.html?hnor')">일반 그리드 헤더</a></li>
+							<li id="htooltip"><a href="javascript:changeLocation('./samples/header-tooltip.html?htooltip')">칼럼 설명 툴팁 표시</a></li>
+							<li id="hgroup"><a href="javascript:changeLocation('./samples/header-grouping.html?hgroup')">그룹형 그리드 헤더</a></li>
+							<li id="hnon"><a href="javascript:changeLocation('./samples/header-non.html?hnon')">헤더 표시 안함</a></li>
+							<li id="hmt"><a href="javascript:changeLocation('./samples/header-multiText.html?hmt')">헤더 텍스트 개행(2줄) 표시</a></li>
+							<li id="hstyle"><a href="javascript:changeLocation('./samples/header-styling.html?hstyle')">헤더 스타일 적용</a></li>
+							<li id="hmenu"><a href="javascript:changeLocation('./samples/header_event_menu.html?hmenu')">헤더 메뉴 작성하기<span class="new"></span></a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>3. 그리드 푸터(Footer)</h3>
+						<ul class="root-nav-widgets">
+							<li id="ftn"><a href="javascript:changeLocation('./samples/footer-normal.html?ftn')">일반 그리드 푸터</a></li>
+							<li id="ftxt"><a href="javascript:changeLocation('./samples/footer-text.html?ftxt')">푸터에 텍스트 지정</a></li>
+							<li id="fcustom2"><a href="javascript:changeLocation('./samples/footer-custom2.html?fcustom2')">다수의 연산값 푸터 출력</a></li>
+							<li id="fcustom"><a href="javascript:changeLocation('./samples/footer-custom.html?fcustom')">푸터 사용자 수식으로 적용</a></li>
+							<li id="fstyle"><a href="javascript:changeLocation('./samples/footer-style.html?fstyle')">푸터 스타일 적용</a></li>
+							<li id="fstyle2"><a href="javascript:changeLocation('./samples/footer-style2.html?fstyle2')">푸터 동적 스타일 적용</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<ul class="root-nav-categories">
+					<li>
+						<h3>4. 그리드 툴팁(Tooltip)</h3>
+						<ul class="root-nav-widgets">
+							<li id="tip_n"><a href="javascript:changeLocation('./samples/tooltip-normal.html?tip_n')">기본 그리드 툴팁</a></li>
+							<li id="tip_f"><a href="javascript:changeLocation('./samples/tooltip-function.html?tip_f')">툴팁 내용 사용자 정의</a></li>
+							<li id="tip_na"><a href="javascript:changeLocation('./samples/tooltip-native.html?tip_na')">HTML 내장 툴팁 사용</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<ul class="root-nav-categories">
+					<li>
+						<h3>5. 계층형 데이터 구조(TreeGrid)</h3>
+						<ul class="root-nav-widgets">
+							<li id="trn"><a href="javascript:changeLocation('./samples/treeData_default.html?trn')">계층 트리 데이터 기본</a></li>
+							<li id="trn2"><a href="javascript:changeLocation('./samples/treeData.html?trn2')">계층 트리 데이터 모두 열기</a></li>
+							<li id="trn3"><a href="javascript:changeLocation('./samples/treeData2.html?trn3')">계층형 데이터(+그룹 헤더)</a></li>
+							<li id="trn4"><a href="javascript:changeLocation('./samples/treeData_open_item.html?trn4')">초기 화면 특정 행 열기</a></li>
+							<li id="trn5"><a href="javascript:changeLocation('./samples/treeData_icon_style.html?trn5')">트리 아이콘 스타일 재정의</a></li>
+							<li id="trn6"><a href="javascript:changeLocation('./samples/treeData_icon.html?trn6')">트리 아이콘 동적 지정</a></li>
+							<li id="trn7"><a href="javascript:changeLocation('./samples/treeData_default2.html?trn7')">일반 데이터를 트리로 표현하기<span class="new"></span></a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>6. 그룹핑(Grouping) 계층화</h3>
+						<ul class="root-nav-widgets">
+							<li id="ex12_1"><a href="javascript:changeLocation('./samples/grouping.html?ex12_1')">기본 그룹핑(Grouping)</a></li>
+							<li id="ex12_2"><a href="javascript:changeLocation('./samples/grouping_merge.html?ex12_2')">그룹핑 후 셀병합</a></li>
+							<li id="gsum"><a href="javascript:changeLocation('./samples/grouping_summary2.html?gsum')">그룹핑 합계 필드 표시</a></li>
+							<li id="ex12_3"><a href="javascript:changeLocation('./samples/grouping_summary.html?ex12_3')">그룹핑 합계 필드 표시(+셀병합) </a></li>
+							<li id="gex12_4"><a href="javascript:changeLocation('./samples/grouping_custom.html?gex12_4')">그룹핑 패널 사용 안함(Custom)</a></li>
+							<li id="gsc03"><a href="javascript:changeLocation('./samples/grouping_summary3.html?gsc03')">셀병합 시 브랜치 표시 안함</a></li>
+							<li id="gsc04"><a href="javascript:changeLocation('./samples/grouping_summary4.html?gsc04')">선택적 합계 필드 구성</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>7. 필터(Filter)</h3>
+						<ul class="root-nav-widgets">
+							<li id="ft_base"><a href="javascript:changeLocation('./samples/filter_demo.html?ft_base')">기본 그리드 필터</a></li>
+							<li id="ft_hd"><a href="javascript:changeLocation('./samples/filter_treegrid.html?ft_hd')">트리 그리드 필터</a></li>
+							<li id="ft_ac"><a href="javascript:changeLocation('./samples/filter_grouping.html?ft_ac')">그룹핑 필터</a></li>
+							<li id="ft_cxt"><a href="javascript:changeLocation('./samples/filter_context.html?ft_cxt')">컨텍스트 메뉴로 필터 구성</a></li>
+							<li id="ft_usr"><a href="javascript:changeLocation('./samples/filter_user.html?ft_usr')">사용자 정의 필터</a></li>
+							<li id="ft_usr2"><a href="javascript:changeLocation('./samples/filter_user2.html?ft_usr2')">사용자 정의 필터2</a></li>
+							<li id="ft_menu"><a href="javascript:changeLocation('./samples/filter_custom_menu.html?ft_menu')">사용자 정의 필터 메뉴 작성하기<span class="new"></span></a></li>
+							
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>8. 검색(Search)</h3>
+						<ul class="root-nav-widgets">
+							<li id="sr_base"><a href="javascript:changeLocation('./samples/search_demo.html?sr_base')">기본 그리드 검색</a></li>
+							<li id="sr_hd"><a href="javascript:changeLocation('./samples/search_treegrid.html?sr_hd')">트리 그리드 검색</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>9. 페이징(Paging)</h3>
+						<ul class="root-nav-widgets">
+							<li id="pg_base"><a href="javascript:changeLocation('./samples/paging_demo.html?pg_base')">기본 그리드 페이징</a></li>
+							<li id="pg_base2"><a href="javascript:changeLocation('./samples/paging_demo2.html?pg_base2')">페이징 설정 화면</a></li>
+							<li id="pg_simple"><a href="javascript:changeLocation('./samples/paging_simple.html?pg_simple')">심플 모드 페이징</a></li>
+							<li id="pg_ww"><a href="javascript:changeLocation('./samples/paging_word_wrap.html?pg_ww')">워드랩-자동 행 높이</a></li>
+							<li id="pg_tree"><a href="javascript:changeLocation('./samples/paging_tree.html?pg_tree')">트리 그리드 페이징</a></li>
+							<li id="pg_stl"><a href="javascript:changeLocation('./samples/paging_styles.html?pg_stl')">푸터와 스타일링 된 페이징</a></li>
+							<li id="pg_sf"><a href="javascript:changeLocation('./samples/paging_search.html?pg_sf')">페이징에서 검색, 필터 적용</a></li>
+							<li id="pg_cus"><a href="javascript:changeLocation('./samples/paging_custom.html?pg_cus')">사용자 정의(Custom) 페이징</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>10. 컨텍스트 메뉴</h3>
+						<ul class="root-nav-widgets">
+							<li id="ctd"><a href="javascript:changeLocation('./samples/context_demo.html?ctd')">기본 컨텍스트 메뉴</a></li>
+							<li id="cur"><a href="javascript:changeLocation('./samples/context_user.html?cur')">컨텍스트 메뉴 사용자 정의</a></li>
+							<li id="cxe"><a href="javascript:changeLocation('./samples/context_event.html?cxe')">헤더 컨텍스트 사용자 메뉴 구성<span class="new"></span></a></li>
+							<li id="cxe2"><a href="javascript:changeLocation('./samples/context_event2.html?cxe2')">바디 컨텍스트 사용자 메뉴 구성<span class="new"></span></a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>11. 칼럼 렌더러</h3>
+						<ul class="root-nav-widgets">
+							<li id="rtxt"><a href="javascript:changeLocation('./samples/renderer_text.html?rtxt')">텍스트 렌더러(기본)</a></li>
+							<li id="rimg"><a href="javascript:changeLocation('./samples/renderer_image.html?rimg')">이미지 렌더러</a></li>
+							<li id="ricon"><a href="javascript:changeLocation('./samples/renderer_icon.html?ricon')">아이콘 렌더러</a></li>
+							<li id="rchk"><a href="javascript:changeLocation('./samples/renderer_checkbox_column.html?rchk')">체크박스 렌더러</a></li>
+							<li id="rbtn"><a href="javascript:changeLocation('./samples/renderer_button.html?rbtn')">버튼 렌더러</a></li>
+							<li id="rstep"><a href="javascript:changeLocation('./samples/renderer_numberStep.html?rstep')">넘버 스텝 렌더러</a></li>
+							<li id="rdrop"><a href="javascript:changeLocation('./samples/renderer_dropdownlist.html?rdrop')">드랍다운리스트 렌더러<span class="new"></span></a></li>
+							<li id="rbar"><a href="javascript:changeLocation('./samples/renderer_bar.html?rbar')">바 게이지 렌더러</a></li>
+							<li id="rcal"><a href="javascript:changeLocation('./samples/renderer_calendar.html?rcal')">수정(Editing) 달력 렌더러</a></li>
+							<li id="rhtml"><a href="javascript:changeLocation('./samples/renderer_html_template.html?rhtml')">HTML 템플릿 렌더러</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>12. 스파크 차트 렌더러</h3>
+						<ul class="root-nav-widgets">
+							<li id="spl"><a href="javascript:changeLocation('./samples/spark-line.html?spl')">스파크 라인(Line) 렌더러</a></li>
+							<li id="spc"><a href="javascript:changeLocation('./samples/spark-column.html?spc')">스파크 칼럼(Column) 렌더러</a></li>
+							<li id="spwl"><a href="javascript:changeLocation('./samples/spark-winloss.html?spwl')">스파크 승패(WinLoss) 렌더러</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>13. 엑스트라 렌더러</h3>
+						<ul class="root-nav-widgets">
+							<li id="ernum"><a href="javascript:changeLocation('./samples/renderer_rownum.html?ernum')">줄번호(RowNum) 렌더러</a></li>
+							<li id="erchk"><a href="javascript:changeLocation('./samples/renderer_checkbox.html?erchk')">체크박스 렌더러</a></li>
+							<li id="erdio"><a href="javascript:changeLocation('./samples/renderer_radio.html?erdio')">라디오버튼 렌더러</a></li>
+							<li id="estcol"><a href="javascript:changeLocation('./samples/renderer_state_column.html?estcol')">행 상태 렌더러</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<ul class="root-nav-categories">
+					<li>
+						<h3>14. 사용자 정의(Custom) 렌더러</h3>
+						<ul class="root-nav-widgets">
+							<li id="ren_desc"><a href="javascript:changeLocation('./samples/renderer_custom_desc.html?ren_desc')">사용자 정의 렌더러란?(개념 설명)</a></li>
+							<li id="ren_cus_1"><a href="javascript:changeLocation('./samples/renderer_custom_1.html?ren_cus_1')">사용자 정의 렌더러 샘플 1</a></li>
+							<li id="ren_cus_2"><a href="javascript:changeLocation('./samples/renderer_custom_2.html?ren_cus_2')">사용자 정의 렌더러 샘플 2</a></li>
+							<li id="ren_cus_3"><a href="javascript:changeLocation('./samples/renderer_custom_3.html?ren_cus_3')">사용자 정의 렌더러 샘플 3</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<ul class="root-nav-categories">
+					<li>
+						<h3>15. 포매팅(Formatting)</h3>
+						<ul class="root-nav-widgets">
+							<li id="ftnum"><a href="javascript:changeLocation('./samples/formatter.html?ftnum')">숫자 포맷팅</a></li>
+							<li id="ftdate"><a href="javascript:changeLocation('./samples/formatter-date.html?ftdate')">날짜 포맷팅</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>16. 그리드 편집(Editing)</h3>
+						<ul class="root-nav-widgets">
+							<li id="edft"><a href="javascript:changeLocation('./samples/editing_default.html?edft')">기본 그리드 편집</a></li>
+							<li id="edft2"><a href="javascript:changeLocation('./samples/editing_default2.html?edft2')">기본 그리드 편집2</a></li>
+							<li id="ecopy"><a href="javascript:changeLocation('./samples/editing_copy.html?ecopy')">셀 Copy, Paste(Ctrl+C, Ctrl+V)</a></li>
+							<li id="egs"><a href="javascript:changeLocation('./samples/editing_grouping_summary.html?egs')">그룹핑 상태에서 편집</a></li>
+							<li id="etd"><a href="javascript:changeLocation('./samples/editing_treeData.html?etd')">트리 그리드(계층형) 편집</a></li>
+							<li id="etd2"><a href="javascript:changeLocation('./samples/editing_treeData2.html?etd2')">트리 그리드 Depth 편집<span class="new"></span></a></li>
+							<li id="n2t"><a href="#" onclick="changeLocation('./samples/normal_to_tree.html?n2t')">일반 그리드&lt;-&gt;트리로 만들기<span class="new"></span></a></li>
+							<li id="estc"><a href="javascript:changeLocation('./samples/editing_validate.html?estc')">유효성 검사(Validating)</a></li>
+							<li id="eren"><a href="javascript:changeLocation('./samples/editing_renderer.html?eren')">유형별 칼럼 편집 렌더러</a></li>
+							<li id="ecren"><a href="javascript:changeLocation('./samples/editing_custom_renderer.html?ecren')">사용자 정의(Custom) 편집 렌더러</a></li>
+							<li id="epvt"><a href="javascript:changeLocation('./samples/editing_prevent.html?epvt')">특정 셀 또는 행 편집 행위 막기</a></li>
+							<li id="ecrud"><a href="javascript:changeLocation('./samples/editing_rowcrud.html?ecrud')">행 추가, 삽입, 삭제</a></li>
+							<li id="ermr"><a href="javascript:changeLocation('./samples/editing_remove_rows.html?ermr')">행 삭제, 삭제 취소</a></li>
+							<li id="ecrud2"><a href="javascript:changeLocation('./samples/editing_rowcrud2.html?ecrud2')">추가, 삽입, 삭제된 행 얻기</a></li>
+							<li id="ecust"><a href="javascript:changeLocation('./samples/editing_custom.html?ecust')">팝업 형태로 수정하기</a></li>
+							<li id="efcells"><a href="javascript:changeLocation('./samples/editing_fixed_cells.html?efcells')">고정 칼럼, 행 편집 가능 여부</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>17. 엑셀, CSV 등 내보기기(Export)</h3>
+						<ul class="root-nav-widgets">
+							<li id="exp_0"><a href="javascript:changeLocation('./samples/export.html?exp_0')">Export 가능한 형식(xlsx, csv 등)</a></li>
+							<li id="exp_t"><a href="javascript:changeLocation('./samples/export_tree.html?exp_t')">계층형(TreeGrid) Export</a></li>
+							<li id="exp_s"><a href="javascript:changeLocation('./samples/export_styles.html?exp_s')">동적 스타일 엑셀 Export</a></li>
+							<li id="exp_u"><a href="javascript:changeLocation('./samples/export_user_header_footer.html?exp_u')">제목 등의 정보 함께 Export</a></li>
+							<li id="exp_r"><a href="javascript:changeLocation('./samples/export_report.html?exp_r')">결재란 함께 Export</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>18. 이벤트 및 기타</h3>
+						<ul class="root-nav-widgets">
+							<li id="e_ready"><a href="javascript:changeLocation('./samples/ready_event.html?e_ready')">완료(ready) 이벤트</a></li>
+							<li id="c_click"><a href="javascript:changeLocation('./samples/cell_click.html?c_click')">셀 클릭 이벤트</a></li>
+							<li id="c_dclick"><a href="javascript:changeLocation('./samples/cell_double_click.html?c_dclick')">셀 더블 클릭 이벤트</a></li>
+							<li id="h_click"><a href="javascript:changeLocation('./samples/header_click.html?h_click')">헤더 클릭 이벤트</a></li>
+							<li id="cre_dest"><a href="javascript:changeLocation('./samples/create_destroy.html?cre_dest')">동적 제거 및 생성</a></li>
+							<li id="big"><a href="javascript:changeLocation('./samples/bigdata.html?big')">대용량 출력 예</a></li>
+							<li id="bigmc"><a href="javascript:changeLocation('./samples/multiple_columns.html?bigmc')">다수의 칼럼 출력 예</a></li>
+							<li id="sc_cu"><a href="javascript:changeLocation('./samples/scroll_custom.html?sc_cu')">스크롤 위치 및 사이즈 지정</a></li>
+							<li id="sc_st"><a href="javascript:changeLocation('./samples/selection_style.html?sc_st')">Cell-셀렉션 스타일 변경</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="root-nav-categories">
+					<li>
+						<h3>19. 연동 및 통합(Integration)</h3>
+						<ul class="root-nav-widgets">
+							<li id="inte_accs"><a href="javascript:changeLocation('./samples/integration_jqueryui_accor.html?inte_accs')">jQueryUI Accordion에서 작성하기</a></li>
+							<li id="inte_tabs"><a href="javascript:changeLocation('./samples/integration_jqueryui.html?inte_tabs')">jQueryUI Tab에서 동적 작성하기</a></li>
+							<li id="inte_dlg"><a href="javascript:changeLocation('./samples/integration_jqueryui_dial.html?inte_dlg')">jQueryUI Dialog에서 작성하기</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+	</div>
+</body>
+</html>

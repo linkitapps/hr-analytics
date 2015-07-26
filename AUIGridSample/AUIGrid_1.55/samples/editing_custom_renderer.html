@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+<style type="text/css">
+
+/* jQuery UI 재정의 */
+.ui-widget {
+	font-size:12px;
+}
+
+/* 커스텀 에디터 스타일 */
+#textAreaWrap {
+	font-size:12px;
+	position:absolute;
+	height:100px;
+	background:#fff;
+	border:1px solid #555;
+	display:none;
+	padding:4px;
+	text-align:right;
+}
+#textAreaWrap textarea {
+	font-size:12px;
+}
+
+/* 커스텀 렌더러 오토 컴플리트 */
+#auto_complete_tag {
+	font-size:12px;
+	position:absolute;
+	display:none;
+	border:1px solid #555;
+}
+
+/* 커스텀 렌더러 슬라이더 */
+#mySlider {
+	font-size:10px;
+	position:absolute;
+	height:100px;
+	display:none;
+}
+
+/* 커스텀 렌더러 셀렉터 */
+#myColors {
+	font-size:12px;
+	position:absolute;
+	display:none;
+}
+
+#date_picker {
+	font-size:12px;
+	box-sizing : border-box;
+	position:absolute;
+	display:none;
+}
+
+/* 에디터 버튼 */
+.editor_btn {
+	background:#ccc;
+	border : 1px solid #555;
+	cursor : pointer;
+	margin: 2px;
+	padding:2px;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+	// 데이터 요청, 요청 성공 시 AUIGrid 에 데이터 삽입합니다.
+	requestData("./data/normal_100.json");
+
+	$( "#mySlider" ).slider({
+      range: "max",
+      min: 1,
+      max: 20,
+      value: 2,
+      orientation: "vertical",
+      animate : true,
+      slide: function( event, ui ) {
+        updateMyValue(ui.value); // 슬라이더 value 를 그리드에 적용시킴
+      }
+    });
+    
+   $( "#myColors" ).change(function() {
+		var value = $(this).val();
+		updateMyValue(value); // 셀렉터 value 를 그리드에 적용시킴
+   });
+   
+   
+   // textarea 키업 핸들러
+   $( "#myTextArea" ).keyup(function(event) {
+		var value = $(this).val();
+		
+		// 하단에 글자 출력 시킴
+		$("#desc_info").html(value);
+   });
+   
+   // 자동완성 input 
+	$( "#auto_complete_tag" ).autocomplete({
+		source: availableTags
+    }).keydown(function(event) {
+		var value = $(this).val();
+		
+		// 엔터키 누르면 강제로 에디팅 완료 종료 적용시킴
+		if(event.keyCode == 13) {
+			AUIGrid.forceEditingComplete(myGridID, value); // 확인 버턴
+		} else if(event.keyCode == 27) { // ESC 키
+			AUIGrid.forceEditingComplete(myGridID, value, true); // 에디팅 취소, 취소 버턴
+		}
+   });
+   
+   // 달력 input
+   $( "#date_picker" ).datepicker({ dateFormat : "yy/mm/dd",
+	   showWeek: true,
+	   showOtherMonths: true,
+	   selectOtherMonths: true,
+	   onSelect : function(value) { // 달력 선택하면 바로 완료 시킴
+		   AUIGrid.forceEditingComplete(myGridID, value); 
+	   }
+	});
+   
+   
+   // textarea 확인 
+    $( "#confirmBtn" ).click(function(event) {
+    	var value = $("#myTextArea").val();
+    	value = value.replace(/\r|\n|\r\n/g, " "); // 엔터를 공백으로 변환
+		AUIGrid.forceEditingComplete(myGridID, value); // 확인 버턴
+		$("#textAreaWrap").css("display", "none");
+		
+   });
+    
+   // textarea 취소
+   $( "#cancelBtn" ).click(function(event) {
+    	var value = $("#myTextArea").val()
+		AUIGrid.forceEditingComplete(myGridID, value, true); // 에디팅 취소, 취소 버턴
+		$("#textAreaWrap").css("display", "none");
+   });
+   
+};
+
+// AUIGrid 칼럼 설정
+// 데이터 형태는 다음과 같은 형태임,
+//[{"id":"#Cust0","date":"2014-09-03","name":"Han","country":"USA","product":"Apple","color":"Red","price":746400}, { .....} ];
+var columnLayout = [ {
+		dataField : "id",
+		headerText : "Client ID",
+		editable : false,
+		width : 100
+	}, {
+		dataField : "name",
+		headerText : "Name",
+		width : 120
+	}, {
+		dataField : "product",
+		headerText : "Product",
+		width: 140
+	}, {
+		dataField : "color",
+		headerText : "Color",
+		width : 140,
+		renderer : {
+			type : "IconRenderer",
+			iconWidth : 20, // icon 가로 사이즈, 지정하지 않으면 24로 기본값 적용됨
+			iconHeight : 20,
+			iconTableRef :  { // icon 값 참조할 테이블 레퍼런스
+				"Blue" : "./assets/blue_circle.png",
+				"Gray" : "./assets/gray_circle.png",
+				"Green" : "./assets/green_circle.png",
+				"Orange" : "./assets/orange2_circle.png",
+				"Pink" : "./assets/pink_circle.png",
+				"Violet" : "./assets/violet_circle.png",
+				"Yellow" : "./assets/yellow_circle.png",
+				"Red" : "./assets/orange_circle.png",
+				"default" : "./assets/glider.png" //default
+			}
+		}
+	}, {
+		dataField : "quantity",
+		headerText : "Quantity",
+		width: 80
+	}, {
+		dataField : "date",
+		headerText : "Date",
+		dataType : "date",
+		formatString : "yyyy. mm. dd"
+	}
+];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {};
+	
+	auiGridProps.rowIdField = "id";
+	
+	auiGridProps.showRowCheckColumn = false;
+	
+	auiGridProps.showStateColumn = true;
+	
+	// 편집 가능 설정
+	auiGridProps.editable = true;
+	
+	// 소팅
+	auiGridProps.enableSorting = true;
+	
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	// 에디팅 시작 이벤트 바인딩
+	AUIGrid.bind(myGridID, "cellEditBegin", function(event) {
+		auiCellEditingHandler(event); // 에디팅 정보 하단에 출력
+		
+		// 커스템 에디터 출력
+		createMyCustomEditRenderer(event);
+	});
+	AUIGrid.bind(myGridID, "cellEditEnd", function(event) {
+		auiCellEditingHandler(event); // 에디팅 정보 하단에 출력
+		
+		// 커스템 에디터 감추기
+		removeMyCustomEditRenderer(event);
+	});
+	AUIGrid.bind(myGridID, "cellEditCancel", function(event) {
+		auiCellEditingHandler(event); // 에디팅 정보 하단에 출력
+		
+		// 커스템 에디터 감추기
+		removeMyCustomEditRenderer(event);
+	});
+}
+
+function updateMyValue(value) {
+	
+	// 현재 커스템 렌더러로 선택된 셀에 값을 value 로 설정함
+	AUIGrid.setEditingInputValue(myGridID, value);
+}
+
+// 수정한 아이템들 얻기
+function getEditedItems() {
+	//var editedList = AUIGrid.getEditedRowItems(myGridID); // 수정된 행에 대한 모든 정보
+	var editedList = AUIGrid.getEditedRowColumnItems(myGridID); // 수정된 행 아이템 중 수정된 필드만 가져오기
+	var str = "";
+	var row;
+	for(var i=0, len=editedList.length; i<len; i++) {
+		row = editedList[i];
+		
+		for(var name in row) {
+			str += name + " : " + row[name] + ", ";	
+		}
+		str += "\r\n";
+		
+	}
+	alert(str);
+}
+
+// 커스텀 에디팅 렌더러 유형에 맞게 출력하기
+function createMyCustomEditRenderer(event) {
+	
+	var dataField = event.dataField;
+	var $obj;
+	var $textArea;
+	// Name는 TextArea 사용
+	if(dataField == "name") {
+		$obj = $("#textAreaWrap").css({
+			left : event.position.x,
+			top : event.position.y,
+			width : event.size.width - 8, // 8는 textAreaWrap 패딩값
+			height : 120,
+			display : "block"
+		});
+		$textArea = $("#myTextArea").val(event.value);
+		
+	// product는  자체 Input 태그 AutoComplete 사용
+	} else if(dataField == "product") {
+		$obj = $("#auto_complete_tag").css({
+			left : event.position.x,
+			top : event.position.y,
+			width : event.size.width - 1,
+			height : event.size.height - 1,
+			display : "block"
+		})
+		$obj.val(event.value);
+	}
+	
+	// Color 에 대해서는 jQuery 셀렉터 사용
+	else if(dataField == "color") {
+		$obj = $("#myColors").css({
+			left : event.position.x,
+			top : event.position.y,
+			width : event.size.width,
+			height : event.size.height,
+			display : "block"
+		})
+		.val(event.value);
+	}
+	
+	// Quantity 에 대해서는 슬리이더 사용
+	else if(dataField == "quantity") {
+		$obj = $("#mySlider").css({
+			left : event.position.x + event.size.width,
+			top : event.position.y,
+			display : "block"
+		})
+		.slider("value", event.value);
+	} else if(dataField == "date") {
+		var offset = $("#grid_wrap").offset(); // grid_wrap 의 위치 구함
+		$obj = $("#date_picker").css({
+			left : offset.left + event.position.localX, 
+			top : offset.top + event.position.localY,
+			width : event.size.width,
+			height : event.size.height,
+			display : "block"
+		})
+		.val(event.value);
+	}
+	
+	
+	if(dataField == "name") {
+		// 포커싱
+		setTimeout(function(){
+			$textArea.focus();
+			$textArea.select();
+		},16);
+	} else if(dataField == "product" || dataField == "color" || dataField == "date") {
+		// 포커싱
+		setTimeout(function(){
+			$obj.select();
+			$obj.focus();
+		},16);
+	}
+};
+
+// 모든 커스텀 에디팅 렌더러 감추기
+function removeMyCustomEditRenderer(event) {
+	$("#textAreaWrap").css({
+		display : "none"
+	});
+	$("#myColors").css({
+		display : "none"
+	});
+	$("#auto_complete_tag").css({
+		display : "none"
+	});
+	$("#mySlider").css({
+		display : "none"
+	});
+	$("#date_picker").css({
+		display : "none"
+	}).datepicker("hide");
+}
+
+// 하단 정보 표시
+function auiCellEditingHandler(event) {
+	if(event.type == "cellEditBegin") {
+		$("#editBeginDesc").html( "에디팅 시작(cellEditBegin) : ( " + event.rowIndex + ", " + event.columnIndex + " ) " + event.headerText + ", value : " + event.value );
+	} else if(event.type == "cellEditEnd") {
+		$("#editBeginEnd").html( "에디팅 종료(cellEditEnd) : ( " + event.rowIndex + ", " + event.columnIndex + " ) " + event.headerText + ", value : " + event.value );
+	} else if(event.type == "cellEditCancel") {
+		$("#editBeginEnd").html( "에디팅 취소(cellEditCancel) : ( " + event.rowIndex + ", " + event.columnIndex + " ) " + event.headerText + ", value : " + event.value );
+	}
+};
+
+// 리사이징이 일어난 경우 커스텀 렌더러 없앰.
+$(window).resize(function() {
+	// 취소 이벤트 강제 발생시킴.
+	AUIGrid.forceEditingComplete(myGridID, "", true); // 에디팅 취소
+});
+
+
+
+// 자동완성으로 사용할 태그들
+var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Galaxy S5",
+      "Groovy",
+      "Haskell",
+      "IPad Air",
+      "IPhone 5S",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "LG G3",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+   
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>Name, Product, Color, Quantity 에 각각 편집 렌더러를 사용자 정의하여 작성한 모습입니다.</p>
+		<p>즉, AUIGrid 에서 제공하는 편집 렌더러(editRenderer)가 아닌 사용자가 직접 작성하여 원하는 형태로 출력할 수 있습니다.</p>
+		<p>■ Name : textarea 태그를 이용한 편집 렌더러, 가로를 칼럼 넓이에 맞춰 출력시킵니다.</p>
+		<p>■ Product : jQuery UI 의 자동완성(autoComplete) 위젯을 이용하여 작성한 편집 렌더러입니다.(편집 상태 진입 후 "a"를 눌러 보십시오.)</p>
+		<p>■ Color : select 태그를 이용한 편집 렌더러입니다. 그리드에 "드랍다운리스트" 가 존재하지만 이를 사용하지 않고 사용자가 HTML의 select 로 편집 렌더러를 구성한 모습입니다.</p>
+		<p>■ Quantity : jQuery UI 의 Slider 위젯을 이용하여 작성한 편집 렌더러입니다.</p>
+		<p>■ Date : jQuery UI 의 DatePicker 위젯을 이용하여 작성한 편집 렌더러입니다.</p>
+	</div>
+	
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:480px; margin:0 auto;"></div>
+	</div>
+	
+	<div class="desc_bottom">
+		<p><span>커스텀 Textarea 키 업 글자 : </span><span id="desc_info"></span></p>
+		<p id="editBeginDesc"></p>
+		<p id="editBeginEnd"></p>
+	</div>
+</div>
+
+<!-- 사용자 정의 렌더러 - html textarea 태그 -->
+<div id="textAreaWrap">
+	<textarea id="myTextArea" style="width:100%; height:90px;"></textarea>
+	<ul class="nav_u" style="margin-top:4px;">
+		<li><span class="editor_btn" id="confirmBtn">확인</span></li>
+		<li><span class="editor_btn" id="cancelBtn">취소</span></li>
+	</ul>
+</div>
+
+<!-- 사용자 정의 렌더러 html input 태그- 자동완성 렌더러 정의 할 것임 -->
+<input id="auto_complete_tag">
+
+<!-- 사용자 정의 렌더러 jQuery 달력 -->
+<input id="date_picker">
+
+<!-- 사용자 정의 렌더러 - html select 태그 -->
+<select id="myColors">
+  <optgroup label="따뜻한 색상">
+  	<option value="Orange">Orange</option>
+    <option value="Pink">Pink</option>
+    <option value="Violet">Violet</option>
+    <option value="Yellow">Yellow</option>
+    <option value="Red">Red</option>
+  </optgroup>
+  <optgroup label="차가운 색상">
+    <option value="Blue">Blue</option>
+    <option value="Gray">Gray</option>
+    <option value="Green">Green</option>
+  </optgroup>
+  <optgroup label="기타">
+    <option value="White">White</option>
+    <option value="Black">Black</option>
+   </optgroup>
+</select>
+
+<!-- 사용자 정의 렌더러 - jQuery UI 슬라이더 -->
+<div id="mySlider"></div>
+
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

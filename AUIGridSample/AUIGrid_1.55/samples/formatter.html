@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+.aui-grid-default-column {
+	text-align:right;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+};
+
+// AUIGrid 칼럼 설정
+var columnLayout = [{
+	dataField: "field0",
+    headerText: "원래 데이터",
+    headerTooltip : {
+			show : true,
+			tooltipHtml : "원래 데이터, 어떠한 조치도 취하지 않은 상태"
+	}
+}, {
+	dataField: "field6",
+    headerText: "numeric 설정",
+	dataType : "numeric",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "dataType 을 numeric 으로 설정하고,<br>formatString 주지 않은 상태"
+	}
+}, {
+	dataField: "field1",
+    headerText: "#,##0.00",
+	dataType : "numeric",
+	formatString : "#,##0.00",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "소수 둘째자리 의무 표시(3자리 반올림)"
+	}
+}, {
+    dataField: "field2",
+    headerText: "#,##0.0#",
+	dataType : "numeric",
+	formatString : "#,##0.0#",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "소수 첫째자리 의무 표시, 둘째자리는 있으면 반올림 표시"
+	}
+}, {
+    dataField: "field3",
+    headerText: "#,##0.##",
+	dataType : "numeric",
+	formatString : "#,##0.##",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "소수점이 있으면 (둘째짜리까지) 표시, 없으면 미표시"
+	}
+}, {
+    dataField: "field4",
+    headerText: "#,##0",
+	dataType : "numeric",
+	formatString : "#,##0",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "정수만 표시(소수점이 있다면 반올림)"
+	}
+}, {
+    dataField: "field5",
+    headerText: "### ##0,##",
+	dataType : "numeric",
+	formatString : "### ##0,##",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "천단위 공백, 소수점 구분자 변경"
+	}
+}, {
+    dataField: "field7",
+    headerText: "앞에 $ 넣기",
+    prefix : "$",
+	dataType : "numeric",
+	formatString : "#,##0",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "단위는 prefix, postfix 로 설정"
+	}
+}];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {
+			showRowCheckColumn : false,
+			showRowNumColumn : false,
+			editable : true
+	};
+
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	
+	//-- 그리드에 넣을 데이터 만들기.
+	
+	var myNums = [123456, 123456.789, -123456, -123456.789, 0.01234567, -0.01234567, 0, "", "-", "N/A"];
+	
+	var data = [];
+	var obj;
+	
+	for(var i=0, len=myNums.length; i<len; i++) {
+		
+		obj = {};
+		for(var j=0; j<15; j++) {
+			obj["field"+j] = myNums[i];
+		}
+		data[i] = obj;
+	}
+	
+	// 만들어진 데이터 삽입
+	AUIGrid.setGridData(myGridID, data);
+	           
+}
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>숫자 포매팅이 어떻게 적용되는지를 보여주는 데모입니다.</p>
+		<p>데이터에 0 이 아닌 공백("") 또는 하이픈(-), 문자 N/A 를 삽입하고 포매팅을 했을 경우 공백은 0으로 변경되고 나머지는 모두 그대로 출력시킵니다.</p>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:320px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p id="ellapse"></p>
+		
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+
+/* 커스텀 칼럼 스타일 정의 */
+.my-right {
+	text-align:right;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+	// 데이터 요청, 요청 성공 시 AUIGrid 에 데이터 삽입합니다.
+	requestData("./data/normal_100.json");
+
+};
+
+// AUIGrid 칼럼 설정
+// 데이터 형태는 다음과 같은 형태임,
+//[{"id":"#Cust0","date":"2014-09-03","name":"Han","country":"USA","product":"Apple","color":"Red","price":746400}, { .....} ];
+var columnLayout = [ {
+		dataField : "id",
+		headerText : "ID",
+		width:100
+	}, {
+		headerText : "Header Group",
+		children : [{
+						dataField : "name",
+						headerText : "Name",
+						width:100
+					}, {
+						dataField : "country",
+						headerText : "Country",
+						width:100
+					}, {
+						dataField : "product",
+						headerText : "Product",
+						width:100
+					}]
+	}, {
+		dataField : "color",
+		headerText : "Color",
+		width:100,
+		visible : false // Color 칼럼은 숨긴채 출력시킴
+	}, {
+		dataField : "quantity",
+		headerText : "Quantity",
+		width:100
+	}, {
+		dataField : "price",
+		headerText : "Price",
+		dataType : "numeric",
+		style : "my-right",
+		width:100
+	}, {
+		dataField : "date",
+		headerText : "Date",
+		width:100
+	}
+];
+
+
+// 푸터 설정
+var footerObject = [ {
+	labelText : "총계",
+	positionField : "#base"
+}, {
+	positionField : "date",
+	dataField : "date",
+	operation : "COUNT",
+	style : "my-right"
+}, {
+	dataField : "price",
+	positionField : "price",
+	operation : "SUM",
+	formatString : "#,##0",
+	style : "my-right"
+}];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {
+			selectionMode : "singleRow", 
+			enableSorting : true, // 정렬 사용
+			enableMovingColumn : true, // 칼럼 이동 가능 설정
+			showFooter : true
+	};
+
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	// 푸터 객체 세팅
+	AUIGrid.setFooter(myGridID, footerObject);
+}
+
+// 칼럼 숨김/해제 체크박스 핸들러
+function checkboxChangeHandler(event) {
+	var target = event.target || event.srcElement;
+	if(!target)	return;
+	
+	var dataField = target.value;
+	var checked = target.checked;
+	
+	if(dataField == "group") { // 헤더그룹인 경우
+		if(checked) {
+			AUIGrid.showColumnByDataField(myGridID, ["name", "country", "product"] ); // 그룹의 자식 3개
+			document.getElementById("c1").checked = true; // 3개 체크 박스 선택되도록 설정
+			document.getElementById("c2").checked = true;
+			document.getElementById("c3").checked = true;
+		} else {
+			AUIGrid.hideColumnByDataField(myGridID, ["name", "country", "product"] );
+			document.getElementById("c1").checked = false;
+			document.getElementById("c2").checked = false;
+			document.getElementById("c3").checked = false;
+		}
+	} else {
+		if(checked) {
+			AUIGrid.showColumnByDataField(myGridID, dataField);
+		} else {
+			AUIGrid.hideColumnByDataField(myGridID, dataField);
+		}
+	}
+}
+
+
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>칼럼을 보이기/숨기기를 설정할 수 있습니다.</p>
+		<p>ID 칼럼은 항상 보이게 설정하고, Color 칼럼은 처음 생성 시 숨긴 채 출력시킨 모습입니다.</p>
+		<ul class="nav_u">
+			<li><input type="checkbox" id="c1" value="name" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c1">Name</label></li>
+			<li><input type="checkbox" id="c2" value="country" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c2">Country</label></li>
+			<li><input type="checkbox" id="c3" value="product" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c3">Product</label></li>
+			<li><input type="checkbox" id="c4" value="color" onclick="checkboxChangeHandler(event)"><label for="c4">Color</label></li>
+			<li><input type="checkbox" id="c5" value="quantity" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c5">Quantity</label></li>
+			<li><input type="checkbox" id="c6" value="price" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c6">Price</label></li>
+			<li><input type="checkbox" id="c7" value="date" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c7">Date</label></li>
+		</ul>
+		<ul class="nav_u" style="margin-top:10px;"><li><input type="checkbox" id="c8" value="group" checked="checked" onclick="checkboxChangeHandler(event)"><label for="c8">Header Group(Name, Country, Product)</label></li></ul>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:480px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p id="ellapse"></p>
+		
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

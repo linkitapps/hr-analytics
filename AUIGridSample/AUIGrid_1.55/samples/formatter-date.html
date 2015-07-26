@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+.aui-grid-default-column {
+	text-align:left;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+};
+
+// AUIGrid 칼럼 설정
+var columnLayout = [{
+	dataField: "field0",
+    headerText: "원래 데이터",
+    width:150,
+    headerTooltip : {
+			show : true,
+			tooltipHtml : "원래 데이터, 어떠한 조치도 취하지 않은 상태"
+	}
+}, {
+	dataField: "field1",
+    headerText: "yyyy-mm-dd",
+	dataType : "date",
+	formatString : "yyyy-mm-dd",
+	width:150,
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "dataType 을 date로 설정하고,<br>formatString : yyyy-mm-dd"
+	}
+}, {
+	dataField: "field2",
+    headerText: "yyyy-mm-dd hh:MM:ss",
+	dataType : "date",
+	formatString : "yyyy-mm-dd hh:MM:ss",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "dataType 을 date로 설정하고,<br>formatString : yyyy-mm-dd hh:MM:ss"
+	}
+}, {
+	dataField: "field3",
+    headerText: "yy년 m월 d일 hh시 MM분",
+	dataType : "date",
+	formatString : "yy년 m월 d일 hh시 MM분",
+	headerTooltip : {
+			show : true,
+			tooltipHtml : "dataType 을 date로 설정하고,<br>formatString : yy년 m월 d일 hh시 MM분"
+	}
+}];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {
+			showRowCheckColumn : false,
+			showRowNumColumn : false,
+			editable : true
+	};
+
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	
+	//-- 그리드에 넣을 데이터 만들기.
+	var myNums = ["2015/01/01", "2015/01/01 09:08", "2015/01/01 09:08:45", "2015/1/1", "2015/1/1 9:8", "2015/1/1 9:8:45", 
+	              "2015-01-01", "2015-01-01 09:08", "2015-01-01 09:08:45", "2015-1-1", "2015-1-1 9:8", "2015-1-1 9:8:45", new Date().getTime()];
+	
+	var data = [];
+	var obj;
+	
+	for(var i=0, len=myNums.length; i<len; i++) {
+		
+		obj = {};
+		for(var j=0; j<4; j++) {
+			obj["field"+j] = myNums[i];
+		}
+		data[i] = obj;
+	}
+	
+	// 만들어진 데이터 삽입
+	AUIGrid.setGridData(myGridID, data);
+	           
+}
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>날짜 포매팅(Date formatting)을 사용하기 위해서 날짜 형식은 다음과 같은 형식이여야 합니다.</p>
+		<p>(슬래시와 콜론 구분자, 또는 대쉬와 콜론 구분자)</p>
+		<ul class="nav_u">
+			<li>■ 2015/01/01</li>
+			<li>■ 2015/1/1</li>
+			<li>■ 2015/01/01 09:08:00</li>
+			<li>■ 2015/1/1 9:8</li>
+		</ul>
+		<ul class="nav_u">
+			<li>■ 2015-01-01</li>
+			<li>■ 2015-1-1</li>
+			<li>■ 2015-01-01 09:08:00</li>
+			<li>■ 2015-1-1 9:8</li>
+		</ul>
+		<p>시간을 1970년 1월 1일 UTC 부터 해당 시간까지 밀리세컨드로 포현한 getTime 형식도 유효합니다.</p>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:220px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p>날짜(Date) 포맷 스트링은 다음과 같습니다.</p>
+		<ul style="list-style: square;list-style-position: inside;">
+			<li>d : 날짜(Day) 1자리수로 표현(예:1)</li>
+			<li>dd  : 날짜(Day) 2자리수로 표현(예:01)</li>
+			<li>ddd : 요일로 3자리수로 표현(예:Mon, Tue)</li>
+			<li>dddd : 요일 전체 이름으로 표현(예:Monday)</li>
+			<li>m : 월(Month) 1자리로 표현</li>
+			<li>mm :	월(Month) 2자리로 표현</li>
+			<li>mmm : 월(Month) 영문 이름 3자리로 표현(예:Jan)</li>
+			<li>mmmm :	월(Month) 영문 전체 이름으로 표현(예:January)</li>
+			<li>yy : 연(Year) 2자리로 표현(예:15)</li>
+			<li>yyyy : 연(Year) 4자리로 표현(예:2015)</li>
+			<li>h : 시(Hours) 12시간제 1자리로 표현</li>
+			<li>hh : 시(Hours) 12시간제 2자리로 표현</li>
+			<li>H : 시(Hours) 24시간제 1자리로 표현</li>
+			<li>HH : 시(Hours) 24시간제 2자리로 표현</li>
+			<li>M : 분(Minutes) 1자리로 표현</li>
+			<li>MM : 분(Minutes) 2자리로 표현</li>
+			<li>s :	초(Seconds) 1자리로 표현</li>
+			<li>ss : 초(Seconds) 2자리로 표현</li>
+			<li>t :	오전, 오후를 a 또는 p로 표현</li>
+			<li>tt : 오전, 오후를 am 또는 pm으로 표현</li>
+			<li>T :	 오전, 오후를 A 또는 P로 표현</li>
+			<li>TT	 : 오전, 오후를 AM 또는 PM으로 표현</li>
+		</ul>
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

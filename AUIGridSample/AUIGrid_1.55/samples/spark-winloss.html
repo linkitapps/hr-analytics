@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+.aui-grid-default-column {
+	text-align:right;
+}
+.aui-grid-default-footer {
+	text-align:right;
+}
+.aui-grid-my-column {
+	text-align:center;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+	// 데이터 요청, 요청 성공 시 AUIGrid 에 데이터 삽입합니다.
+	requestData("./data/revenue_region.json");
+
+};
+
+// AUIGrid 칼럼 설정
+var columnLayout = [{
+    dataField: "region",
+    headerText: "지역",
+     style : "aui-grid-my-column",
+    width: 120
+}, {
+    dataField: "p1201,p1202,p1203,p1204,p1205,p1206,p1207,p1208,p1209,p1210,p1211,p1212",
+    headerText: "승패(최대,최소 표시)",
+    width : 120,
+    renderer : {
+    	type : "SparkWinLossRenderer",
+    	baseValue : 500000 // 500000 초과면 승, 500000 미만이면 패
+    }
+}, {
+    dataField: "p1201,p1202,p1203,p1204,p1205,p1206,p1207,p1208,p1209,p1210,p1211,p1212",
+    headerText: "승패 스타일링",
+    width : 120,
+    renderer : {
+    	type : "SparkWinLossRenderer",
+    	baseValue : 500000,
+    	markMaxValue : true,
+    	markMinValue : true,
+    	maxColor : "#D941C5",
+    	minColor : "#FF2424",
+    	winColor : "#2F9D27",
+    	lossColor : "#2F9D27"
+    }
+}, {
+  dataField: "p1201",
+    headerText: "'12 1월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1202",
+    headerText: "'12 2월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1203",
+    headerText: "'12 3월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1204",
+    headerText: "'12 4월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1205",
+    headerText: "'12 5월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1206",
+    headerText: "'12 6월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1207",
+    headerText: "'12 7월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1208",
+    headerText: "'12 8월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1209",
+    headerText: "'12 9월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1210",
+    headerText: "'12 10월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1211",
+    headerText: "'12 11월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}, {
+    dataField: "p1212",
+    headerText: "'12 12월",
+	dataType : "numeric",
+	formatString : "#,##0"
+}];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {};
+
+	auiGridProps.enableSorting = true;
+	
+	auiGridProps.editable = true;
+	
+	// singleRow 선택모드
+	auiGridProps.selectionMode = "multipleCells";
+	
+	// 고정칼럼 3 적용
+	auiGridProps.fixedColumnCount = 3;
+
+	// 줄번호 칼럼 렌더러 출력
+	auiGridProps.showRowNumColumn = false;
+
+	// 체크박스 칼럼 렌더러 표시 설정
+	auiGridProps.showRowCheckColumn = false;
+	
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+}
+
+// 엑셀 내보내기(Export);
+function exportClick() {
+	
+	// 그리드가 작성한 엑셀, CSV 등의 데이터를 다운로드 처리할 서버 URL을 지시합니다.
+	// 서버 사이드 스크립트가 JSP 이라면 ./export/export.jsp 로 변환해 주십시오.
+	// 스프링 또는 MVC 프레임워크로 프로젝트가 구축된 경우 해당 폴더의 export.jsp 파일을 참고하여 작성하십시오.
+	AUIGrid.setProperty(myGridID, "exportURL", "./server_script/export.php");
+	
+	// 내보내기 실행
+	AUIGrid.exportAsXlsx(myGridID);
+};
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>스파크  승패(Spark Win Loss) 렌더러를 출력하여 1~12월의 매출 추이를 표시한 예제입니다.</p>
+		<p>승패는 기본적으로 양수, 음수로 결정되나 승패설정 값을 변경할 수 있습니다.</p>
+		<p>본 예제는 승패 결정 값(baseValue) 를 500,000 으로 설정하여 50만 보다 높다면 승(Win), 50만보다 작다면 패(Loss)를 출력한 모습입니다.</p>
+		<p>월별 매출에서 최소값과 최대값을 각각 빨강색과 파랑색으로 표시하였습니다.</p>
+		<p>스파크 칼럼 렌더러는 IE9 이상에서 사용 가능합니다.(IE8 이하에서 출력 시 공백으로 처리됨)</p>
+		<span class="btn" onclick="exportClick()">엑셀(xlsx)로 저장</span><span>(스파크 승패는 엑셀에서 양수/음수 표현만 가능하여 50만 보다 높고, 낮음으로 승패 결정 불가)</span>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:480px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p id="ellapse"></p>
+		
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

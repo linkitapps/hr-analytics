@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<style>
+.sf_title, .ver_title {
+	margin:1.5em 0 1em 0;
+}
+.browser_table {
+max-width: 100%;
+background-color: transparent;
+width: 98%;
+margin:0 auto;
+border-spacing: 2px;
+border: 1px solid gray;
+line-height:24px;
+border-spacing: 0;
+border-collapse: collapse;
+padding: 0;
+margin: 0;
+}
+.browser_table th {
+  border-bottom-width: 3px !important;
+  border: 1px solid #ddd;
+  background:#eeeeee;
+}
+table tr td {
+	border: 1px solid #ddd;
+	padding: 4px 4px;
+	text-align:center;
+}
+
+.feature_ul {
+	list-style-type:disc;
+	list-style-position: inside;
+	line-height:1.5em;
+}
+
+.feature_ul a{
+	color:inherit;
+	text-decoration:none;
+}
+.feature_ul a:hover{
+	color:inherit;
+	text-decoration:underline;
+}
+.support_ie {border-bottom-color: #0275BA !important;}
+.support_ff {border-bottom-color: #DF7215 !important;}
+.support_sf {border-bottom-color: #43B3E9 !important;}
+.support_cr {border-bottom-color: #39B642 !important;}
+.support_op {border-bottom-color: #C42122 !important;}
+.support_nd {border-bottom-color: #8CC84B !important;}
+.support_ad {border-bottom-color: #990085 !important;}
+.support_ios {border-bottom-color: #6799FF !important;}
+</style>
+
+<?include("./frag/trace.html")?>
+
+<script type="text/javascript">
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	document.getElementById("main_top").style.visibility = "hidden";
+};
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<h1>AUIGrid Features</h1>
+		<ul class="feature_ul">
+			<li>AUIGrid 는 Active-X 사용 없이 자바스크립트와 HTML, CSS 로 작성된 웹 데이터그리드(DataGrid) 입니다.</li>
+			<li>AUIGrid 는 jQuery 또는 기타 JS Framework 와 독립적으로 작성되었습니다. 따라서 다양한 환경에서 사용할 수 있습니다.</li>
+			<li>AUIGrid 는 특정 서버 사이드(PHP, JSP, ASP, .NET)에 종속되지 않습니다. 어떤 서버 사이드, WAS 든 사용 가능합니다.</li>
+		</ul>
+	
+		<h3 class="sf_title">지원 브라우저</h3>
+		<table class="browser_table">
+		  <tbody>
+		  		<tr>
+			    <th class="support_ie">Internet Explorer</th>
+			    <th class="support_cr">Chrome</th>
+			    <th class="support_ff">Firefox</th>
+			    <th class="support_sf">Safari</th>
+				<th class="support_op">Opera</th>
+				<th class="support_ad">Android</th>
+				<th class="support_ios">iOS</th>
+			  </tr>
+			  <tr>
+			    <td>Yes 8+</td>
+			    <td>Yes</td>
+			    <td>Yes</td>
+			    <td>Yes</td>
+			    <td>Yes</td>
+			    <td>Yes</td>
+			    <td>Yes</td>
+			  </tr>
+			</tbody>
+		</table>
+		<p>단, 스파크라인(SparkLine)차트는 IE9 이상에서 사용 가능합니다.</p>
+		<h3 class="sf_title">주요 기능</h3>
+		
+		<h4 class="ver_title">Ver. 1.55</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./save_column.html?save', 500)">그리드의 상태를 저장, 유지할 수 있는 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('filter_custom_menu.html?ft_menu', 2000)">사용자 정의 필터 메뉴 작성하는 기능 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.54</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./treeData_default2.html?trn6', 1500)">일반 데이터를 트리 그리드로 표현 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_treeData2.html?etd2', 3500)">트리 그리드의 depth 수정 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./normal_to_tree.html?n2t', 3500)">일반 그리드&lt;-&gt;트리 그리드로 편집 가능토록 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./context_event.html?cxe', 2300)">헤더, 바디 컨텍스트 메뉴 사용자 정의 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./selection.html?ex1_6', 300)">Home, End 키가 칼럼의 시작과 끝으로 이동하도록 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./renderer_dropdownlist.html?rdrop', 2500)">드랍다운리스트의 리스트를 key-value 로 지정할 수 있도록 개선</a></li>
+			<li><a href="javascript:changeLocation('./hide_column.html?ex1_8', 500)">숨겨진 칼럼이 있는 경우 칼럼 자리 이동 시 레이아웃이 깨지던 버그가 패치되었습니다.</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.53</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./lazy_loading.html?lazy', 500)">스크롤 최하단에서 추가 데이터 요청 후 붙이는 기능(Lazy Loading) 추가</a></li>
+			<li><a href="javascript:changeLocation('./grouping_summary4.html?gsc04', 1500)">그룹핑 합계 필드(SummaryFields) 선택적 출력 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./paging_custom.html?pg_cus', 2100)">페이징 사용자 정의(Custom) 구현 데모 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.52</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./renderer_html_template.html?rhtml', 2400)">HTML 템플릿 렌더러 추가 (셀을 HTML로 정의하면 그대로 출력합니다. 예: a, br, img 태그 등)</a></li>
+			<li><a href="javascript:changeLocation('./filter_user2.html?ft_usr2', 1600)">그룹핑 합계 필드(SummaryFields)가 필터링에 따라 동적으로 계산되도록 개선되었습니다.</a></li>
+			<li><a href="javascript:changeLocation('./default_demo_csv.html?cex1_1', 0)">CSV 데이터 그리드 출력 기능 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.51</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./editing_validate.html?estc', 3000)">유효성 검사(Validator)의 UI 가 개선되었습니다.</a></li>
+			<li>푸터에서 사용자가 계산한 값에 대해 styleFunction 이 적용되지 않는 버그가 패치되었습니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.50</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./renderer_custom_1.html?ren_cus_1', 2800)">사용자 정의 렌더러(Custom Column Renderer) 작성 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./tooltip-normal.html?tip_n', 1000)">그리드 툴팁(ToolTip) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_treeData.html?etd', 3000)">트리 그리드에서 행 삽입, 삭제 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./export_report.html?exp_r', 3500)">엑셀 저장 시 결재 확인(결재 서류 형태) 함께 내보내기 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_copy.html?ecopy', 3000)">붙여넣기(Ctrl+V) 할 때 행이 없는 경우 자동 생성되도록 패치</a></li>
+			<li><a href="javascript:changeLocation('./footer-style2.html?fstyle2', 1000)">푸터(Footer) 값에서도 prefix, postfix, styleFunction 을 사용할 수 있도록 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.44</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./footer-custom2.html?fcustom2', 900)">푸터(Footer)에 다수 연산자 및 사용자 정의 연산 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./selection_style.html?sc_st', 3500)">셀 선택 시 셀렉션 보더(border) 기능 추가</a></li>
+			<li>엑셀 저장 시 날짜 포매팅이 안되어 저장되는 버그가 패치되었습니다.</li>
+			<li>트리 그리드에서 칼럼 틀 고정을 설정한 경우 하단 칼럼이 밀리는 버그가 패치되었습니다.</li>
+			<li>더 이상 푸터(Footer) 값에 콤마를 자동으로 찍어주지 않습니다. 콤마 출력을 위해 formatString 을 설정해야 합니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.43</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./export_user_header_footer.html?exp_u', 3500)">엑셀 저장 시 제목, 부제목 등의 상단 및 하단에 지정된 정보 함께 내보내기 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./showcase4n.html?sh04', 0)">실시간 주식 관심 종목 데모 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_copy.html?ecopy', 3000)">붙여 넣기(Ctrl+V) 시 cellEditBegin, cellEditEnd 이벤트가 발생하도록 수정</a></li>
+			<li>편집 상태에서 리사이징 또는 스크롤하는 경우 편집 취소 되지 않는 버그가 패치 되었습니다.</li>
+			<li>날짜 포매팅에서 1970 1. 1. UTC 부터 시작하는 타임을 포매팅 하지 않던 버그가 패치되었습니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.42</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./grouping_summary3.html?gsc03', 1400)">그룹핑(+셀병합) 시 브랜치(branch) 행 표시 해제 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./renderer_calendar.html?rcal', 2500)">달력에서 오늘 날짜와 날짜 제거 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./renderer_dropdownlist.html?rdrop', 2500)">드랍다운리스트 렌더러 단계형 출력 기능 추가</a></li>
+			<li>빈 문자로 수정한 경우 셀 수정 마커의 위치가 올라가는 버그가 패치 되었습니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.41</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./showcase8.html?sh08', 0)">DB Select 후 바로 편집 가능토록 작성한 DB 그리드 데모 추가</a></li>
+			<li><a href="javascript:changeLocation('./formatter-date.html?ftdate', 3000)">날짜 포맷 사용 시 yyyy/mm/dd 에서 yyyy-mm-dd 도 지원 가능토록 수정</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.40</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./renderer_state_column.html?estcol', 2500)">데이터 편집 시 추가, 삭제, 수정 상태를 알 수 있는 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_remove_rows.html?ermr', 3000)">삭제 시 바로 삭제 하지 않고, 그리드에 표시를 하는 기능 (softRemoveRowMode) 추가</a></li>
+			<li><a href="javascript:changeLocation('./dependency_columns.html?dep_col', 400)">의존적 칼럼 관계로 칼럼 간 연산(수식) 표현 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./filter_demo.html?ft_base', 400)">필터링 할 때 푸터 연산(합계, 평균 등)이 필터에 적용되도록 보완</a></li>
+			<li><a href="javascript:changeLocation('./editing_fixed_cells.html?efcells', 3000)">고정 칼럼, 행을 지정하면 이동, 수정 하지 못하던 기능을 할 수 있도록 속성 처리</a></li>
+			<li><a href="javascript:changeLocation('./scroll_custom.html?sc_cu', 3000)">수평 스크롤의 위치를 지정할 수 있는 기능 추가</a></li>
+			<li>삭제한 아이템 복원 등 전반적으로 그리드 편집, 수정(CRUD) 기능이 업그레이드 되었습니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.33</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./editing_copy.html?ecopy', 2500)">그리드, 엑셀 간의 복사(Ctrl+C), 붙여넣기(Ctrl+V) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./sorting_demo.html?st_base', 400)">다중 칼럼 필드 정렬(Sorting) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_custom_renderer.html?ecren', 2500)">사용자 정의 편집 렌더러(CustomEditRenderer) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./editing_grouping_summary.html?egs', 2500)">수정 시 SummaryFields 및 푸터(Footer) 합계가 적용되지 않는 버그가 패치되었습니다.</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.32</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./editing_default.html?edft', 2500)">편집 모드(editingMode)에서 키보드 입력(any keys)으로 바로 셀 수정 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./renderer_calendar.html?rcal', 2000)">편집 모드(editingMode)에서 앞 뒤 여분의 날짜 달력, 월 단위 달력 기능 추가 </a></li>
+			<li><a href="javascript:changeLocation('./showcase7.html?sh07', 0)">그리드 CRUD 후 실제 DB 에 저장하는 데모 추가 </a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.31</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./editing_validate.html?estc', 2500)">편집 모드(editingMode)에서 데이터 수정 시 조건에 맞지 않는 값, 유효성 검사(validating) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./renderer_checkbox_column.html?rchk', 1500)">칼럼에 체크박스, 체크박스 이미지를 설정하는 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./integration_jqueryui_accor.html?inte_accs', 3500)">jQuery UI 연동하여 AUIGrid 출력 예제 추가</a></li>
+			<li><a href="javascript:changeLocation('./bigdata.html?big', 3500)">대용량, 다수 칼럼 예제 추가</a></li>
+			<li><a href="javascript:changeLocation('./column_size.html?dcs1', 200)">칼럼 width 고정, 비율(percent) 설정 예제 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.30</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./filter_demo.html?ft_base', 1200)">엑셀 형식의 필터(Filter) 기능 및 자동완성(autoComplete) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./search_demo.html?sr_base', 1300)">검색(Search) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./paging_demo.html?pg_base', 1500)">페이징(Paging) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./context_demo.html?ctd', 1500)">컨텍스트 메뉴 기능 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.20</h4> 
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./export.html?exp_0', 2000)">엑셀(xlsx), CSV, XML, JSON 등의 내보내기(Export) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./spark-line.html?spl', 2000)">스파크라인 엑셀(xlsx) 내보내기(Export) 기능 추가</a></li>
+			<li><a href="javascript:changeLocation('./header-tooltip.html?htooltip', 500)">칼럼 헤더에 칼럼 설명 툴팁 표시 기능 추가</a></li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.10</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./spark-line.html?spl', 2000)">스파크 라인(SparkLine) 렌더러 추가 (IE는 9 이상에서 가능)</a></li>
+			<li><a href="javascript:changeLocation('./spark-column.html?spc', 2000)">스파크 칼럼(SparkColumn) 렌더러 추가 (IE는 9 이상에서 가능)</a></li>
+			<li><a href="javascript:changeLocation('./spark-winloss.html?spwl', 2000)">스파크 승패(SparkWinLoss) 렌더러 추가 (IE는 9 이상에서 가능)</a></li>
+			<li>칼럼 헤더를 드래깅으로 그룹핑 할 때, 그룹핑이 되지 않는 버그가 패치되었습니다.</li>
+		</ul>
+		
+		<h4 class="ver_title">Ver. 1.05</h4>
+		<ul class="feature_ul">
+			<li><a href="javascript:changeLocation('./hide_column.html?ex1_8')">칼럼 보이기/숨기기 기능</a></li>
+			<li><a href="javascript:changeLocation('./styling.html?st1')">특정 조건에 따라 동적으로 행(row) 또는 셀에 스타일 기능</a></li>
+			<li>다크, 블루 테마가 추가되었습니다.</li>
+		</ul>
+		<h4 class="ver_title">Ver. 1.0 </h4>
+		<ul class="feature_ul">
+			<li>JSON, XML 데이터 바인딩</li>
+			<li>칼럼 셀 병합 기능 </li>
+			<li>고정 칼럼, 로우(틀 고정) 기능</li>
+			<li>칼럼 가로 사이즈 조절 기능</li>
+			<li>셀, 행 선택 기능 ( 키보드 및 마우스, 터치 모두 가능) </li>
+			<li>그룹형 그리드 헤더 기능</li>
+			<li>푸터에 합계 및 개수, 평균 계산하여 출력 기능 </li>
+			<li>계층형 자료 표현 기능( 트리 그리드) </li>
+			<li> 그룹핑 기능 ( 동적으로 그룹핑을 실행할 수 있습니다.) </li>
+			<li>이미지, 아이콘, 바 게이지 등 다양한 칼럼 렌더러 지원 </li>
+			<li>칼럼 셀 렌더러 커스터마이징 (예: 2 Row 셀, ComplexCell 등)</li>
+			<li>그리드 편집기능 </li>
+			<li>이벤트 핸들링</li>
+			<li> 동적 셀 스타일 기능</li>
+		</ul>
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

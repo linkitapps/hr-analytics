@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	function generatedata(){
+	  return [{"text":"text3","year":"2015","number":10796,"ym":"201408","ymd":"20150722","checkbox":"","combobox":"밸류-3","level":1,"id":0},{"text":"","year":"2010","number":655829,"ym":"201201","ymd":"","checkbox":"Y","combobox":"밸류-3","level":1,"id":1},{"text":"","year":"2012","number":167888,"ym":"201507","ymd":"20101122","checkbox":"Y","combobox":"","level":1,"id":2},{"text":"text3","year":"2012","number":146556,"ym":"201112","ymd":"20140822","checkbox":"N","combobox":"밸류-2","level":1,"id":3},{"text":"","year":"","number":825902,"ym":"201507","ymd":"","checkbox":"N","combobox":"밸류-2","level":1,"id":4,"children":[{"text":"text1","year":"2015","number":795253,"ym":"201201","ymd":"","checkbox":"","combobox":"밸류-3","level":2,"id":5},{"text":"","year":"2012","number":887782,"ym":"201311","ymd":"20120122","checkbox":"Y","combobox":"밸류-3","level":2,"id":6}]},{"text":"text2","year":"2012","number":727344,"ym":"","ymd":"20101122","checkbox":"N","combobox":"밸류-1","level":1,"id":7,"children":[{"text":"text3","year":"2013","number":877168,"ym":"201201","ymd":"20140822","checkbox":"","combobox":"밸류-6","level":2,"id":8,"children":[{"text":"text3","year":"2014","number":637744,"ym":"201311","ymd":"20101122","checkbox":"","combobox":"밸류-2","level":3,"id":9,"children":[{"text":"text1","year":"2012","number":787082,"ym":"201011","ymd":"","checkbox":"","combobox":"밸류-4","level":4,"id":10,"children":[{"text":"","year":"2013","number":369693,"ym":"201311","ymd":"20111222","checkbox":"","combobox":"밸류-2","level":5,"id":11}]},{"text":"text2","year":"","number":975842,"ym":"201011","ymd":"20111222","checkbox":"N","combobox":"밸류-3","level":4,"id":12,"children":[{"text":"text3","year":"2014","number":618247,"ym":"","ymd":"20150722","checkbox":"","combobox":"밸류-3","level":5,"id":13},{"text":"text1","year":"2012","number":478769,"ym":"201011","ymd":"20150722","checkbox":"Y","combobox":"밸류-2","level":5,"id":14}]},{"text":"text1","year":"2015","number":486203,"ym":"201011","ymd":"20140822","checkbox":"N","combobox":"밸류-1","level":4,"id":15,"children":[{"text":"text3","year":"","number":775671,"ym":"201011","ymd":"20120122","checkbox":"","combobox":"밸류-1","level":5,"id":16}]},{"text":"text2","year":"2013","number":954364,"ym":"201112","ymd":"20120122","checkbox":"N","combobox":"밸류-2","level":4,"id":17,"children":[{"text":"text2","year":"2010","number":869252,"ym":"201311","ymd":"20111222","checkbox":"","combobox":"밸류-1","level":5,"id":18}]},{"text":"text2","year":"2015","number":418224,"ym":"201311","ymd":"20111222","checkbox":"N","combobox":"밸류-1","level":4,"id":19,"children":[{"text":"text3","year":"2012","number":133715,"ym":"201507","ymd":"","checkbox":"","combobox":"밸류-5","level":5,"id":20}]},{"text":"text2","year":"2014","number":715085,"ym":"201507","ymd":"20140822","checkbox":"N","combobox":"밸류-1","level":4,"id":21,"children":[{"text":"text2","year":"2014","number":879261,"ym":"201011","ymd":"20131122","checkbox":"","combobox":"밸류-1","level":5,"id":22}]},{"text":"text1","year":"2014","number":170962,"ym":"201311","ymd":"20131122","checkbox":"N","combobox":"밸류-2","level":4,"id":23},{"text":"text2","year":"2010","number":946964,"ym":"201408","ymd":"20131122","checkbox":"Y","combobox":"밸류-1","level":4,"id":24,"children":[{"text":"text2","year":"2011","number":184995,"ym":"201112","ymd":"20140822","checkbox":"","combobox":"밸류-6","level":5,"id":25},{"text":"text2","year":"2011","number":789019,"ym":"","ymd":"20131122","checkbox":"","combobox":"밸류-4","level":5,"id":26},{"text":"","year":"2015","number":636942,"ym":"201011","ymd":"20150722","checkbox":"Y","combobox":"밸류-3","level":5,"id":27},{"text":"","year":"","number":209022,"ym":"201311","ymd":"20150722","checkbox":"","combobox":"밸류-2","level":5,"id":28}]},{"text":"text1","year":"2013","number":499809,"ym":"201311","ymd":"","checkbox":"N","combobox":"밸류-1","level":4,"id":29}]},{"text":"","year":"","number":650185,"ym":"201311","ymd":"","checkbox":"N","combobox":"밸류-5","level":3,"id":30,"children":[{"text":"text3","year":"","number":866402,"ym":"","ymd":"","checkbox":"","combobox":"밸류-2","level":4,"id":31}]},{"text":"text3","year":"2013","number":8125,"ym":"201201","ymd":"20101122","checkbox":"N","combobox":"밸류-2","level":3,"id":32}]},{"text":"","year":"2010","number":108933,"ym":"","ymd":"20120122","checkbox":"N","combobox":"밸류-4","level":2,"id":33},{"text":"text2","year":"2014","number":833041,"ym":"201507","ymd":"20150722","checkbox":"Y","combobox":"밸류-3","level":2,"id":34}]},{"text":"text1","year":"2010","number":783611,"ym":"201112","ymd":"20101122","checkbox":"N","combobox":"밸류-4","level":1,"id":35,"children":[{"text":"text2","year":"","number":551614,"ym":"201201","ymd":"20101122","checkbox":"","combobox":"","level":2,"id":36},{"text":"text2","year":"2013","number":250445,"ym":"201311","ymd":"","checkbox":"Y","combobox":"밸류-1","level":2,"id":37}]},{"text":"text2","year":"2012","number":277343,"ym":"201112","ymd":"","checkbox":"N","combobox":"밸류-1","level":1,"id":38,"children":[{"text":"","year":"2014","number":519197,"ym":"201112","ymd":"20140822","checkbox":"","combobox":"","level":2,"id":39},{"text":"text1","year":"2012","number":632072,"ym":"201011","ymd":"","checkbox":"Y","combobox":"밸류-1","level":2,"id":40}]},{"text":"text1","year":"2011","number":94323,"ym":"201311","ymd":"20101122","checkbox":"N","combobox":"밸류-1","level":1,"id":41},{"text":"text3","year":"2014","number":958876,"ym":"201201","ymd":"20140822","checkbox":"Y","combobox":"","level":1,"id":42,"children":[{"text":"text1","year":"2013","number":976026,"ym":"201311","ymd":"20101122","checkbox":"","combobox":"밸류-3","level":2,"id":43}]},{"text":"","year":"2013","number":776704,"ym":"","ymd":"","checkbox":"N","combobox":"밸류-6","level":1,"id":44},{"text":"text3","year":"2014","number":88717,"ym":"201408","ymd":"20101122","checkbox":"Y","combobox":"밸류-5","level":1,"id":45,"children":[{"text":"","year":"2012","number":971837,"ym":"201011","ymd":"20120122","checkbox":"","combobox":"","level":2,"id":46}]},{"text":"text2","year":"2015","number":957390,"ym":"201507","ymd":"20101122","checkbox":"N","combobox":"밸류-4","level":1,"id":47},{"text":"text1","year":"2010","number":825745,"ym":"201011","ymd":"20111222","checkbox":"Y","combobox":"밸류-2","level":1,"id":48},{"text":"","year":"2010","number":896895,"ym":"201408","ymd":"","checkbox":"Y","combobox":"밸류-5","level":1,"id":49},{"text":"text1","year":"2010","number":351935,"ym":"201112","ymd":"20150722","checkbox":"Y","combobox":"밸류-4","level":1,"id":50},{"text":"","year":"2012","number":608301,"ym":"201311","ymd":"20131122","checkbox":"N","combobox":"밸류-6","level":1,"id":51},{"text":"text1","year":"2012","number":592186,"ym":"","ymd":"20101122","checkbox":"Y","combobox":"밸류-5","level":1,"id":52,"children":[{"text":"text2","year":"2011","number":94779,"ym":"201507","ymd":"20140822","checkbox":"","combobox":"","level":2,"id":53,"children":[{"text":"","year":"2011","number":338901,"ym":"201201","ymd":"20140822","checkbox":"","combobox":"밸류-5","level":3,"id":54},{"text":"text3","year":"2012","number":951278,"ym":"201112","ymd":"20131122","checkbox":"Y","combobox":"밸류-6","level":3,"id":55}]},{"text":"text3","year":"2013","number":795222,"ym":"201507","ymd":"20111222","checkbox":"N","combobox":"밸류-3","level":2,"id":56}]},{"text":"","year":"2011","number":249015,"ym":"201311","ymd":"20131122","checkbox":"N","combobox":"","level":1,"id":57},{"text":"","year":"2015","number":340734,"ym":"201311","ymd":"20150722","checkbox":"N","combobox":"밸류-3","level":1,"id":58},{"text":"text1","year":"","number":454052,"ym":"201112","ymd":"","checkbox":"N","combobox":"밸류-2","level":1,"id":59},{"text":"text2","year":"2014","number":695197,"ym":"201201","ymd":"","checkbox":"N","combobox":"밸류-5","level":1,"id":60},{"text":"text3","year":"2012","number":617211,"ym":"201112","ymd":"20111222","checkbox":"N","combobox":"밸류-2","level":1,"id":61},{"text":"text1","year":"2013","number":666180,"ym":"201011","ymd":"20101122","checkbox":"N","combobox":"","level":1,"id":62},{"text":"text3","year":"2015","number":49597,"ym":"201112","ymd":"20131122","checkbox":"N","combobox":"밸류-4","level":1,"id":63},{"text":"","year":"2014","number":99272,"ym":"201408","ymd":"","checkbox":"Y","combobox":"밸류-6","level":1,"id":64},{"text":"text1","year":"2014","number":718531,"ym":"201011","ymd":"20131122","checkbox":"N","combobox":"밸류-5","level":1,"id":65,"children":[{"text":"","year":"","number":100764,"ym":"201311","ymd":"20150722","checkbox":"","combobox":"밸류-1","level":2,"id":66,"children":[{"text":"text1","year":"2012","number":557232,"ym":"201408","ymd":"20111222","checkbox":"","combobox":"밸류-4","level":3,"id":67},{"text":"text2","year":"2013","number":445402,"ym":"201201","ymd":"20101122","checkbox":"Y","combobox":"밸류-1","level":3,"id":68},{"text":"text1","year":"2013","number":772041,"ym":"201507","ymd":"20120122","checkbox":"Y","combobox":"밸류-1","level":3,"id":69},{"text":"text1","year":"2011","number":469897,"ym":"201112","ymd":"","checkbox":"Y","combobox":"밸류-4","level":3,"id":70,"children":[{"text":"text3","year":"2012","number":8356,"ym":"201311","ymd":"20101122","checkbox":"","combobox":"밸류-6","level":4,"id":71,"children":[{"text":"text1","year":"","number":316091,"ym":"","ymd":"20140822","checkbox":"","combobox":"밸류-3","level":5,"id":72}]},{"text":"","year":"2014","number":848201,"ym":"","ymd":"20150722","checkbox":"N","combobox":"밸류-4","level":4,"id":73},{"text":"text3","year":"2015","number":642302,"ym":"201311","ymd":"20140822","checkbox":"Y","combobox":"밸류-4","level":4,"id":74,"children":[{"text":"text1","year":"","number":577636,"ym":"201201","ymd":"20111222","checkbox":"","combobox":"","level":5,"id":75},{"text":"text2","year":"","number":938343,"ym":"201011","ymd":"20120122","checkbox":"","combobox":"밸류-2","level":5,"id":76}]},{"text":"text3","year":"2012","number":532928,"ym":"201311","ymd":"","checkbox":"N","combobox":"밸류-1","level":4,"id":77,"children":[{"text":"text3","year":"","number":843660,"ym":"201011","ymd":"","checkbox":"","combobox":"밸류-5","level":5,"id":78},{"text":"text2","year":"","number":636600,"ym":"201507","ymd":"20140822","checkbox":"Y","combobox":"","level":5,"id":79}]},{"text":"text3","year":"2014","number":876249,"ym":"201408","ymd":"20140822","checkbox":"N","combobox":"","level":4,"id":80},{"text":"","year":"2012","number":412863,"ym":"201507","ymd":"20120122","checkbox":"Y","combobox":"밸류-6","level":4,"id":81,"children":[{"text":"text3","year":"2014","number":134622,"ym":"201112","ymd":"20131122","checkbox":"","combobox":"밸류-6","level":5,"id":82}]},{"text":"text3","year":"2012","number":844073,"ym":"201408","ymd":"20131122","checkbox":"N","combobox":"밸류-1","level":4,"id":83},{"text":"text3","year":"2012","number":862687,"ym":"201112","ymd":"20111222","checkbox":"Y","combobox":"밸류-4","level":4,"id":84,"children":[{"text":"text1","year":"2011","number":459407,"ym":"201507","ymd":"","checkbox":"","combobox":"밸류-5","level":5,"id":85}]},{"text":"text2","year":"2014","number":423509,"ym":"","ymd":"","checkbox":"N","combobox":"밸류-3","level":4,"id":86,"children":[{"text":"text2","year":"2013","number":454161,"ym":"201201","ymd":"20111222","checkbox":"","combobox":"밸류-5","level":5,"id":87},{"text":"text1","year":"2012","number":481841,"ym":"201201","ymd":"20111222","checkbox":"Y","combobox":"밸류-1","level":5,"id":88}]},{"text":"","year":"","number":705365,"ym":"201201","ymd":"20111222","checkbox":"N","combobox":"밸류-4","level":4,"id":89,"children":[{"text":"","year":"2012","number":833516,"ym":"201112","ymd":"20111222","checkbox":"","combobox":"밸류-2","level":5,"id":90},{"text":"text3","year":"2012","number":156401,"ym":"201408","ymd":"20101122","checkbox":"","combobox":"밸류-1","level":5,"id":91}]},{"text":"","year":"2014","number":862832,"ym":"201507","ymd":"20150722","checkbox":"N","combobox":"밸류-2","level":4,"id":92},{"text":"text3","year":"2012","number":952936,"ym":"201112","ymd":"20111222","checkbox":"Y","combobox":"밸류-6","level":4,"id":93}]},{"text":"text1","year":"2015","number":54034,"ym":"201201","ymd":"20120122","checkbox":"N","combobox":"밸류-3","level":3,"id":94,"children":[{"text":"text2","year":"2014","number":382244,"ym":"201507","ymd":"20150722","checkbox":"","combobox":"밸류-2","level":4,"id":95},{"text":"text3","year":"2014","number":179845,"ym":"201408","ymd":"20150722","checkbox":"Y","combobox":"밸류-5","level":4,"id":96}]},{"text":"text1","year":"2013","number":633353,"ym":"201112","ymd":"","checkbox":"N","combobox":"밸류-3","level":3,"id":97}]},{"text":"","year":"2015","number":544782,"ym":"201201","ymd":"20120122","checkbox":"N","combobox":"밸류-4","level":2,"id":98},{"text":"text1","year":"2012","number":637800,"ym":"201201","ymd":"20101122","checkbox":"Y","combobox":"밸류-2","level":2,"id":99}]}];
+	};
+
+  
+	var selector = "grid_wrap";
+	var comboArray = [];
+	var columnLayout = [ {
+			headerText : 'g1',
+			children : [ {
+					dataField : 'id',
+					headerText : 'id'
+				}, {
+					dataField : 'year',
+					headerText : 'year'
+				}, {
+					dataField : 'ym',
+					headerText : 'ym'
+				} ]
+		}, {
+			dataField : 'status',
+			headerText : 'status'
+		}, {
+			dataField : 'textarea',
+			headerText : 'textarea'
+		}, {
+			dataField : 'text',
+			headerText : 'text'
+		}, {
+			dataField : 'ymd',
+			headerText : 'ymd'
+		}, {
+			dataField : 'number',
+			headerText : 'number'
+		}, {
+			dataField : 'checkbox',
+			headerText : 'checkbox'
+		}, {
+			dataField : 'combobox',
+			headerText : 'combobox'
+		} ];
+	
+		AUIGrid.create(selector, columnLayout, {
+			fixedColumnCount : 2,
+			selectionMode : 'multipleCells',
+			enableMovingColumn : true,
+			enableSorting : true,
+			editableOnFixedCell : true,
+			editable : true,
+			rowIdField : 'id',
+			useContextMenu : true,
+			enableFiter : true,
+			treeColumnIndex : 2,
+			displayTreeOpen : true,
+			width : '100%',
+			useGroupingPanel : true
+		});
+		
+		var data = generatedata();
+		AUIGrid.setGridData(selector, data);
+
+	};
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:300px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p id="ellapse"></p>
+		
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

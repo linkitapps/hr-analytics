@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+
+/* 커스텀 칼럼 스타일 정의 */
+.my-column {
+	color:#D9418C;
+}
+
+.my-colum-right {
+	text-align:right;
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	// AUIGrid 그리드를 생성합니다.
+	createAUIGrid(columnLayout);
+	
+	// 데이터 요청, 요청 성공 시 AUIGrid 에 데이터 삽입합니다.
+	requestData("./data/normal_500.json");
+};
+
+// AUIGrid 칼럼 설정
+// 데이터 형태는 다음과 같은 형태임,
+//[{"id":"#Cust0","date":"2014-09-03","name":"Han","country":"USA","product":"Apple","color":"Red","price":746400}, { .....} ];
+var columnLayout = [ {
+		dataField : "name",
+		headerText : "Name",
+		filter : {
+			showIcon : true
+		},
+		width : 140
+	}, {
+		dataField : "country",
+		headerText : "Country",
+		filter : {
+			showIcon : true
+		},
+		width : 120
+
+	}, {
+		dataField : "product",
+		headerText : "Product",
+		filter : {
+			showIcon : true
+		},
+		width: 120
+	}, {
+		dataField : "quantity",
+		headerText : "Quantity",
+		headerStyle : "my-column",
+		filter : {
+			showIcon : true
+		}
+	}, {
+		dataField : "price",
+		headerText : "Price",
+		dataType : "numeric",
+		headerStyle : "my-column",
+		style : "my-colum-right",
+		filter : {
+			showIcon : true,
+			type : "numeric"
+		}
+	}, {
+		dataField : "date",
+		headerText : "Date",
+		filter : {
+			showIcon : true
+		}
+	}
+];
+
+// 푸터 설정
+var footerObject = [ {
+	labelText : "합계",
+	positionField : "#base"
+}, {
+	dataField : "price",
+	positionField : "price",
+	formatString : "#,##0",
+	operation : "SUM",
+	style : "my-colum-right"
+}, {
+	dataField : "price",
+	positionField : "date",
+	formatString : "#,##0",
+	operation : "COUNT",
+	style : "my-colum-right"
+}];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout) {
+	
+	var auiGridProps = {
+		showRowNumColumn : true,
+		
+		showRowCheckColumn : false,
+		
+		enableColumnResize : false,
+		
+		editable : true,
+		
+		enableMovingColumn : false,
+		
+		enableFilter : true,
+		
+		showFooter : true
+	};
+
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	// 푸터 객체 세팅
+	AUIGrid.setFooter(myGridID, footerObject);
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>그리드의 모든 필드에 필터링을 사용할 수 있도록 설정한 예제입니다.</p>
+		<p>헤더의 필터링 아이콘을 클릭하여 나오는 필터 메뉴에서 필터링을 할 수 있습니다.</p>
+		<p>기본적으로 해당 칼럼에 있는 값들을 모두 체크박스 형태로 출력 시키나 고유값들이 너무 많은 경우 지정된 최대 개수(filterMenuItemMaxCount 속성)만큼 출력 시키고 하단에
+		출력시킬 값이 더 이 있다는 메세지를 출력시킵니다.</p>
+		<p>Price 는 유형이 숫자로 숫자 필터링을 지정한 모습입니다.</p>
+		<p>정렬 후 필터링, 필터링 후 정렬 형태로 데이터를 쉽게 분석할 수 있도록 제공합니다.</p>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:480px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+		<p id="ellapse"></p>
+		
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>

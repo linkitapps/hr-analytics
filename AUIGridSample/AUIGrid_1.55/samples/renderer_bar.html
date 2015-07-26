@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=800">
+<meta name="og:title" content="HTML5, 자바스크립트 데이터그리드 AUIGrid">
+<meta name="og:url" content="http://www.auisoft.net/">
+<meta name="og:description" content="HTML5, 자바스크립트 데이타그리드(javascript datagrid) AUISoft">
+<title>AUIGrid 데모, HTML5, 자바스크립트 데이터그리드 AUIGrid</title>
+<link href="http://www.auisoft.net/aui.ico" rel="shortcut icon" />
+<link href="./demo.css" rel="stylesheet">
+<link href="./style/AUIGrid_style.css" rel="stylesheet">
+
+<!-- ajax 요청을 위한 스크립트입니다.  -->
+<script type="text/javascript" src="./ajax.js"></script>
+<script type="text/javascript" src="./common.js"></script>
+
+<!-- AUIGrid 라이센스 파일입니다. 그리드 출력을 위해 꼭 삽입하십시오. -->
+<script type="text/javascript" src="../AUIGrid/AUIGridLicense.js"></script>
+
+<!-- 실제적인 AUIGrid 라이브러리입니다.  --> 
+<script type="text/javascript" src="../AUIGrid/AUIGrid.js"></script>
+<style type="text/css">
+
+/* 커스텀 바 렌더러 스타일 정의 */
+.my-custom-bar {
+	border:1px solid #E4E4E4;
+	background: #F361DC;
+	background: -webkit-linear-gradient(right, #FFB2D9, #F361DC);
+	background: -moz-linear-gradient(right, #FFB2D9, #F361DC);
+	background: -ms-linear-gradient(right, #FFB2D9, #F361DC);
+	background: -o-linear-gradient(right, #FFB2D9, #F361DC);
+	background: linear-gradient(to left, #FFB2D9, #F361DC);
+}
+</style>
+
+<script type="text/javascript">
+
+// AUIGrid 생성 후 반환 ID
+var myGridID;
+
+// document ready (jQuery 의 $(document).ready(function() {}); 과 같은 역할을 합니다.
+function documentReady() {  
+	
+	var gridData = [];
+	var obj;
+	
+	for(var i=0; i<200; i++) {
+		obj = {};
+		obj.field0 = Math.round(Math.random() * 100);
+		obj.field1 = Math.round(Math.random() * 1000);
+		obj.field2 = Math.round(Math.random() * -100);
+		obj.field3 = Math.round(Math.random() * 100 * (Math.random() > 0.5 ? -1 : 1));
+		
+		gridData[i] = obj;
+	}
+
+	// AUIGrid를 생성한 배열로 그리드를 생성합니다.
+	createAUIGrid(columnLayout, gridData);
+};
+
+// AUIGrid 칼럼 설정
+	var columnLayout = [ {
+		dataField : "field0",
+		headerText : "기본 (0 ~ 100 범위)",
+		renderer : {
+			type : "BarRenderer" 
+		}
+	}, {
+		dataField : "field3",
+		headerText : "-100 ~ 100 범위",
+		renderer : {
+			type : "BarRenderer",
+			min : -100,
+			max : 100,
+			offset : 30
+		}
+	}, {
+		dataField : "field2",
+		headerText : "-100 ~ 0 범위",
+		renderer : {
+			type : "BarRenderer",
+			min : -100,
+			max : 0
+		}
+	}, {
+		headerText : "",
+		width : 20
+	}, {
+		dataField : "field1",
+		headerText : "0 ~ 1000 범위",
+		renderer : {
+			type : "BarRenderer",
+			min : 0,
+			max : 1000,
+			style : "my-custom-bar"
+		}
+	}
+];
+
+// AUIGrid 를 생성합니다.
+function createAUIGrid(columnLayout, gridData) {
+	
+	var auiGridProps = {};
+
+	// singleRow 선택모드
+	auiGridProps.selectionMode = "singleRow";
+	
+	// 그룹핑 패널 사용
+	auiGridProps.useGroupingPanel = true;
+
+	// 소팅
+	auiGridProps.enableSorting = true;
+	
+	// 실제로 #grid_wrap 에 그리드 생성
+	myGridID = AUIGrid.create("#grid_wrap", columnLayout, auiGridProps);
+	
+	// 데이터 삽입
+	AUIGrid.setGridData(myGridID, gridData);
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<div class="desc">
+		<p>바 게이지 렌더러는 양수인 경우 왼쪽에서 오른쪽으로, 음수인 경우 오른쪽에서 왼쪽으로 렌더링을 합니다.</p>
+		<p>-100 ~ 100 과 같이 음수와 양수 범위인 경우 0을 기준으로 양쪽으로 렌더링 됩니다.</p>
+	</div>
+	<div>
+		<!-- 에이유아이 그리드가 이곳에 생성됩니다. -->
+		<div id="grid_wrap" style="width:800px; height:480px; margin:0 auto;"></div>
+	</div>
+	<div class="desc_bottom">
+	</div>
+</div>
+<div id="footer">
+     <div class="copyright">
+        <p>Copyright © 2015 AUISoft </p>
+    </div>
+</div>
+
+</body>
+</html>
